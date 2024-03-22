@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,12 +12,9 @@ const SideNav = () => {
   return (
     <div className="md:w-60 bg-slate-800 h-screen flex-1 fixed border-r hidden md:flex">
       <div className="flex flex-col space-y-6 w-full">
-        <Link
-          href="/"
-          className="flex flex-row space-x-3 items-center justify-center md:justify-start md:px-6 border-b bg-white h-20 w-full"
-        >
+        <div className="flex flex-row space-x-3 items-center justify-center md:justify-start md:px-6 border-b bg-white h-20 w-full">
           <img src={logo.src} className="w-52" alt="Logo" />
-        </Link>
+        </div>
         <div className="flex flex-col space-y-2 md:px-6">
           {SIDENAV_ITEMS.map((item, idx) => {
             return <MenuItem key={idx} item={item} />;
@@ -82,13 +80,19 @@ const MenuItem = ({ item }: { item: SideNavItem }) => {
       ) : (
         <Link
           href={item.path}
-          className={`flex flex-row hover:text-white space-x-4 items-center p-2 rounded-lg ${
+          className={`flex flex-row hover:text-white space-x-4 items-center p-2 m-1 rounded-lg ${
             item.path === pathname ? "text-white" : "text-neutral-400"
           }`}
         >
           {item.icon}
           <span className="w-1"></span>
           {item.title}
+
+          <style jsx>{`
+            .flex-row:hover svg {
+              fill: white; /* Change to the desired hover color */
+            }
+          `}</style>
         </Link>
       )}
     </div>

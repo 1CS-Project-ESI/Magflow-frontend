@@ -8,7 +8,7 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import useScroll from '@/hooks/use-scroll';
 import { cn } from '@/lib/utils';
 
-import logo from '../../public/assets/logo/magflow.png';
+import logo from '../../public/assets/images/logo/magflow.png';
 
 const Header = () => {
   const scrolled = useScroll(5);
