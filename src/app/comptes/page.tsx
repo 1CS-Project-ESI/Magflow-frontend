@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 
+import RootLayout from "../rootLayout";
+
 import UserTable from "@/components/tables/usersTable";
 import Filters from "@/components/search/filters";
 import SearchBar from "@/components/search/searchBar";
@@ -53,7 +55,7 @@ const AccountsPage: React.FC = () => {
   });
 
   return (
-    <>
+    <RootLayout>
       {/* <div className="flex ">
         <Filters onFilterChange={handleFilterChange} />
       </div> */}
@@ -68,7 +70,7 @@ const AccountsPage: React.FC = () => {
       <div className="m-8 mt-8">
         <UserTable users={filteredUsers} />
       </div>
-    </>
+    </RootLayout>
   );
 };
 

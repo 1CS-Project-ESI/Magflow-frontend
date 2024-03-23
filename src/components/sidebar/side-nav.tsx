@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { SIDENAV_ITEMS } from "@/constants";
 import { SideNavItem } from "@/types";
 import { Icon } from "@iconify/react";
-import logo from "../../public/assets/images/logo/magflow.png";
+import logo from "../../../public/assets/images/logo/magflow.png";
 
 const SideNav = () => {
   return (
