@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { User } from "@/types";
+import Link from "next/link";
 
-import ModifButton from "./buttons/modifButton";
-import SuppButton from "./buttons/suppButton";
+import { User } from "@/types";
+import ModifButton from "../buttons/modifButton";
+import SuppButton from "../buttons/suppButton";
 
 interface Props {
   users: User[];
@@ -12,8 +13,8 @@ interface Props {
 
 const UserTable: React.FC<Props> = ({ users }) => {
   return (
-    <div className="overflow-x-auto">
-      <table className="table-auto w-full rounded-xl overflow-hidden">
+    <div className="overflow-x-auto border border-gray-300 rounded-xl">
+      <table className="table-auto w-full overflow-hidden">
         <thead>
           <tr className="bg-white text-zinc-400">
             <th className="px-4 py-4 font-light">Nom d'Utilisateur</th>

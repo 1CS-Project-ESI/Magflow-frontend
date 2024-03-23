@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import UserTable from "@/components/usersTable";
+import UserTable from "@/components/tables/usersTable";
 import Filters from "@/components/search/filters";
 import SearchBar from "@/components/search/searchBar";
 import { User } from "@/types";
@@ -62,7 +62,7 @@ const AccountsPage: React.FC = () => {
           <SearchBar onSearch={handleSearch} />
         </div>
         <div className="m-8">
-          <AjoutButton />
+          <AjoutButton showPopup={true} />
         </div>
       </div>
       <div className="m-8 mt-8">

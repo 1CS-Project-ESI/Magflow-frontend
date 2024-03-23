@@ -87,12 +87,6 @@ const MenuItem = ({ item }: { item: SideNavItem }) => {
           {item.icon}
           <span className="w-1"></span>
           {item.title}
-
-          <style jsx>{`
-            .flex-row:hover svg {
-              fill: white; /* Change to the desired hover color */
-            }
-          `}</style>
         </Link>
       )}
     </div>

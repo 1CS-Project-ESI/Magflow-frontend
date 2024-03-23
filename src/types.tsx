@@ -8,7 +8,10 @@ export type SideNavItem = {
 export type User = {
     firstname: string;
     lastname: string;
+    username?: string;
     email: string;
+    password?: string;
     isActive: boolean;
+    phone?: number;
     role: string; 
   };
