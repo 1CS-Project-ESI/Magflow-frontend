@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { USERS } from "@/constants";
+import { ROLES } from "@/constants";
 import { User } from "@/types";
 
 const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
@@ -105,9 +106,9 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             <option value="" disabled hidden>
               Select Role
             </option>
-            <option value="Admin">Admin</option>
-            <option value="User">User</option>
-            <option value="Consommateur">Consommateur</option>
+            {ROLES.map((item, idx) => {
+            return <option value="ROLE" key={idx}>{item}</option>;
+          })}
           </select>
         </div>
 
