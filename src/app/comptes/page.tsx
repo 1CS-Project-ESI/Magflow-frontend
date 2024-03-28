@@ -105,7 +105,9 @@ const AccountsPage: React.FC = () => {
         <div className="m-8">
           <SearchBar onSearch={handleSearch} />
         </div>
-        {/* Add other components here if needed */}
+        <div className="m-8">
+          <AjoutButton showPopup={true} />
+        </div>
       </div>
       <div className="m-8 mt-8">
       <UserTable users={filteredUsers} onDelete={handleDelete} /> 
