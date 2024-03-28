@@ -1,17 +1,20 @@
-"use client";
 
 import React, { useState } from "react";
-import { USERS } from "@/constants";
 import { ROLES } from "@/constants";
 import { User } from "@/types";
 
+interface ExtendedUser extends User {
+  phone: string; // Ensure phone is interpreted as a string
+}
+
 const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [formData, setFormData] = useState<User>({
+  const [formData, setFormData] = useState<ExtendedUser>({
     firstname: "",
     lastname: "",
     email: "",
     isActive: true,
-    role: ""
+    role: "",
+    phone: "" // Initialize phone as an empty string
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -22,19 +25,28 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add the new user to the USERS array
-    const newUser: User = {
-      firstname: formData.firstname,
-      lastname: formData.lastname,
-      email: formData.email,
-      isActive: formData.isActive,
-      role: formData.role
-    };
-    USERS.push(newUser);
-    // Close the popup
-    onClose();
+
+    try {
+      const response = await fetch('http://localhost:4000/api/users/createuser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        
+      });
+      if (response.ok) {
+        // Successfully added user, close the popup
+        onClose();
+      } else {
+        // Handle error response from server
+        console.error('Error adding user:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
   };
 
   return (
@@ -77,22 +89,24 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         </div>
         <div className="mb-4 w-full">
           <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            className="input-field h-9 w-full"
-            // Add any other necessary input fields
+          type="password"
+          id="password"
+          name="password" // Ensure the name attribute is set to "password"
+          placeholder="Password"
+          className="input-field h-9 w-full"
+          value={formData.password}
+          onChange={handleInputChange}
           />
         </div>
         <div className="mb-4 w-full">
           <input
-            type="tel"
-            id="phoneNumber"
-            name="phoneNumber"
+            type="phone"
+            id="phone"
+            name="phone"
             placeholder="Phone Number"
             className="input-field h-9 w-full"
-            // Add any other necessary input fields
+            value={formData.phone}
+            onChange={handleInputChange}
           />
         </div>
         <div className="mb-4 w-full">
@@ -106,9 +120,9 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             <option value="" disabled hidden>
               Select Role
             </option>
-            {ROLES.map((item, idx) => {
-            return <option value="ROLE" key={idx}>{item}</option>;
-          })}
+            {ROLES.map((role, idx) => (
+              <option value={role} key={idx}>{role}</option>
+            ))}
           </select>
         </div>
 
