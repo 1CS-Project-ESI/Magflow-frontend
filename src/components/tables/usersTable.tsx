@@ -1,17 +1,17 @@
+// components/tables/usersTable.tsx
 "use client";
 
 import React from "react";
 import Link from "next/link";
-
 import { User } from "@/types";
-import ModifButton from "../buttons/modifButton";
-import SuppButton from "../buttons/suppButton";
+import SupprimerButton from "@/components/buttons/suppButton"; //
 
 interface Props {
   users: User[];
+  onDelete: (email: string) => void; // Add onDelete prop
 }
 
-const UserTable: React.FC<Props> = ({ users }) => {
+const UserTable: React.FC<Props> = ({ users, onDelete }) => {
   return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -41,9 +41,9 @@ const UserTable: React.FC<Props> = ({ users }) => {
               </td>
               <td className="border-t bg-white text-center px-4 py-2 md:table-cell flex items-center justify-center">
                 <span className="mr-3">
-                  <ModifButton />
+                  {/* Pass onDelete function to SupprimerButton */}
+                  <SupprimerButton email={user.email} onDelete={onDelete} />
                 </span>
-                <SuppButton />
               </td>
             </tr>
           ))}
