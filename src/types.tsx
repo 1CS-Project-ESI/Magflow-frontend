@@ -12,6 +12,6 @@ export type User = {
     email: string;
     password?: string;
     isActive: boolean;
-    phone?: number;
+    phone?: string;
     role: string; 
   };
