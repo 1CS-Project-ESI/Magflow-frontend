@@ -5,6 +5,7 @@ interface ButtonProps {
   path?: string;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
+  disabled?: boolean; // Add disabled prop here
   children?: React.ReactNode;
 }
 

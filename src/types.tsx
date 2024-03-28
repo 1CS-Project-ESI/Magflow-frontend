@@ -15,3 +15,12 @@ export type User = {
     phone?: string;
     role: string; 
   };
+
+  export type ButtonProps = {
+    children: React.ReactNode;
+    type: "button" | "submit" | "reset";
+    disabled?: boolean;
+    onClick?: () => void;
+    path?: string;
+  };
+  
