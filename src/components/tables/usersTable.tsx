@@ -2,7 +2,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { User } from "@/types";
 import SupprimerButton from "@/components/buttons/suppButton"; //
 
@@ -34,7 +33,14 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
                 {user.email}
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
-                {user.isActive ? "Active" : "Non Active"}
+                <select name="activity" id="activity">
+                  <option value="Active">
+                    {user.isActive ? "Active" : "Non Active"}
+                  </option>
+                  <option value="Active">
+                    {!user.isActive ? "Active" : "Non Active"}
+                  </option>
+                </select>
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {user.role}

@@ -7,6 +7,7 @@ import acc from "../public/assets/icons/accounts.svg";
 import rol from "../public/assets/icons/role.svg";
 import back from "../public/assets/icons/Archivage_folder.svg";
 import param from "../public/assets/icons/parametre.svg";
+import strct from "../public/assets/icons/customers.svg";
 
 export const SIDENAV_ITEMS: SideNavItem[] = [
   {
@@ -18,6 +19,11 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
     title: "Roles",
     path: "/roles",
     icon: <img src={rol.src} width="18" height="18" />,
+  },
+  {
+    title: "Structures",
+    path: "/structures",
+    icon: <img src={strct.src} width="18" height="18" />,
   },
   {
     title: "Archivage",
@@ -70,12 +76,12 @@ export const USERS: User[] = [
 ];
 
 export const ROLES: string[] = [
-  "admin",
-  "director",
-  "consumer",
-  "magasinier",
-  "agentserviceachat",
-  "structureresponsable",
+  "Administrateur",
+  "Directeur",
+  "Consommateur",
+  "Magasinier",
+  "Agent de service des achats",
+  "Responsable srtructure",
 ];
 
 export const PERMISSIONS: string[] = [
