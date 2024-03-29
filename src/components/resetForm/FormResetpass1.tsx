@@ -6,10 +6,33 @@ import Button from '../buttons/Button';
 const FormResetpass1: React.FC = () => {
     const [email, setEmail] = useState('');
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log('Email :', email);
+
+        try {
+          const response = await fetch('http://localhost:4000/api/auth/forgot-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+          });
+      
+          if (response.ok) {
+        
+            console.log('Password reset request sent successfully!');
+           
+          } else {
+            
+            console.error('Error resetting password:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error sending request:', error);
+        }
       };
+
+   
+
+      
       return (
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -28,7 +51,7 @@ const FormResetpass1: React.FC = () => {
           </div>
           <div className="flex items-center justify-between">
   <ButtonBlanc>Log In</ButtonBlanc>
-  <Button>Envoyer</Button>
+  <Button>Envoyer</Button> 
 </div>
 
           </form>

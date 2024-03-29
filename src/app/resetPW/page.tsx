@@ -16,7 +16,7 @@ const resetpassword: React.FC = () => (
             votre adresse email
           </h1>
         </div>
-        <FormResetpass1 />
+        <FormResetpass1 /> 
       </div>
     </div>
   </LoginLayout>

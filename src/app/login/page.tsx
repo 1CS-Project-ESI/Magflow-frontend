@@ -5,6 +5,8 @@ import Image from "next/image";
 import logoImage from "../../../public/assets/images/logo/magflow.png";
 import LoginForm from "@/components/loginForm/LoginForm";
 
+import Link  from 'next/link'
+
 const LoginPage: React.FC = () => (
   <LoginLayout>
     <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -24,10 +26,13 @@ const LoginPage: React.FC = () => (
         </h1>
 
         <LoginForm />
-
+        <div className="text-l font-medium text-gray-400 mb-1 text-right"> 
+        <Link href="./resetPW/">Mot de passe oublié?</Link>  
+        </div>
         <div className="text-xs text-[#CBCBCB] text-center mt-20">
-          {/* Copyright text with margin */}
+          
           Copyright 2024 Arcana. Tous droits réservés
+          
         </div>
       </div>
     </div>
