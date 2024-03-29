@@ -1,13 +1,15 @@
 // components/tables/usersTable.tsx
 "use client";
 
+// UserTable.tsx
 import React from "react";
 import { User } from "@/types";
-import SupprimerButton from "@/components/buttons/suppButton"; //
+import UpdateButton from "../buttons/updateUser";
+import SupprimerButton from "../buttons/suppButton";
 
 interface Props {
   users: User[];
-  onDelete: (email: string) => void; // Add onDelete prop
+  onDelete: (email: string) => void;
 }
 
 const UserTable: React.FC<Props> = ({ users, onDelete }) => {
@@ -20,6 +22,7 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
             <th className="px-4 py-2 font-light hidden md:table-cell">Email</th>
             <th className="px-4 py-2 font-light hidden md:table-cell">Etat</th>
             <th className="px-4 py-2 font-light hidden md:table-cell">Role</th>
+            <th className="px-4 py-2 font-light hidden md:table-cell"></th>
             <th className="px-4 py-2 font-light hidden md:table-cell"></th>
           </tr>
         </thead>
@@ -47,9 +50,9 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
               </td>
               <td className="border-t bg-white text-center px-4 py-2 md:table-cell flex items-center justify-center">
                 <span className="mr-3">
-                  {/* Pass onDelete function to SupprimerButton */}
-                  <SupprimerButton email={user.email} onDelete={onDelete} />
+                  <UpdateButton user={user} showPopup={true} />
                 </span>
+                <SupprimerButton email={user.email} onDelete={onDelete} />
               </td>
             </tr>
           ))}
