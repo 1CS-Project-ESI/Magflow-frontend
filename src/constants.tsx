@@ -38,41 +38,42 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
 ];
 
 export const USERS: User[] = [
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "Consommateur",
-  },
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "Consommateur",
-  },
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "Admin",
-  },
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "User",
-  },
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "Consommateur",
-  },
+  // {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     newEmail :"",
+//     isActive: true,
+//     role: "Consommateur",
+//   },
+//   {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     isActive: true,
+//     role: "Consommateur",
+//   },
+//   {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     isActive: true,
+//     role: "Admin",
+//   },
+//   {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     isActive: true,
+//     role: "User",
+//   },
+//   {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     isActive: true,
+//     role: "Consommateur",
+  //  },
 ];
 
 export const ROLES: string[] = [
