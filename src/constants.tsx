@@ -92,3 +92,12 @@ export const PERMISSIONS: string[] = [
   "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 ];
+
+export const STRUCTURES: string[] = [
+  "Structure",
+  "Structure",
+  "Structure",
+  "Structure",
+  "Structure",
+  "Structure",
+];
