@@ -76,12 +76,12 @@ export const USERS: User[] = [
 ];
 
 export const ROLES: string[] = [
-  "Administrateur",
-  "Directeur",
-  "Consommateur",
-  "Magasinier",
-  "Agent de service des achats",
-  "Responsable srtructure",
+  "admin",
+  "director",
+  "consumer",
+  "magasinier",
+  "agentserviceachat",
+  "structureresponsable",
 ];
 
 export const PERMISSIONS: string[] = [
