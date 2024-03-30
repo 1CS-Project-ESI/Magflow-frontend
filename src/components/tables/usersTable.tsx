@@ -1,8 +1,8 @@
-// components/tables/usersTable.tsx
+
 "use client";
 
-// UserTable.tsx
-import React from "react";
+
+import React ,{ useState } from "react";
 import { User } from "@/types";
 import UpdateButton from "../buttons/updateUser";
 import SupprimerButton from "../buttons/suppButton";
@@ -13,6 +13,83 @@ interface Props {
 }
 
 const UserTable: React.FC<Props> = ({ users, onDelete }) => {
+
+   const [userStatuses, setUserStatuses] = useState<{ [email: string]: string }>({});
+
+   
+   const handleDeactivate = async (email: string) => {
+     try {
+       const response = await fetch('http://localhost:4000/api/users/deactivateAccount', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({ email }),
+       });
+ 
+       if (response.ok) {
+        
+         console.log("email deactivated succes");
+         window.location.href = `/`; // its not woking 
+         setUserStatuses(prevStatuses => ({
+           ...prevStatuses,
+           [email]: 'inactive', 
+         }));
+       } else {
+         
+         console.error('Error deactivating account:', response.statusText);
+       }
+     } catch (error) {
+       console.error('Error deactivating account:', error);
+     }
+   };
+
+  // Function to handle activate request
+  const handleActivate = async (email: string) => {
+    try {
+      const response = await fetch('http://localhost:4000/api/users/activateaccount', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        window.location.href = 'roles/' ;
+        console.log("email activated succes");
+        setUserStatuses(prevStatuses => ({
+          ...prevStatuses,
+          [email]: 'active', 
+        }));
+      } else {
+        
+        console.error('Error activating account:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error activating account:', error);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -35,16 +112,35 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {user.email}
               </td>
+             
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
-                <select name="activity" id="activity">
-                  <option value="Active">
-                    {user.isActive ? "Active" : "Non Active"}
-                  </option>
-                  <option value="Active">
-                    {!user.isActive ? "Active" : "Non Active"}
-                  </option>
-                </select>
-              </td>
+        <select
+          name="activity"
+          id="activity"
+          value={userStatuses[user.email] || (user.isActive ? "Active" : "Non Active")} // Set initial value
+          onChange={(event) => {
+            const newStatus = event.target.value;
+            setUserStatuses(prevStatuses => ({
+              ...prevStatuses,
+              [user.email]: newStatus,
+            }));
+            if (newStatus === 'Active') {
+              handleActivate(user.email);
+            } else {
+              handleDeactivate(user.email);
+            }
+          }}
+        >
+          <option value="Active">
+            {user.isActive ? "Active" : "Non Active"}
+          </option>
+          <option value="Non Active">
+            {!user.isActive ? "Active" : "Non Active"}
+          </option>
+        </select>
+      </td>
+
+
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {user.role}
               </td>
