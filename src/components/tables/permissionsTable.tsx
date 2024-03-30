@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { PERMISSIONS } from "@/constants";
 
 
 interface PermissionsTableProps {
@@ -26,7 +25,7 @@ const PermissionsTable: React.FC<PermissionsTableProps> = ({ permissions = [] })
   };
 
   const handleGetSelectedPermissions = () => {
-    const selected = selectedPermissions.map((index) => PERMISSIONS[index]);
+    const selected = selectedPermissions.map((index) => permissions[index]);
     console.log("Selected Permissions: ", selected);
     // Do whatever you want with the selected permissions
   };
