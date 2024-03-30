@@ -3,13 +3,14 @@
 import React, { useState } from "react";
 import { ROLES } from "@/constants";
 import { User } from "@/types";
-
+import modifyIcon from "../../../public/assets/icons/modify.svg";
 interface PopupUpdateProps {
   user: User;
   onClose: () => void;
+  onModify: (user: User) => void; // new line 
 }
 
-const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose }) => {
+const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose, onModify }) => {
   const [formData, setFormData] = useState<User>({
     ...user,
     password: "", // Initialize password as empty
@@ -27,8 +28,8 @@ const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:4000/api/users/createuser', {
-        method: 'POST',
+      const response = await fetch(`http://localhost:4000/api/users/${user.email}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -36,11 +37,14 @@ const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose }) => {
         
       });
       if (response.ok) {
-        // Successfully added user, close the popup
-        onClose();
+        console.log("sucsses");
+
+          onModify(formData);
       } else {
-        // Handle error response from server
-        console.error('Error adding user:', response.statusText);
+       
+        console.error('Error modify user:', response.statusText);
+      // console.log(`email to be updated ${user.email}`);
+      // console.log(formData)
       }
     } catch (error) {
       console.error('Error adding user:', error);
@@ -76,12 +80,12 @@ const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose }) => {
         </div>
         <div className="mb-4 w-full">
           <input
-            type="email"
-            id="email"
-            name="email"
+            type="newEmail"
+            id="newEmail"
+            name="newEmail"
             placeholder="Email"
             className="input-field h-9 w-full"
-            value={formData.email}
+            value={formData.newEmail}
             onChange={handleInputChange}
           />
         </div>
@@ -109,6 +113,7 @@ const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose }) => {
         </div>
         <div className="mb-4 w-full">
           <select
+          
             id="role"
             name="role"
             className="input-field h-9 w-full"
@@ -136,6 +141,7 @@ const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose }) => {
           <span className="w-2"></span>
           <button
             type="submit"
+            // onClick={onModify}
             className="bg-purple-950 hover:bg-black text-white font-light py-2 px-4 w-full rounded-lg focus:outline-none focus:shadow-outline"
           >
             Modifier

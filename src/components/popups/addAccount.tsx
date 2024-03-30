@@ -12,6 +12,7 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     firstname: "",
     lastname: "",
     email: "",
+    newEmail:"",
     isActive: true,
     role: "",
     phone: "" // Initialize phone as an empty string
