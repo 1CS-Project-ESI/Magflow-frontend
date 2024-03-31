@@ -2,6 +2,7 @@
 
 import { SideNavItem } from "./types";
 import { User } from "./types";
+import { Archive } from "./types";
 
 import acc from "../public/assets/icons/accounts.svg";
 import rol from "../public/assets/icons/role.svg";
@@ -94,6 +95,16 @@ export const PERMISSIONS: string[] = [
   "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 ];
 
+export const BACKUPS: Archive[] =[
+{
+  nom:"Backup_2024-07-07T08-11-47.389Z.txt",
+  local:"C:\Users\Abdelkrim HALIMI\OneDrive\Attachments\
+  Backup_2024-07-07T08-11-47.389Z.txt",
+  date:"07/07/2024",
+}
+
+]
+
 export const STRUCTURES: string[] = [
   "Structure",
   "Structure",
@@ -102,3 +113,4 @@ export const STRUCTURES: string[] = [
   "Structure",
   "Structure",
 ];
+

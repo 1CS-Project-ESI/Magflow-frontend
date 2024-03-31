@@ -16,7 +16,13 @@ export type User = {
     phone?: string;
     role: string; 
   };
-  
+
+export type Archive ={
+nom:string;
+local:string;
+date:string;
+}
+
   export type ButtonProps = {
     children: React.ReactNode;
     type: "button" | "submit" | "reset";
@@ -24,4 +30,3 @@ export type User = {
     onClick?: () => void;
     path?: string;
   };
-  
