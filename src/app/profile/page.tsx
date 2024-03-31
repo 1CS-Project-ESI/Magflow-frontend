@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Addphoto from "../../../public/assets/icons/Add photo.svg";
 
-const SettingsPage = () => {
+const ProfilePage = () => {
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -121,4 +121,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default ProfilePage;
