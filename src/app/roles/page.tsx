@@ -8,7 +8,7 @@ import RolesTable from "@/components/tables/rolesTable";
 import AjoutButton from "@/components/buttons/ajoutButton";
 import ModifButton from "@/components/buttons/modifButton";
 import SuppButton from "@/components/buttons/suppButton";
-
+// exemples of getAll link 
 const RolesPage: React.FC = () => {
   const [roles, setRoles] = useState([]);
 
@@ -31,7 +31,7 @@ const RolesPage: React.FC = () => {
 
     fetchRoles();
   }, []);
-
+// end of exemples 
   return (
     <RootLayout>
       <div className="flex m-8 justify-end">
