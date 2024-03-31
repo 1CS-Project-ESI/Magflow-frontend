@@ -22,7 +22,7 @@ export default function Langue() {
         className=" w-[200px] h-[40px] text-[#2C2D41]"
       >
         <option value="">Select Language</option>
-        <option value="english">English</option>
+        <option value="english" >English</option>
         <option value="french">Francais</option>
       </select>
     </div>
