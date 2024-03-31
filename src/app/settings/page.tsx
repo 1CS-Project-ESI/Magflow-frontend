@@ -3,37 +3,31 @@
 import React from "react";
 import RootLayout from "../rootLayout";
 import AddLogo from "@/components/fields/add-logo";
-import Field_email from "@/components/fields/email-field";
 import Settva from "@/components/fields/set-tva";
 import Langue from "@/components/fields/langue";
-import Password from "@/components/fields/password";
 import Link from "next/link";
 
 const SettingsPage = () => {
   return (
     <RootLayout>
-      <div className="flex items-center mx-[50px] mt-[30px] mb-[30px] font-['poppins'] text-[18px] text-[#2C2D41]">
+      <div className="flex items-center mx-12 my-8">
         <Link
-          href="/general-page"
-          className="border-b-[2px] pb-[2px] mr-[20px] border-[#510A6D]"
+          href=""
+          className="mr-5 hover:border-b-2 hover:border-l-purple-950 hover:text-purple-950"
         >
-          Général
+          Parametres Générals
         </Link>
-        <Link href="/profile-edit" className="pb-[2px] mr-[20px]">
+        <Link
+          href="/profile"
+          className="hover:border-b-2 hover:border-l-purple-950 hover:text-purple-950"
+        >
           Modifier Profile
         </Link>
       </div>
-      <div className="flex items-center flex-col px-10 w-[1350px] h-[600px] rounded-xl border-[1px] border-[#C4C4C4] bg-[#fffffe]">
-        <div className="flex items-center flex-row justify-between w-[1300px] ">
-          <Field_email />
-          <Langue />
-        </div>
-        <div className="flex items-center flex-row justify-between w-[1300px]">
-          <Settva />
-          <AddLogo />
-        </div>
-
-        <Password />
+      <div className="p-4 grid grid-cols-2 gap-4 m-8 overflow-x-auto bg-white border border-gray-300 rounded-xl">
+        <AddLogo />
+        <Langue />
+        <Settva />
       </div>
     </RootLayout>
   );

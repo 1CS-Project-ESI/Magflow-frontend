@@ -32,7 +32,7 @@ const FormResetpass2: React.FC = () => {
 
       if (response.ok) {
         console.log('Password reset successfully!');
-        window.location.href = 'http://localhost:3001';
+        window.location.href = '/';
         
       } else {
         const errorData = await response.json();

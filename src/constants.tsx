@@ -8,6 +8,7 @@ import acc from "../public/assets/icons/accounts.svg";
 import rol from "../public/assets/icons/role.svg";
 import back from "../public/assets/icons/Archivage_folder.svg";
 import param from "../public/assets/icons/parametre.svg";
+import strct from "../public/assets/icons/customers.svg";
 
 export const SIDENAV_ITEMS: SideNavItem[] = [
   {
@@ -19,6 +20,11 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
     title: "Roles",
     path: "/roles",
     icon: <img src={rol.src} width="18" height="18" />,
+  },
+  {
+    title: "Structures",
+    path: "/structures",
+    icon: <img src={strct.src} width="18" height="18" />,
   },
   {
     title: "Archivage",
@@ -33,41 +39,42 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
 ];
 
 export const USERS: User[] = [
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "Consommateur",
-  },
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "Consommateur",
-  },
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "Admin",
-  },
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "User",
-  },
-  {
-    firstname: "Assil",
-    lastname: "Kahlerras",
-    email: "a.kahlerras@esi-sba.dz",
-    isActive: true,
-    role: "Consommateur",
-  },
+  // {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     newEmail :"",
+//     isActive: true,
+//     role: "Consommateur",
+//   },
+//   {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     isActive: true,
+//     role: "Consommateur",
+//   },
+//   {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     isActive: true,
+//     role: "Admin",
+//   },
+//   {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     isActive: true,
+//     role: "User",
+//   },
+//   {
+//     firstname: "Assil",
+//     lastname: "Kahlerras",
+//     email: "a.kahlerras@esi-sba.dz",
+//     isActive: true,
+//     role: "Consommateur",
+  //  },
 ];
 
 export const ROLES: string[] = [
@@ -97,3 +104,13 @@ export const BACKUPS: Archive[] =[
 }
 
 ]
+
+export const STRUCTURES: string[] = [
+  "Structure",
+  "Structure",
+  "Structure",
+  "Structure",
+  "Structure",
+  "Structure",
+];
+

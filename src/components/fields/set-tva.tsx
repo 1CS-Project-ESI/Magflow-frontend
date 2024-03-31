@@ -7,19 +7,16 @@ export default function Settva() {
   const handleChange = () => {};
 
   return (
-    <div className="flex items-center justify-between px-10 w-[629px] h-[60px] mx-[5px] my-[10px] bg-[#fffffe]">
-      <label
-        htmlFor="tvaInput"
-        className="mr-2 font-['poppins'] text-[25px] text-[#2C2D41]"
-      >
-        TVA Value
-      </label>
+    <div className="flex items-center justify-between w-full mx-4 mb-4 px-10">
+      <span className="font-bold">
+        Valeur TVA
+      </span>
       <input
         type="text"
         id="tvaInput"
         value={tvaValue}
         onChange={handleChange}
-        className="border-[#000000] w-[30px] h-[40px] text-[#2C2D41]"
+        className="w-10"
       />
     </div>
   );

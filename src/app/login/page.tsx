@@ -5,7 +5,7 @@ import Image from "next/image";
 import logoImage from "../../../public/assets/images/logo/magflow.png";
 import LoginForm from "@/components/loginForm/LoginForm";
 
-import Link  from 'next/link'
+import Link  from 'next/link';
 
 const LoginPage: React.FC = () => (
   <LoginLayout>

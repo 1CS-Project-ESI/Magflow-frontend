@@ -8,22 +8,17 @@ export default function Langue() {
   };
 
   return (
-    <div className="flex items-center justify-between px-10 w-[629px] h-[60px] mx-[5px] my-[10px] bg-[#fffffe]">
-      <label
-        htmlFor="languageSelect"
-        className="mr-2 font-['poppins'] text-[25px] text-[#2C2D41]"
-      >
+    <div className="flex items-center justify-between w-full m-4 px-10">
+      <span className="font-bold">
         Langue
-      </label>
+      </span>
       <select
         id="languageSelect"
         value={language}
         onChange={handleChange}
-        className=" w-[200px] h-[40px] text-[#2C2D41]"
       >
-        <option value="">Select Language</option>
-        <option value="english" >English</option>
         <option value="french">Francais</option>
+        <option value="english">English</option>
       </select>
     </div>
   );

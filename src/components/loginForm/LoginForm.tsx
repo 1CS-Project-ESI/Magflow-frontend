@@ -33,7 +33,7 @@ const LoginForm: React.FC = () => {
       if (!response.ok) {
         throw new Error('Failed to login');
       }
-      window.location.href = 'http://localhost:3001/comptes';
+      window.location.href = 'comptes/';
       const data = await response.json();
       console.log('Login successful:', data);
 

@@ -1,21 +1,19 @@
+// PopupContent.tsx
 "use client";
 import React, { useState } from "react";
 import { ROLES } from "@/constants";
 import { User } from "@/types";
-
-interface ExtendedUser extends User {
-  phone: string; // Ensure phone is interpreted as a string
+import modifyIcon from "../../../public/assets/icons/modify.svg";
+interface PopupUpdateProps {
+  user: User;
+  onClose: () => void;
+  onModify: (user: User) => void; // new line 
 }
 
-const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [formData, setFormData] = useState<ExtendedUser>({
-    firstname: "",
-    lastname: "",
-    email: "",
-    newEmail:"",
-    isActive: true,
-    role: "",
-    phone: "" // Initialize phone as an empty string
+const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose, onModify }) => {
+  const [formData, setFormData] = useState<User>({
+    ...user,
+    password: "", // Initialize password as empty
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -30,8 +28,8 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:4000/api/users/createuser', {
-        method: 'POST',
+      const response = await fetch(`http://localhost:4000/api/users/${user.email}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -39,11 +37,14 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         
       });
       if (response.ok) {
-        // Successfully added user, close the popup
-        onClose();
+        console.log("sucsses");
+
+          onModify(formData);
       } else {
-        // Handle error response from server
-        console.error('Error adding user:', response.statusText);
+       
+        console.error('Error modify user:', response.statusText);
+      // console.log(`email to be updated ${user.email}`);
+      // console.log(formData)
       }
     } catch (error) {
       console.error('Error adding user:', error);
@@ -52,7 +53,7 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   return (
     <div className="bg-white p-8 rounded-lg w-96 flex flex-col items-center">
-      <h2 className="text-lg text-purple-950 font-semibold mb-4">New Account</h2>
+      <h2 className="text-lg text-purple-950 font-semibold mb-4">Modifier Compte</h2>
       <form className="w-full" onSubmit={handleSubmit}>
         {/* Input fields */}
         <div className="mb-4 w-full">
@@ -79,24 +80,24 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         </div>
         <div className="mb-4 w-full">
           <input
-            type="email"
-            id="email"
-            name="email"
+            type="newEmail"
+            id="newEmail"
+            name="newEmail"
             placeholder="Email"
             className="input-field h-9 w-full"
-            value={formData.email}
+            value={formData.newEmail}
             onChange={handleInputChange}
           />
         </div>
         <div className="mb-4 w-full">
           <input
-          type="password"
-          id="password"
-          name="password" // Ensure the name attribute is set to "password"
-          placeholder="Password"
-          className="input-field h-9 w-full"
-          value={formData.password}
-          onChange={handleInputChange}
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            className="input-field h-9 w-full"
+            value={formData.password}
+            onChange={handleInputChange}
           />
         </div>
         <div className="mb-4 w-full">
@@ -112,6 +113,7 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         </div>
         <div className="mb-4 w-full">
           <select
+          
             id="role"
             name="role"
             className="input-field h-9 w-full"
@@ -139,9 +141,10 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <span className="w-2"></span>
           <button
             type="submit"
+            // onClick={onModify}
             className="bg-purple-950 hover:bg-black text-white font-light py-2 px-4 w-full rounded-lg focus:outline-none focus:shadow-outline"
           >
-            Ajouter
+            Modifier
           </button>
         </div>
       </form>
@@ -149,4 +152,5 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   );
 };
 
-export default PopupContent;
+export default PopupUpdate;
+
