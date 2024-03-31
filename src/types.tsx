@@ -17,11 +17,13 @@ export type User = {
     role: string; 
   };
 
-export type Archive ={
-nom:string;
-local:string;
-date:string;
-}
+  export interface Archive {
+    id:string;
+    filename: string;
+    filepath: string;
+    // Add other properties as needed
+  }
+  
 
   export type ButtonProps = {
     children: React.ReactNode;

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -10,9 +11,12 @@ const SettingsPage = () => {
   const [formData, setFormData] = useState({
     nom: "",
     tva: 0.19,
+    
   });
 
-  const handleInputChange = (event: { target: { name: any; value: any } }) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -20,10 +24,37 @@ const SettingsPage = () => {
     });
   };
 
-  const handleButtonClicked = () => {
-    console.log("User Information: ", formData);
-    // Perform further actions with the gathered information
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFile(event.target.files?.[0] || null);
   };
+
+  const handleButtonClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault(); // Prevent the default behavior of the button click
+
+    try {
+      const response = await fetch('http://localhost:4000/api/users/modifyParams', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          establishmentname: formData.nom,
+          tauxtva: formData.tva,
+          logo: selectedFile, // or null if no file is selected
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error modifying params:', error);
+      
+    }
+  };
+
+  console.log(selectedFile);
+  
+
 
   return (
     <RootLayout>
@@ -84,16 +115,32 @@ const SettingsPage = () => {
           </div>
         </div>
         <div className="text-center">
-          <button
-            onClick={handleButtonClicked}
-            className="m-4 px-4 py-2 bg-purple-950 text-white rounded-md hover:bg-black"
+         <button
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) =>
+            handleButtonClicked(event)
+          }
+          className="m-4 px-4 py-2 bg-purple-950 text-white rounded-md hover:bg-black"
           >
-            Mettre a jour parametres
+          Mettre a jour parametres
           </button>
         </div>
-      </div>
+       </div>
     </RootLayout>
   );
 };
 
 export default SettingsPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
