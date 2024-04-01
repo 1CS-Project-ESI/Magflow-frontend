@@ -1,15 +1,12 @@
-
 // comptes/page.tsx
 "use client";
-import Filters from "@/components/search/filters";
-import { USERS } from "@/constants";
+
 import AjoutButton from "@/components/buttons/ajoutButton";
 import React, { useState, useEffect } from "react";
 import RootLayout from "../rootLayout";
 import UserTable from "@/components/tables/usersTable";
 import SearchBar from "@/components/search/searchBar";
 import { User } from "@/types";
-import SupprimerButton from "@/components/buttons/suppButton"; 
 
 const AccountsPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -19,7 +16,6 @@ const AccountsPage: React.FC = () => {
   }>({
     isActive: false,
     role: false,
-    
   });
 
   useEffect(() => {
@@ -28,24 +24,24 @@ const AccountsPage: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/users/AllUsers');
+      const response = await fetch("http://localhost:4000/api/users/AllUsers");
       if (response.ok) {
         const data = await response.json();
-        
+
         const extractedUsers = data.users.map((user: any) => ({
           firstname: user.firstname,
           lastname: user.lastname,
           email: user.email,
           isActive: user.isactive,
-          role: user.role
+          role: user.role,
         }));
-        setUsers(extractedUsers); 
-        setFilteredUsers(extractedUsers); 
+        setUsers(extractedUsers);
+        setFilteredUsers(extractedUsers);
       } else {
-        console.error('Failed to fetch users:', response.statusText);
+        console.error("Failed to fetch users:", response.statusText);
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error fetching users:", error);
     }
   };
 
@@ -79,25 +75,22 @@ const AccountsPage: React.FC = () => {
     setFilteredUsers(filtered);
   };
 
-  const handleDelete = async (email: string) => { 
+  const handleDelete = async (email: string) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/users/${email}`, { 
-        method: 'DELETE'
+      const response = await fetch(`http://localhost:4000/api/users/${email}`, {
+        method: "DELETE",
       });
       if (response.ok) {
-      
-        const updatedUsers = users.filter(user => user.email !== email); 
+        const updatedUsers = users.filter((user) => user.email !== email);
         setUsers(updatedUsers);
         setFilteredUsers(updatedUsers);
       } else {
-        console.error('Failed to delete user:', response.statusText);
+        console.error("Failed to delete user:", response.statusText);
       }
     } catch (error) {
-      console.error('Error deleting user:', error);
+      console.error("Error deleting user:", error);
     }
   };
-
-
 
   return (
     <RootLayout>
@@ -110,7 +103,7 @@ const AccountsPage: React.FC = () => {
         </div>
       </div>
       <div className="m-8 mt-8">
-      <UserTable users={filteredUsers} onDelete={handleDelete} /> 
+        <UserTable users={filteredUsers} onDelete={handleDelete} />
       </div>
     </RootLayout>
   );
