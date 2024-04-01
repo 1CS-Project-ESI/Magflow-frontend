@@ -97,10 +97,10 @@ export const PERMISSIONS: string[] = [
 
 export const BACKUPS: Archive[] =[
 {
-  nom:"Backup_2024-07-07T08-11-47.389Z.txt",
-  local:"C:\Users\Abdelkrim HALIMI\OneDrive\Attachments\
+  id:"Backup_2024-07-07T08-11-47.389Z.txt",
+  filepath:"C:\Users\Abdelkrim HALIMI\OneDrive\Attachments\
   Backup_2024-07-07T08-11-47.389Z.txt",
-  date:"07/07/2024",
+  filename:"07/07/2024",
 }
 
 ]
