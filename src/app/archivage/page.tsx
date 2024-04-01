@@ -1,4 +1,6 @@
-//src/app/archivage/page.tsx
+
+
+// app/backups/pages.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import CreerButton from "@/components/buttons/CreerButton";
@@ -28,26 +30,79 @@ const ArchivePage: React.FC = () => {
     "usersroles",
   ]);
   const [showPopup, setShowPopup] = useState(false);
+  const [isCreatingBackup, setIsCreatingBackup] = useState(false);
 
   useEffect(() => {
-    // Récupérer les données du backend en fonction des tables sélectionnées
+    
     fetchDataFromBackend();
   }, []);
 
   const fetchDataFromBackend = async () => {
-    const data: Archive[] = [
-      // ... vos données
-    ];
-    setFiles(data);
+    try {
+      const response = await fetch('http://localhost:4000/api/users/getAllBackups');
+      if (response.ok) {
+        const data = await response.json();
+  
+        
+        const extractedBackups = data.backups.map((backup: any) => ({
+          id: backup.id, 
+          filename: backup.filename,
+          filepath: backup.filepath,
+          
+        }));
+        console.log(extractedBackups)
+        setFiles(extractedBackups);
+      } else {
+        console.error('Failed to fetch backups:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching backups:', error);
+    }
   };
-
+  
   const handleTableSelection = (selectedTables: string[]) => {
     setSelectedTables(selectedTables);
     setShowPopup(false);
   };
+  console.log("this is the selected tabels",selectedTables);
+
+
+
+
+  const handleCreateBackup = async () => {
+    setIsCreatingBackup(true);
+
+   
+
+    try {
+      const response = await fetch(`http://localhost:4000/api/users/createbackups`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ table: selectedTables }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Backup created successfully:', data);
+        setFiles([...files, data.backup])
+      } else {
+        console.error('Failed to create backup:', response.statusText);
+      
+      }
+    } catch (error) {
+      console.error('Error creating backup:', error);
+      
+    } finally {
+      setIsCreatingBackup(false);
+    }
+  };
+
+
+
   return (
     <RootLayout>
       <div className="container mx-auto py-8">
+        {/* {errorMessage && <p className="text-red-500">{errorMessage}</p>} // Display error message if any */}
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center">
             <span className="mr-2">Sélectionner le tableau</span>
@@ -60,10 +115,14 @@ const ArchivePage: React.FC = () => {
             </button>
           </div>
           <div className="ml-auto">
-            <CreerButton />
+            {isCreatingBackup ? (
+              <p>Creating backup...</p>
+            ) : (
+              <CreerButton onClick={handleCreateBackup} />
+            )}
           </div>
         </div>
-        <BackupTable Archives={BACKUPS} />
+        <BackupTable Archives={files} />
 
         {showPopup && (
           <SelectionnerForm
@@ -78,3 +137,8 @@ const ArchivePage: React.FC = () => {
 };
 
 export default ArchivePage;
+
+
+
+
+
