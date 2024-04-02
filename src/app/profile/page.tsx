@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import RootLayout from "../rootLayout";
-import Logout from "@/components/fields/logout";
 import Password from "@/components/fields/password";
 import Image from "next/image";
 import Link from "next/link";
 import Addphoto from "../../../public/assets/icons/Add photo.svg";
+import Passw from "../../../public/assets/icons/edit.svg";
 
 const ProfilePage = () => {
   const [formData, setFormData] = useState({
@@ -114,7 +114,12 @@ const ProfilePage = () => {
         </div>
         <div className="grid grid-cols-2 gap-4 m-4">
           <Password />
-          <Logout />
+          <button>
+            <div className="flex items-center justify-between mx-6 my-4">
+              <span className="font-bold text-red-700">Deconnecter</span>
+              <Image src={Passw.src} alt="Changer" width={25} height={25} />
+            </div>
+          </button>
         </div>
       </div>
     </RootLayout>
