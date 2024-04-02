@@ -1,6 +1,6 @@
 "use client";
 
-import React ,{ useState } from "react";
+import React, { useState } from "react";
 
 import Link from "next/link";
 
@@ -18,7 +18,6 @@ interface StructuresTableProps {
   structures: Structure[];
 }
 
-
 const StructuresTable: React.FC<StructuresTableProps> = ({ structures }) => {
   const [isLoading, setIsLoading] = useState(false); // Track deletion loading state
   const [error, setError] = useState(null); // Track deletion error
@@ -29,13 +28,16 @@ const StructuresTable: React.FC<StructuresTableProps> = ({ structures }) => {
     const accessToken = await getToken();
 
     try {
-      const response = await fetch(`http://localhost:4000/api/structures/delete/${id}`, {
-        method: "DELETE", // Set request method to DELETE
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `http://localhost:4000/api/structures/delete/${id}`,
+        {
+          method: "DELETE", // Set request method to DELETE
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Error deleting structure: ${await response.text()}`);
@@ -79,7 +81,7 @@ const StructuresTable: React.FC<StructuresTableProps> = ({ structures }) => {
               </button>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
