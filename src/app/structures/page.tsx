@@ -1,24 +1,46 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 import RootLayout from "../rootLayout";
 
 import StructuresTable from "@/components/tables/structuresTable";
-import AjoutButton from "@/components/buttons/ajoutButton";
+import AddStructureButton from "@/components/buttons/addStructureButton";
 
-const RolesPage: React.FC = () => {
+const StructuresPage: React.FC = () => {
+
+  const [structures, setStructures] = useState([]);
+
+  useEffect(() => {
+    const fetchStructures = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/roles/getAllStructures'); 
+        const data = await response.json();
+        console.log(data);
+        if (!response.ok) {
+          throw new Error(`Error fetching structures: ${data.message}`);
+        }
+
+        setStructures(data.roles);
+      } catch (error) {
+        console.error("Error fetching structures:", error);
+        
+      }
+    };
+
+    fetchStructures();
+  }, []);
+
   return (
     <RootLayout>
       <div className="flex m-8 justify-end">
-        <AjoutButton showPopup={false} />
+        <AddStructureButton showPopup={true} />
       </div>
       <div className="m-8 mt-8">
-        <StructuresTable />
+        <StructuresTable structures={structures} />
       </div>
     </RootLayout>
   );
 };
 
-export default RolesPage;
+export default StructuresPage;

@@ -4,8 +4,6 @@ import React from "react";
 import Link from "next/link";
 
 import ModifButton from "@/components/buttons/modifButton";
-import SuppButton from "@/components/buttons/suppButton";
-import { ROLES } from "@/constants";
 
 interface Role {
   id: number; 

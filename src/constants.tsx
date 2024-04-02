@@ -10,7 +10,7 @@ import back from "../public/assets/icons/Archivage_folder.svg";
 import param from "../public/assets/icons/parametre.svg";
 import strct from "../public/assets/icons/customers.svg";
 
-export const SIDENAV_ITEMS: SideNavItem[] = [
+export const SIDENAV_ADMIN_ITEMS: SideNavItem[] = [
   {
     title: "Comptes",
     path: "/comptes",
@@ -34,6 +34,39 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
   {
     title: "Parametres",
     path: "/settings",
+    icon: <img src={param.src} width="18" height="18" />,
+  },
+];
+
+export const SIDENAV_AGENT_ITEMS: SideNavItem[] = [
+  {
+    title: "Commandes",
+    path: "/commandes",
+    icon: <img src={acc.src} width="18" height="18" />,
+  },
+  {
+    title: "Chapitres",
+    path: "/chapitres",
+    icon: <img src={rol.src} width="18" height="18" />,
+  },
+  {
+    title: "Articles",
+    path: "/articles",
+    icon: <img src={strct.src} width="18" height="18" />,
+  },
+  {
+    title: "Produits",
+    path: "/produits",
+    icon: <img src={back.src} width="18" height="18" />,
+  },
+  {
+    title: "Statistiques",
+    path: "/stats",
+    icon: <img src={back.src} width="18" height="18" />,
+  },
+  {
+    title: "Parametres",
+    path: "/settingsAgent",
     icon: <img src={param.src} width="18" height="18" />,
   },
 ];
@@ -97,10 +130,10 @@ export const PERMISSIONS: string[] = [
 
 export const BACKUPS: Archive[] =[
 {
-  nom:"Backup_2024-07-07T08-11-47.389Z.txt",
-  local:"C:\Users\Abdelkrim HALIMI\OneDrive\Attachments\
+  id:"Backup_2024-07-07T08-11-47.389Z.txt",
+  filepath:"C:\Users\Abdelkrim HALIMI\OneDrive\Attachments\
   Backup_2024-07-07T08-11-47.389Z.txt",
-  date:"07/07/2024",
+  filename:"07/07/2024",
 }
 
 ]
