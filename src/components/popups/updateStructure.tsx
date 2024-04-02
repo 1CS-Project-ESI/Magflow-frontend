@@ -1,7 +1,6 @@
 // PopupContent.tsx
 "use client";
 import React, { useState } from "react";
-import { STRUCTURES } from "@/constants";
 
 interface PopupUpdateProps {
   onClose: () => void;

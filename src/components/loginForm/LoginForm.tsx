@@ -1,8 +1,6 @@
 
 import React, { useState } from 'react';
 import Button from '../buttons/Button';
-import { ButtonProps } from '@/types';
-import Cookies from 'js-cookie';
 
 
 const LoginForm: React.FC = () => {
@@ -42,7 +40,7 @@ const LoginForm: React.FC = () => {
    
 
 
-      window.location.href = 'comptes/';
+      window.location.href = 'commandes/';
   
       console.log('Login successful:', data);
   

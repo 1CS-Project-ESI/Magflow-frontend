@@ -7,9 +7,6 @@ import RootLayout from "../rootLayout";
 import UserTable from "@/components/tables/usersTable";
 import SearchBar from "@/components/search/searchBar";
 import { User } from "@/types";
-import SupprimerButton from "@/components/buttons/suppButton"; 
-import axios from 'axios';
-import { Coming_Soon } from "next/font/google";
 import getToken from "@/utils/getToken";
 const AccountsPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
