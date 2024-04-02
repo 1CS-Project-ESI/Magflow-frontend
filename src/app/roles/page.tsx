@@ -8,14 +8,22 @@ import RolesTable from "@/components/tables/rolesTable";
 import AjoutButton from "@/components/buttons/ajoutButton";
 import ModifButton from "@/components/buttons/modifButton";
 import SuppButton from "@/components/buttons/suppButton";
+import getToken from "@/utils/getToken";
 // exemples of getAll link 
 const RolesPage: React.FC = () => {
   const [roles, setRoles] = useState([]);
 
   useEffect(() => {
     const fetchRoles = async () => {
+      const accessToken =  await getToken();
       try {
-        const response = await fetch('http://localhost:4000/api/roles/getAllRoles'); 
+        const response = await fetch('http://localhost:4000/api/roles/getAllRoles',{
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+
+        }); 
         const data = await response.json();
         console.log(data);
         if (!response.ok) {

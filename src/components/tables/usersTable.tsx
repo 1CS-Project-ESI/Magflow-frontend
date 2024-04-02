@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { User } from "@/types";
 import UpdateButton from "../buttons/updateUser";
 import SupprimerButton from "../buttons/suppButton";
+import getToken from "../../utils/getToken";
 
 interface Props {
   users: User[];
@@ -14,15 +15,17 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
   const [userStatuses, setUserStatuses] = useState<{ [email: string]: string }>(
     {}
   );
-
+    
   const handleDeactivate = async (email: string) => {
+  const accessToken = await getToken();
     try {
       const response = await fetch(
         "http://localhost:4000/api/users/deactivateAccount",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email }),
         }
@@ -30,7 +33,7 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
 
       if (response.ok) {
         console.log("email deactivated succes");
-        window.location.href = `/`; // its not woking
+        window.location.href = `/`; 
         setUserStatuses((prevStatuses) => ({
           ...prevStatuses,
           [email]: "inactive",
@@ -43,15 +46,16 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
     }
   };
 
-  // Function to handle activate request
   const handleActivate = async (email: string) => {
+    const accessToken = await getToken();
     try {
       const response = await fetch(
         "http://localhost:4000/api/users/activateaccount",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email }),
         }
@@ -101,7 +105,7 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
                   value={
                     userStatuses[user.email] ||
                     (user.isActive ? "Active" : "Non Active")
-                  } // Set initial value
+                  } 
                   onChange={(event) => {
                     const newStatus = event.target.value;
                     setUserStatuses((prevStatuses) => ({

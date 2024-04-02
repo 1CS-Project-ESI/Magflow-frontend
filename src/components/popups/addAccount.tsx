@@ -2,10 +2,12 @@
 import React, { useState } from "react";
 import { ROLES } from "@/constants";
 import { User } from "@/types";
-
+import getToken from "../../utils/getToken.js";
 interface ExtendedUser extends User {
-  phone: string; // Ensure phone is interpreted as a string
+  phone: string; 
 }
+
+
 
 const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [formData, setFormData] = useState<ExtendedUser>({
@@ -15,7 +17,7 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     newEmail:"",
     isActive: true,
     role: "",
-    phone: "" // Initialize phone as an empty string
+    phone: "" 
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -25,24 +27,27 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       [name]: value
     }));
   };
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    const accessToken = await getToken();
+    
     try {
       const response = await fetch('http://localhost:4000/api/users/createuser', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
         
       });
       if (response.ok) {
-        // Successfully added user, close the popup
+        
         onClose();
       } else {
-        // Handle error response from server
+   
         console.error('Error adding user:', response.statusText);
       }
     } catch (error) {
@@ -92,7 +97,7 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <input
           type="password"
           id="password"
-          name="password" // Ensure the name attribute is set to "password"
+          name="password" 
           placeholder="Password"
           className="input-field h-9 w-full"
           value={formData.password}

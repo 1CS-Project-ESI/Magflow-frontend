@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from 'next/router'; 
 import  useLocation  from 'next/router'; 
+import getToken from "@/utils/getToken";
 
 
 interface Permission {
@@ -36,6 +37,7 @@ const PermissionsTable: React.FC<PermissionsTableProps> = ({ permissions = [] })
  
 
   const handleUpdatePermissions = async () => {
+    const accessToken = await getToken();
     try {
 
       // var url = new URL(window.location.href);
@@ -70,14 +72,12 @@ const PermissionsTable: React.FC<PermissionsTableProps> = ({ permissions = [] })
         const selectedPermissionNames = selectedPermissions.map(index => permissions[index].name);
         console.log("this is selectedPermissionNames) content ");
         console.log(selectedPermissionNames)
-        // const body = JSON.stringify({
-        //   permissions: selectedPermissionNames
-        // });
-        // console.log(body);
+     
       const response = await fetch(`http://localhost:4000/api/roles/update/${id}`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
         },
         body :JSON.stringify({
           "permissions": selectedPermissionNames

@@ -7,7 +7,10 @@ import RootLayout from "../rootLayout";
 import UserTable from "@/components/tables/usersTable";
 import SearchBar from "@/components/search/searchBar";
 import { User } from "@/types";
-
+import SupprimerButton from "@/components/buttons/suppButton"; 
+import axios from 'axios';
+import { Coming_Soon } from "next/font/google";
+import getToken from "@/utils/getToken";
 const AccountsPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
@@ -23,8 +26,17 @@ const AccountsPage: React.FC = () => {
   }, []);
 
   const fetchUsers = async () => {
+  
+    const accessToken = await getToken();
+    
     try {
-      const response = await fetch("http://localhost:4000/api/users/AllUsers");
+      const response = await fetch('http://localhost:4000/api/users/AllUsers',{
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+       
+      });
       if (response.ok) {
         const data = await response.json();
 
@@ -75,13 +87,24 @@ const AccountsPage: React.FC = () => {
     setFilteredUsers(filtered);
   };
 
+
   const handleDelete = async (email: string) => {
+    const accessToken = await getToken();
     try {
+      if (!accessToken) {
+        console.error('Failed to retrieve access token');
+        return;
+      };
       const response = await fetch(`http://localhost:4000/api/users/${email}`, {
-        method: "DELETE",
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
       });
+  
       if (response.ok) {
-        const updatedUsers = users.filter((user) => user.email !== email);
+        const updatedUsers = users.filter(user => user.email !== email);
         setUsers(updatedUsers);
         setFilteredUsers(updatedUsers);
       } else {
@@ -91,6 +114,8 @@ const AccountsPage: React.FC = () => {
       console.error("Error deleting user:", error);
     }
   };
+  
+
 
   return (
     <RootLayout>
@@ -110,3 +135,4 @@ const AccountsPage: React.FC = () => {
 };
 
 export default AccountsPage;
+

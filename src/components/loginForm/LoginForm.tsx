@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Button from '../buttons/Button';
 import { ButtonProps } from '@/types';
+import Cookies from 'js-cookie';
 
 
 const LoginForm: React.FC = () => {
@@ -33,18 +34,27 @@ const LoginForm: React.FC = () => {
       if (!response.ok) {
         throw new Error('Failed to login');
       }
-      window.location.href = 'comptes/';
-      const data = await response.json();
-      console.log('Login successful:', data);
 
-      // Reset form fields and error state
+    const data = await response.json();
+    const { accessToken } = data;
+
+    localStorage.setItem('accessToken', accessToken);
+   
+
+
+      window.location.href = 'comptes/';
+  
+      console.log('Login successful:', data);
+  
+
+    
       setEmail('');
       setPassword('');
       setError(null);
     } catch (error) {
       setError((error as Error).message || 'Failed to login');
     } finally {
-      setLoading(false); // Stop loading state
+      setLoading(false); 
     }
   };
 
@@ -92,3 +102,4 @@ const LoginForm: React.FC = () => {
 };
 
 export default LoginForm;
+
