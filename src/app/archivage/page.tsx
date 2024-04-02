@@ -10,7 +10,7 @@ import { Archive } from "@/types";
 import { BACKUPS } from "@/constants";
 import RootLayout from "../rootLayout";
 import CheckIcon from "../../../public/assets/icons/filter.svg";
-
+import getToken from "../../utils/getToken.js";
 const ArchivePage: React.FC = () => {
   const [files, setFiles] = useState<Archive[]>([]);
   const [selectedTables, setSelectedTables] = useState<string[]>([]);
@@ -38,8 +38,15 @@ const ArchivePage: React.FC = () => {
   }, []);
 
   const fetchDataFromBackend = async () => {
+    const accessToken = await getToken();
     try {
-      const response = await fetch('http://localhost:4000/api/users/getAllBackups');
+      const response = await fetch('http://localhost:4000/api/users/getAllBackups',{
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+
+      });
       if (response.ok) {
         const data = await response.json();
   
@@ -71,13 +78,16 @@ const ArchivePage: React.FC = () => {
 
   const handleCreateBackup = async () => {
     setIsCreatingBackup(true);
-
+    const accessToken = await getToken();
    
 
     try {
       const response = await fetch(`http://localhost:4000/api/users/createbackups`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ table: selectedTables }),
       });
 
