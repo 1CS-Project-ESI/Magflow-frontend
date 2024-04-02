@@ -6,6 +6,7 @@ import RootLayout from "../rootLayout";
 
 import StructuresTable from "@/components/tables/structuresTable";
 import AddStructureButton from "@/components/buttons/addStructureButton";
+import getToken from "@/utils/getToken";
 
 const StructuresPage: React.FC = () => {
 
@@ -13,15 +14,21 @@ const StructuresPage: React.FC = () => {
 
   useEffect(() => {
     const fetchStructures = async () => {
+      const accessToken = await getToken();
       try {
-        const response = await fetch('http://localhost:4000/api/roles/getAllStructures'); 
+        const response = await fetch('http://localhost:4000/api/structures/allstructures',{
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        }); 
         const data = await response.json();
         console.log(data);
         if (!response.ok) {
           throw new Error(`Error fetching structures: ${data.message}`);
         }
 
-        setStructures(data.roles);
+        setStructures(data.structures);
       } catch (error) {
         console.error("Error fetching structures:", error);
         
