@@ -5,7 +5,7 @@ import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { SIDENAV_ITEMS } from '@/constants';
+import { SIDENAV_ADMIN_ITEMS } from '@/constants';
 import { SideNavItem } from '@/types';
 import { Icon } from '@iconify/react';
 import { motion, useCycle } from 'framer-motion';
@@ -58,8 +58,8 @@ const HeaderMobile = () => {
         variants={variants}
         className="absolute grid w-full gap-3 px-10 py-16 max-h-screen overflow-y-auto"
       >
-        {SIDENAV_ITEMS.map((item, idx) => {
-          const isLastItem = idx === SIDENAV_ITEMS.length - 1; // Check if it's the last item
+        {SIDENAV_ADMIN_ITEMS.map((item, idx) => {
+          const isLastItem = idx === SIDENAV_ADMIN_ITEMS.length - 1; // Check if it's the last item
 
           return (
             <div key={idx}>

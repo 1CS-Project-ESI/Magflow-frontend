@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SIDENAV_ADMIN_ITEMS } from "@/constants";
+import { SIDENAV_AGENT_ITEMS } from "@/constants";
 import { SideNavItem } from "@/types";
 import { Icon } from "@iconify/react";
 import logo from "../../../public/assets/images/logo/magflow.png";
 
-const SideNav = () => {
+const SideNavAgent = () => {
   return (
     <div className="md:w-60 bg-slate-800 h-screen flex-1 fixed border-r hidden md:flex">
       <div className="flex flex-col space-y-6 w-full">
@@ -16,7 +16,7 @@ const SideNav = () => {
           <img src={logo.src} className="w-52" alt="Logo" />
         </div>
         <div className="flex flex-col space-y-2 md:px-6">
-          {SIDENAV_ADMIN_ITEMS.map((item, idx) => {
+          {SIDENAV_AGENT_ITEMS.map((item, idx) => {
             return <MenuItem key={idx} item={item} />;
           })}
         </div>
@@ -25,7 +25,7 @@ const SideNav = () => {
   );
 };
 
-export default SideNav;
+export default SideNavAgent;
 
 const MenuItem = ({ item }: { item: SideNavItem }) => {
   const pathname = usePathname();
