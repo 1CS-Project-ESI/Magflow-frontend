@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Addphoto from "../../../public/assets/icons/Add photo.svg";
 import Passw from "../../../public/assets/icons/edit.svg";
+import getToken from "@/utils/getToken";
 
 const ProfilePage = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +27,30 @@ const ProfilePage = () => {
   const handleButtonClicked = () => {
     console.log("User Information: ", formData);
     // Perform further actions with the gathered information
+  };
+
+  const handleLogout = async () => {
+    const accessToken = await getToken();
+    try {
+      const response = await fetch("http://localhost:4000/api/auth/logout", {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to logout");
+      }
+
+      // Logout successful, handle redirect or other actions
+      console.log("Logout successful!");
+      window.location.href = "/login"; // Redirect to login page (example)
+    } catch (error) {
+      console.error("Error during logout:", error);
+      // Handle errors (e.g., display error message)
+    }
   };
 
   return (
@@ -114,7 +139,7 @@ const ProfilePage = () => {
         </div>
         <div className="grid grid-cols-2 gap-4 m-4">
           <Password />
-          <button>
+          <button onClick={handleLogout}>
             <div className="flex items-center justify-between mx-6 my-4">
               <span className="font-bold text-red-700">Deconnecter</span>
               <Image src={Passw.src} alt="Changer" width={25} height={25} />
