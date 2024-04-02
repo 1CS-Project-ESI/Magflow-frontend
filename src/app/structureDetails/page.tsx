@@ -16,7 +16,7 @@ const StructureDetailsPage: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/users/AllUsers");
+      const response = await fetch("http://localhost:4000/api/structures/users/:id");
       if (response.ok) {
         const data = await response.json();
 

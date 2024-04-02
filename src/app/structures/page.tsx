@@ -14,14 +14,14 @@ const StructuresPage: React.FC = () => {
   useEffect(() => {
     const fetchStructures = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/roles/getAllStructures'); 
+        const response = await fetch('http://localhost:4000/api/structures/allstructures'); 
         const data = await response.json();
         console.log(data);
         if (!response.ok) {
           throw new Error(`Error fetching structures: ${data.message}`);
         }
 
-        setStructures(data.roles);
+        setStructures(data.structures);
       } catch (error) {
         console.error("Error fetching structures:", error);
         
