@@ -44,6 +44,7 @@ const StructureDetailsPage: React.FC = () => {
   const fetchUsers = async (id:any) => {
     const accessToken = await getToken();
     try {
+
       const response = await fetch(`http://localhost:4000/api/structures/users/${id}`,{
         headers: {
           'Authorization': `Bearer ${accessToken}`,

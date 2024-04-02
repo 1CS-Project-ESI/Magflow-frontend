@@ -10,15 +10,16 @@ import { get } from "http";
 import getToken from "@/utils/getToken";
 
 interface Structure {
-  id: number; 
+  id: number;
   name: string;
 }
 
 interface StructuresTableProps {
-  structures: Structure[]; 
+  structures: Structure[];
 }
 
-const StructuresTable: React.FC<StructuresTableProps> = ({ structures}) => {
+
+const StructuresTable: React.FC<StructuresTableProps> = ({ structures }) => {
   const [isLoading, setIsLoading] = useState(false); // Track deletion loading state
   const [error, setError] = useState(null); // Track deletion error
 
@@ -61,7 +62,6 @@ const StructuresTable: React.FC<StructuresTableProps> = ({ structures}) => {
             <div key={strct.id}>
               <span className="font-bold text-xl mb-8">{strct.name}</span>
             </div>
-
             <div className="flex items-center">
               <span className="mr-3">
                 <UpdateStructureButton showPopup={true} />
@@ -79,7 +79,7 @@ const StructuresTable: React.FC<StructuresTableProps> = ({ structures}) => {
               </button>
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );

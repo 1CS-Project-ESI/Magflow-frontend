@@ -1,14 +1,14 @@
 // ModifierButton.tsx
 "use client";
 import React, { useState } from "react";
-import PopupUpdateStructure from "../popups/updateStructure";
+import PopupUpdateChapter from "../popups/updateChapter";
 import mdf from "../../../public/assets/icons/customers.svg";
 
 interface UpdateButtonProps {
     showPopup: boolean;
 }
 
-const UpdateStructureButton: React.FC<UpdateButtonProps> = ({ showPopup }) => {
+const UpdateChapterButton: React.FC<UpdateButtonProps> = ({ showPopup }) => {
     const [isPopupVisible, setPopupVisible] = useState(false);
 
   const togglePopup = () => {
@@ -26,10 +26,10 @@ const UpdateStructureButton: React.FC<UpdateButtonProps> = ({ showPopup }) => {
     </button>
     {showPopup && isPopupVisible && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-          <PopupUpdateStructure onClose={togglePopup} />
+          <PopupUpdateChapter onClose={togglePopup} />
         </div> )}
     </>
   );
 };
 
-export default UpdateStructureButton;
+export default UpdateChapterButton;
