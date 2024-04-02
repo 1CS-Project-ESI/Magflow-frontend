@@ -6,19 +6,27 @@ import Link from "next/link";
 
 import UpdateStructureButton from "../buttons/updateStructureButton";
 import dlt from "../../../public/assets/icons/delete.svg";
-import { STRUCTURES } from "@/constants";
 
-const StructuresTable: React.FC = () => {
+interface Structure {
+  id: number; 
+  name: string;
+}
+
+interface StructuresTableProps {
+  structures: Structure[]; 
+}
+
+const StructuresTable: React.FC<StructuresTableProps> = ({ structures}) => {
   return (
     <div>
-      {STRUCTURES.map((str, index) => (
+      {structures.map((strct) => (
         <Link href="/structureDetails">
           <div
-            key={index}
+            key={strct.id}
             className="bg-white border border-gray-300 flex justify-between p-6 mb-4 rounded-md"
           >
-            <div key={index}>
-              <span className="font-bold text-xl mb-8">{str}</span>
+            <div key={strct.id}>
+              <span className="font-bold text-xl mb-8">{strct.name}</span>
             </div>
 
             <div className="flex items-center">
