@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { ROLES } from "@/constants";
 import { User } from "@/types";
 import modifyIcon from "../../../public/assets/icons/modify.svg";
+import getToken from "@/utils/getToken";
 interface PopupUpdateProps {
   user: User;
   onClose: () => void;
@@ -17,20 +18,24 @@ const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose, onModify }) =>
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
       [name]: value
     }));
   };
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const accessToken = await getToken();
 
     try {
       const response = await fetch(`http://localhost:4000/api/users/${user.email}`, {
         method: 'PUT',
         headers: {
+          'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),

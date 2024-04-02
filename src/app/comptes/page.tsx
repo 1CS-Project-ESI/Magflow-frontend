@@ -10,7 +10,9 @@ import UserTable from "@/components/tables/usersTable";
 import SearchBar from "@/components/search/searchBar";
 import { User } from "@/types";
 import SupprimerButton from "@/components/buttons/suppButton"; 
-
+import axios from 'axios';
+import { Coming_Soon } from "next/font/google";
+import getToken from "@/utils/getToken";
 const AccountsPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
@@ -27,8 +29,36 @@ const AccountsPage: React.FC = () => {
   }, []);
 
   const fetchUsers = async () => {
+    // const  accessToken  =  localStorage.getItem('accessToken');
+    // console.log('this is the get all part of code accessToken stored in local storage:', localStorage.getItem('accessToken'));
+
+    // const requestHeaders = {
+    //   'Content-Type': 'application/json',
+    //   'Authorization': `Bearer ${accessToken}`,
+    // };
+    
+    // console.log('Request headers:', requestHeaders);
+    // const getToken = async () => {
+    //   try {
+    //     const accessToken = localStorage.getItem('accessToken');
+    //     return accessToken;
+    //   } catch (error) {
+    //     console.error('Error retrieving access token from local storage:', error);
+       
+    //     return null;
+    //   }
+    // };
+ 
+    const accessToken = await getToken();
+    
     try {
-      const response = await fetch('http://localhost:4000/api/users/AllUsers');
+      const response = await fetch('http://localhost:4000/api/users/AllUsers',{
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+       
+      });
       if (response.ok) {
         const data = await response.json();
         
@@ -79,14 +109,24 @@ const AccountsPage: React.FC = () => {
     setFilteredUsers(filtered);
   };
 
-  const handleDelete = async (email: string) => { 
+
+  const handleDelete = async (email: string) => {
+    const accessToken = await getToken();
     try {
-      const response = await fetch(`http://localhost:4000/api/users/${email}`, { 
-        method: 'DELETE'
+      if (!accessToken) {
+        console.error('Failed to retrieve access token');
+        return;
+      };
+      const response = await fetch(`http://localhost:4000/api/users/${email}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
       });
-      if (response.ok) {
-      
-        const updatedUsers = users.filter(user => user.email !== email); 
+  
+      if (response.ok) { // Assuming successful deletion returns 200 status code
+        const updatedUsers = users.filter(user => user.email !== email);
         setUsers(updatedUsers);
         setFilteredUsers(updatedUsers);
       } else {
@@ -96,7 +136,7 @@ const AccountsPage: React.FC = () => {
       console.error('Error deleting user:', error);
     }
   };
-
+  
 
 
   return (
@@ -117,3 +157,4 @@ const AccountsPage: React.FC = () => {
 };
 
 export default AccountsPage;
+

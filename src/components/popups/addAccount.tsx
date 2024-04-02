@@ -2,10 +2,12 @@
 import React, { useState } from "react";
 import { ROLES } from "@/constants";
 import { User } from "@/types";
-
+import getToken from "../../utils/getToken.js";
 interface ExtendedUser extends User {
   phone: string; // Ensure phone is interpreted as a string
 }
+
+
 
 const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [formData, setFormData] = useState<ExtendedUser>({
@@ -25,14 +27,17 @@ const PopupContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       [name]: value
     }));
   };
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    const accessToken = await getToken();
+    
     try {
       const response = await fetch('http://localhost:4000/api/users/createuser', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),

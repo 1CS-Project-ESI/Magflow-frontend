@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Button from '../buttons/Button';
 import { ButtonProps } from '@/types';
+import Cookies from 'js-cookie';
 
 
 const LoginForm: React.FC = () => {
@@ -33,9 +34,31 @@ const LoginForm: React.FC = () => {
       if (!response.ok) {
         throw new Error('Failed to login');
       }
+
+    const data = await response.json();
+    const { accessToken } = data;
+    // console.log("this is the access token", accessToken);
+
+    localStorage.setItem('accessToken', accessToken);
+    // const  storedToken  =  await localStorage.getItem('accessToken');
+    // console.log('storedToken stored in local storage:', localStorage.getItem('accessToken'));
+  // //  /// stting cookies 
+  // const data = await response.json();
+  // const { accessToken: token } = data;
+
+  // //Store the access token in a cookie with security flags
+  // Cookies.set('accessToken', token, {
+  //   expires: 1, // Set the cookie to expire in 1 day
+  //   sameSite: 'strict', // Restrict the cookie to the same site
+  //   // secure: true, // Only send the cookie over HTTPS
+  //   httpOnly: true, // Prevent client-side scripts from accessing the cookie
+  // });
+  
+      // Redirect to the desired page after successful login
       window.location.href = 'comptes/';
-      const data = await response.json();
+  
       console.log('Login successful:', data);
+  
 
       // Reset form fields and error state
       setEmail('');
@@ -92,3 +115,7 @@ const LoginForm: React.FC = () => {
 };
 
 export default LoginForm;
+
+
+// accessToken:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwLCJpYXQiOjE3MTE5ODM4MTcsImV4cCI6MTcxMjA3MDIxN30.3pO__LdBHkdxVkJbKpKehmjYlg1yvEu_9sZqhgS_XQU"
+// accessToken:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwLCJpYXQiOjE3MTIwNDA0NDcsImV4cCI6MTcxMjEyNjg0N30.TeeaioyQ_DqrJPz9kCfckE3-d8LpHN_m_KhuLnKGwj4"

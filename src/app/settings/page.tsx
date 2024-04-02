@@ -5,6 +5,7 @@ import RootLayout from "../rootLayout";
 import Image from "next/image";
 import Link from "next/link";
 import Addphoto from "../../../public/assets/icons/Add photo.svg";
+import getToken from "@/utils/getToken";
 
 const SettingsPage = () => {
   const [formData, setFormData] = useState({
@@ -29,11 +30,12 @@ const SettingsPage = () => {
 
   const handleButtonClicked = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault(); // Prevent the default behavior of the button click
-
+    const accessToken = await getToken();
     try {
       const response = await fetch('http://localhost:4000/api/users/modifyParams', {
         method: 'PUT',
         headers: {
+          'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
