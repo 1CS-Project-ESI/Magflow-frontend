@@ -41,7 +41,7 @@ const SettingsPage = () => {
         body: JSON.stringify({
           establishmentname: formData.nom,
           tauxtva: formData.tva,
-          logo: selectedFile, // or null if no file is selected
+          logo: selectedFile,
         }),
       });
 

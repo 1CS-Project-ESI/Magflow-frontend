@@ -8,13 +8,13 @@ import getToken from "@/utils/getToken";
 interface PopupUpdateProps {
   user: User;
   onClose: () => void;
-  onModify: (user: User) => void; // new line 
+  onModify: (user: User) => void;
 }
 
 const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose, onModify }) => {
   const [formData, setFormData] = useState<User>({
     ...user,
-    password: "", // Initialize password as empty
+    password: "", 
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -48,8 +48,7 @@ const PopupUpdate: React.FC<PopupUpdateProps> = ({ user, onClose, onModify }) =>
       } else {
        
         console.error('Error modify user:', response.statusText);
-      // console.log(`email to be updated ${user.email}`);
-      // console.log(formData)
+    
       }
     } catch (error) {
       console.error('Error adding user:', error);

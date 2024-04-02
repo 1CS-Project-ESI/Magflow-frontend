@@ -29,26 +29,7 @@ const AccountsPage: React.FC = () => {
   }, []);
 
   const fetchUsers = async () => {
-    // const  accessToken  =  localStorage.getItem('accessToken');
-    // console.log('this is the get all part of code accessToken stored in local storage:', localStorage.getItem('accessToken'));
-
-    // const requestHeaders = {
-    //   'Content-Type': 'application/json',
-    //   'Authorization': `Bearer ${accessToken}`,
-    // };
-    
-    // console.log('Request headers:', requestHeaders);
-    // const getToken = async () => {
-    //   try {
-    //     const accessToken = localStorage.getItem('accessToken');
-    //     return accessToken;
-    //   } catch (error) {
-    //     console.error('Error retrieving access token from local storage:', error);
-       
-    //     return null;
-    //   }
-    // };
- 
+  
     const accessToken = await getToken();
     
     try {
@@ -125,7 +106,7 @@ const AccountsPage: React.FC = () => {
         },
       });
   
-      if (response.ok) { // Assuming successful deletion returns 200 status code
+      if (response.ok) {
         const updatedUsers = users.filter(user => user.email !== email);
         setUsers(updatedUsers);
         setFilteredUsers(updatedUsers);

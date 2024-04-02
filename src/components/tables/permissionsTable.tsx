@@ -72,11 +72,7 @@ const PermissionsTable: React.FC<PermissionsTableProps> = ({ permissions = [] })
         const selectedPermissionNames = selectedPermissions.map(index => permissions[index].name);
         console.log("this is selectedPermissionNames) content ");
         console.log(selectedPermissionNames)
-        // const body = JSON.stringify({
-        //   permissions: selectedPermissionNames
-        // });
-        // console.log(body);
-      
+     
       const response = await fetch(`http://localhost:4000/api/roles/update/${id}`, {
         method: 'POST',
         headers: {

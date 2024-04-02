@@ -33,7 +33,7 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
 
       if (response.ok) {
         console.log("email deactivated succes");
-        window.location.href = `/`; // its not woking
+        window.location.href = `/`; 
         setUserStatuses((prevStatuses) => ({
           ...prevStatuses,
           [email]: "inactive",
@@ -46,7 +46,6 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
     }
   };
 
-  // Function to handle activate request
   const handleActivate = async (email: string) => {
     const accessToken = await getToken();
     try {
@@ -106,7 +105,7 @@ const UserTable: React.FC<Props> = ({ users, onDelete }) => {
                   value={
                     userStatuses[user.email] ||
                     (user.isActive ? "Active" : "Non Active")
-                  } // Set initial value
+                  } 
                   onChange={(event) => {
                     const newStatus = event.target.value;
                     setUserStatuses((prevStatuses) => ({
