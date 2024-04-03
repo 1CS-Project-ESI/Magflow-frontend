@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Addphoto from "../../../public/assets/icons/Add photo.svg";
 import Passw from "../../../public/assets/icons/edit.svg";
+import logout from "../../../public/assets/icons/LogOut.svg";
 import getToken from "@/utils/getToken";
 
 const ProfilePage = () => {
@@ -142,7 +143,7 @@ const ProfilePage = () => {
           <button onClick={handleLogout}>
             <div className="flex items-center justify-between mx-6 my-4">
               <span className="font-bold text-red-700">Deconnecter</span>
-              <Image src={Passw.src} alt="Changer" width={25} height={25} />
+              <Image src={logout.src} alt="Changer" width={25} height={25} />
             </div>
           </button>
         </div>

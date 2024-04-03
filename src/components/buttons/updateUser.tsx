@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { User } from "@/types";
 import PopupUpdate from "../popups/updateAccount";
-import mdf from "../../../public/assets/icons/customers.svg";
+import mdf from "../../../public/assets/icons/edit.svg";
 
 interface UpdateButtonProps {
     user: User;

@@ -2,7 +2,7 @@
 "use client";
 import React, { useState } from "react";
 import PopupUpdateChapter from "../popups/updateChapter";
-import mdf from "../../../public/assets/icons/customers.svg";
+import mdf from "../../../public/assets/icons/edit.svg";
 
 interface UpdateButtonProps {
     showPopup: boolean;

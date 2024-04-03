@@ -9,6 +9,10 @@ import rol from "../public/assets/icons/role.svg";
 import back from "../public/assets/icons/Archivage_folder.svg";
 import param from "../public/assets/icons/parametre.svg";
 import strct from "../public/assets/icons/customers.svg";
+import cmd from "../public/assets/icons/Commande.svg";
+import chp from "../public/assets/icons/Chapitre.svg";
+import art from "../public/assets/icons/Article.svg";
+import prd from "../public/assets/icons/Produit.svg";
 
 export const SIDENAV_ADMIN_ITEMS: SideNavItem[] = [
   {
@@ -42,22 +46,22 @@ export const SIDENAV_AGENT_ITEMS: SideNavItem[] = [
   {
     title: "Commandes",
     path: "/commandes",
-    icon: <img src={acc.src} width="18" height="18" />,
+    icon: <img src={cmd.src} width="18" height="18" />,
   },
   {
     title: "Chapitres",
     path: "/chapitres",
-    icon: <img src={rol.src} width="18" height="18" />,
+    icon: <img src={chp.src} width="18" height="18" />,
   },
   {
     title: "Articles",
     path: "/articles",
-    icon: <img src={strct.src} width="18" height="18" />,
+    icon: <img src={art.src} width="18" height="18" />,
   },
   {
     title: "Produits",
     path: "/produits",
-    icon: <img src={back.src} width="18" height="18" />,
+    icon: <img src={prd.src} width="18" height="18" />,
   },
   {
     title: "Statistiques",

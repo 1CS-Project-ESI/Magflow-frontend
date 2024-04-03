@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import mdf from "../../../public/assets/icons/customers.svg";
+import mdf from "../../../public/assets/icons/edit.svg";
 
 interface ModifButtonProps {
   path?: string;
