@@ -10,6 +10,8 @@ import dlt from "../../../public/assets/icons/delete.svg";
 interface Chapter {
   id: number;
   name: string;
+  description: string;
+  id_agentserviceachat: number;
 }
 
 interface ChaptersTableProps {
