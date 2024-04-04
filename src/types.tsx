@@ -48,3 +48,9 @@ export type Product = {
   price: number;
   article_id: number;
 };
+
+export type Commande = {
+  ID_de_bon: number;
+  Date: string;
+  Etat: string;
+};
