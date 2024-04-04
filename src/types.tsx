@@ -33,8 +33,15 @@ export type ButtonProps = {
   path?: string;
 };
 
+export type Chapter = {
+  id?: number;
+  name: string;
+  description: string;
+  id_agentserviceachat?: number;
+};
+
 export type Article = {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   tva: number;
@@ -42,7 +49,7 @@ export type Article = {
 };
 
 export type Product = {
-  id: number;
+  id?: number;
   name: string;
   caracteristics: string;
   price: number;
