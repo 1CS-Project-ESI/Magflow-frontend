@@ -35,10 +35,14 @@ const LoginForm: React.FC = () => {
 
     const data = await response.json();
     const { accessToken } = data;
+    const {id} = data;
 
     localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('id', id);
    
-
+    console.log("token is ",accessToken);
+    console.log("id is ",id);
+    
 
       window.location.href = 'commandes/';
   
