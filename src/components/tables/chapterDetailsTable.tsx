@@ -8,20 +8,13 @@ import getToken from "@/utils/getToken";
 import Link from "next/link";
 
 
-interface artcile {
-  id: number;
-  name: string;
-  description: string;
-  id_agentserviceachat: number;
-}
 
 interface Props {
-    articles: Article[];
-  }
+  articles: Article[];
+}
 
- // delete artcile if empty
- const handleDeleteArctile = async (id?: number) => {
- 
+// delete artcile if empty
+const handleDeleteArctile = async (id?: number) => {
   const accessToken = await getToken();
 
   try {
@@ -41,14 +34,12 @@ interface Props {
     }
 
     console.log("chapter deleted successfully!");
-  
   } catch (error) {
     console.error("Error during deletion:", error);
-
   } finally {
-   
   }
 };
+
 
 
   
@@ -103,6 +94,7 @@ interface Props {
           </table>
         </div>
       );
+
 };
 
 export default ChapterDetailsTable;

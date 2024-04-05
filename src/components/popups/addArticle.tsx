@@ -17,11 +17,31 @@ const PopupAddArticle: React.FC<PopupAddProps> = ({ onClose }) => {
         <div className="mb-4 w-full">
           <input
             type="text"
+            id="name"
+            name="name"
+            placeholder="Nom Article"
+            className="input-field h-9 w-full"
+            value="Article"
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <input
+            type="text"
             id="code"
             name="code"
             placeholder="Code Article"
             className="input-field h-9 w-full"
             value="Article"
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <input
+            type="number"
+            id="tva"
+            name="tva"
+            placeholder="tva Article"
+            className="input-field h-9 w-full"
+            value="tva"
           />
         </div>
         <div className="mb-4 w-full">

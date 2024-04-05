@@ -5,6 +5,7 @@ import { Article } from "@/types";
 import { Product } from "@/types";
 import ArticleDetailsTable from "@/components/tables/articleDetailsTable";
 import getToken from "@/utils/getToken";
+import AddProductButton from "@/components/buttons/addProductButton";
 
 interface Props {
   articles: Article[];
@@ -77,7 +78,10 @@ const fetchArtcileProduct = async () => {
         <div className="text-xl mb-4">
           Description :<span className="font-bold">{article.description}</span>
         </div>
-        <div className="text-xl mb-4">Articles :</div>
+        <div className="flex justify-between mb-4">
+          <div className="text-xl">Produits :</div>
+          <AddProductButton showPopup={true} />
+        </div>
         <ArticleDetailsTable products={products} />
       </div>
     </AgentLayout>
