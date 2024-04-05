@@ -57,7 +57,14 @@ export type Product = {
 };
 
 export type Commande = {
-  ID_de_bon: number;
-  Date: string;
-  Etat: string;
+  id?: number;
+  number: number;
+  orderdate: Date;
+  deliverydate: Date;
+  orderspecifications: string;
+  status: string;
+  total_ht: number;
+  tva: number;
+  total_ttc: number;
+  id_agentserviceachat?: number;
 };
