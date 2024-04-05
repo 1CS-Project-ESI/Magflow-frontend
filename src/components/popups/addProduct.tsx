@@ -25,17 +25,24 @@ const PopupAddProduct: React.FC<PopupAddProps> = ({ onClose }) => {
           />
         </div>
         <div className="mb-4 w-full">
-          <select
-            id="chapitre"
-            name="chapitre"
+          <input
+            type="text"
+            id="caracteristics"
+            name="caracteristics"
+            placeholder="Caracteristiques Produit"
             className="input-field h-9 w-full"
-            value="chapitre"
-          >
-            <option value="">Selectionner un Chapitre</option>
-            <option value="chapitre 1">Chapitre 1</option>
-            <option value="chapitre 2">Chapitre 2</option>
-            <option value="chapitre 3">Chapitre 3</option>
-          </select>
+            value="Produit"
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <input
+            type="number"
+            id="price"
+            name="price"
+            placeholder="Prix Produit"
+            className="input-field h-9 w-full"
+            value="Produit"
+          />
         </div>
         <div className="mb-4 w-full">
           <select

@@ -12,7 +12,7 @@ interface Props {
   articles: Article[];
 }
 
-// link to getArtcile chapitre to be mapped in chapter details Tables 
+// link to getArtcile chapitre to be mapped in chapter details Tables
 
 const ChapterDetails: React.FC = () => {
   const [chapter, setChapter] = useState<Chapter>({
@@ -20,7 +20,7 @@ const ChapterDetails: React.FC = () => {
     description: "",
   });
 
-  // link to getArtcile chapitre to be mapped in chapter details Tables 
+  // link to getArtcile chapitre to be mapped in chapter details Tables
 
   const [articlos, setArticles] = useState<Article[]>([]);
   useEffect(() => {
@@ -28,34 +28,33 @@ const ChapterDetails: React.FC = () => {
   }, []);
 
   const fetchChappArtciles = async () => {
-  
     const accessToken = await getToken();
-    // getting the id from url 
+    // getting the id from url
     const url = new URL(window.location.href);
-        const idString = url.searchParams.get('id');
+    const idString = url.searchParams.get("id");
 
-        let id: number | null = null;
+    let id: number | null = null;
 
-        if (idString !== null) {
-          id = parseInt(idString, 10);
-          
-        }
-        console.log("this id the ",id);
+    if (idString !== null) {
+      id = parseInt(idString, 10);
+    }
+    console.log("this id the ", id);
     try {
-      const response = await fetch(`http://localhost:4000/api/store/chapter/articles/${id}`,{
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-       
-      });
+      const response = await fetch(
+        `http://localhost:4000/api/store/chapter/articles/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         const articlos = data;
         console.log(articlos);
-      
+
         setArticles(articlos);
-  
       } else {
         console.error("Failed to fetch chapp artciles :", response.statusText);
       }
@@ -63,7 +62,6 @@ const ChapterDetails: React.FC = () => {
       console.error("Error fetching arctiles:", error);
     }
   };
-
 
   return (
     <AgentLayout>
@@ -75,8 +73,8 @@ const ChapterDetails: React.FC = () => {
           Description :<span className="font-bold">{chapter.description}</span>
         </div>
         <div className="flex justify-between mb-4">
-        <div className="text-xl">Articles :</div>
-        <AddArticleButton showPopup={true}/>
+          <div className="text-xl">Articles :</div>
+          <AddArticleButton showPopup={true} />
         </div>
         <ChapterDetailsTable articles={articlos} />
       </div>
