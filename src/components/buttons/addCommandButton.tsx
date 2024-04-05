@@ -1,18 +1,24 @@
-// ModifierButton.tsx
 "use client";
+
 import React, { useState } from "react";
+
 import ajt from "../../../public/assets/icons/Add.svg";
 
-interface AddButtonProps {
-    className?: string;
+interface AddCommandButtonProps {
+  path: string; 
 }
 
-const AddCommandeButton: React.FC<AddButtonProps> = ({ className = ''  }) => {
+const AddCommandButton: React.FC<AddCommandButtonProps> = ({ path }) => {
+  
+  const handleClick = () => {
+    window.location.href = path;
+  };
 
   return (
     <>
       <button
         className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 rounded-lg"
+        onClick={handleClick}
       >
         <div className="flex items-center space-x-2">
           <img
@@ -20,7 +26,7 @@ const AddCommandeButton: React.FC<AddButtonProps> = ({ className = ''  }) => {
             width="18"
             height="18"
             style={{ filter: "invert(100%)" }}
-          />{" "}
+          />
           <span>Ajouter</span>
         </div>
       </button>
@@ -28,4 +34,5 @@ const AddCommandeButton: React.FC<AddButtonProps> = ({ className = ''  }) => {
   );
 };
 
-export default AddCommandeButton;
+export default AddCommandButton;
+

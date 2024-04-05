@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import AddCommandeButton from "@/components/buttons/addCommandeButton";
+import AddCommandButton from "@/components/buttons/addCommandButton";
 import CommandesTable from "@/components/tables/commandesTable";
 import AgentLayout from "../agentLayout";
 
@@ -32,7 +32,7 @@ const CommandsPage: React.FC = () => {
       <div className="flex items-center justify-between">
         <div className="text-4xl font-bold ml-10">BCE</div>
         <div className="flex m-8 justify-end">
-          <AddCommandeButton />
+          <AddCommandButton path="/newCommand" />
         </div>
       </div>
       <div className="m-8 mt-8">
