@@ -44,16 +44,16 @@ export type Article = {
   id?: number;
   name: string;
   description: string;
-  tva: number;
-  chapter_id: number;
+  tva?: number;
+  chapter_id?: number;
 };
 
 export type Product = {
   id?: number;
   name: string;
   caracteristics: string;
-  price: number;
-  article_id: number;
+  price?: number;
+  article_id?: number;
 };
 
 export type Commande = {

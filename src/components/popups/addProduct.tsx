@@ -1,12 +1,28 @@
 // PopupContent.tsx
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { Product } from "@/types";
 
 interface PopupAddProps {
   onClose: () => void;
 }
 
 const PopupAddProduct: React.FC<PopupAddProps> = ({ onClose }) => {
+
+  const [formData, setFormData] = useState<Product>({
+    name: "",
+    caracteristics: "",
+    price: undefined,
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
   return (
     <div className="bg-white p-8 rounded-lg w-96 flex flex-col items-center">
       <h2 className="text-lg text-purple-950 font-semibold mb-4">
@@ -21,7 +37,7 @@ const PopupAddProduct: React.FC<PopupAddProps> = ({ onClose }) => {
             name="name"
             placeholder="Nom Produit"
             className="input-field h-9 w-full"
-            value="Produit"
+            value={formData.name}
           />
         </div>
         <div className="mb-4 w-full">
@@ -31,7 +47,7 @@ const PopupAddProduct: React.FC<PopupAddProps> = ({ onClose }) => {
             name="caracteristics"
             placeholder="Caracteristiques Produit"
             className="input-field h-9 w-full"
-            value="Produit"
+            value={formData.caracteristics}
           />
         </div>
         <div className="mb-4 w-full">
@@ -41,23 +57,10 @@ const PopupAddProduct: React.FC<PopupAddProps> = ({ onClose }) => {
             name="price"
             placeholder="Prix Produit"
             className="input-field h-9 w-full"
-            value="Produit"
+            value={formData.price}
           />
         </div>
-        <div className="mb-4 w-full">
-          <select
-            id="article"
-            name="article"
-            className="input-field h-9 w-full"
-            value="article"
-          >
-            <option value="">Selectionner un Article</option>
-            <option value="chapitre 1">Article 1</option>
-            <option value="chapitre 2">Article 2</option>
-            <option value="chapitre 3">Article 3</option>
-          </select>
-        </div>
-
+        
         {/* Buttons */}
         <div className="flex justify-between w-full">
           <button

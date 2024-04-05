@@ -1,12 +1,28 @@
 // PopupContent.tsx
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { Article } from "@/types";
 
 interface PopupAddProps {
   onClose: () => void;
 }
 
 const PopupAddArticle: React.FC<PopupAddProps> = ({ onClose }) => {
+
+  const [formData, setFormData] = useState<Article>({
+    name: "",
+    description: "",
+    tva: undefined,
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
   return (
     <div className="bg-white p-8 rounded-lg w-96 flex flex-col items-center">
       <h2 className="text-lg text-purple-950 font-semibold mb-4">
@@ -21,7 +37,7 @@ const PopupAddArticle: React.FC<PopupAddProps> = ({ onClose }) => {
             name="name"
             placeholder="Nom Article"
             className="input-field h-9 w-full"
-            value="Article"
+            value={formData.name}
           />
         </div>
         <div className="mb-4 w-full">
@@ -29,9 +45,9 @@ const PopupAddArticle: React.FC<PopupAddProps> = ({ onClose }) => {
             type="text"
             id="code"
             name="code"
-            placeholder="Code Article"
+            placeholder="Description Article"
             className="input-field h-9 w-full"
-            value="Article"
+            value={formData.description}
           />
         </div>
         <div className="mb-4 w-full">
@@ -41,21 +57,8 @@ const PopupAddArticle: React.FC<PopupAddProps> = ({ onClose }) => {
             name="tva"
             placeholder="tva Article"
             className="input-field h-9 w-full"
-            value="tva"
+            value={formData.tva}
           />
-        </div>
-        <div className="mb-4 w-full">
-          <select
-            id="chapitre"
-            name="chapitre"
-            className="input-field h-9 w-full"
-            value="chapitre"
-          >
-            <option value="">Selectionner un Chapitre</option>
-            <option value="chapitre 1">Chapitre 1</option>
-            <option value="chapitre 2">Chapitre 2</option>
-            <option value="chapitre 3">Chapitre 3</option>
-          </select>
         </div>
 
         {/* Buttons */}
