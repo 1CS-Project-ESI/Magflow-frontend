@@ -6,6 +6,10 @@ import { Article } from "@/types";
 interface Props {
     articles: Article[];
   }
+
+ 
+
+
   
   const ChapterDetailsTable: React.FC<Props> = ({ articles }) => {
     return (     //Table des articles de ce chapitre
