@@ -5,6 +5,7 @@ import { Article } from "@/types";
 import UpdateChapterButton from "../buttons/updateChapterButton";
 import deleteIcon from "../../../public/assets/icons/delete.svg";
 import getToken from "@/utils/getToken";
+import Link from "next/link";
 
 
 interface artcile {
@@ -67,7 +68,11 @@ interface Props {
               {articles.map((article, index) => (
                 <tr key={index} className="border-b border-gray-200">
                   <td className="border-t bg-white text-center px-4 py-4">
-                    {article.name} 
+                    
+                    <Link href={{ pathname: "/articleDetails", query: { id: article.id } }}>
+                       {article.name}
+                     </Link>
+
                   </td>
                   <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                     {article.description}
