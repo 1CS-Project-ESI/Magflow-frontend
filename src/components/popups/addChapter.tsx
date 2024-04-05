@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import { Chapter } from "@/types";
 import getToken from "../../utils/getToken.js";
-
+import UserID from "../../utils/getID";
 interface PopupAddProps {
   onClose: () => void;
 }
@@ -27,9 +27,13 @@ const PopupAddChapter: React.FC<PopupAddProps> = ({ onClose }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const accessToken = await getToken();
+    const id = await UserID();
+
+    console.log("token is ",accessToken);
+    console.log("id is ",id);
     
     try {
-      const response = await fetch('http://localhost:4000/api/store/chapter/create/:id', {
+      const response = await fetch(`http://localhost:4000/api/store/chapter/create/${id}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${accessToken}`,
@@ -78,18 +82,6 @@ const PopupAddChapter: React.FC<PopupAddProps> = ({ onClose }) => {
             onChange={handleInputChange}
           />
         </div>
-        <div className="mb-4 w-full">
-        <input
-            type="number"
-            id="idagent"
-            name="idagent"
-            placeholder="ID Agent"
-            className="input-field h-9 w-full"
-            value={formData.id_agentserviceachat}
-            onChange={handleInputChange}
-          />
-        </div>
-        {/* Buttons */}
         <div className="flex justify-between w-full">
           <button
             type="button"
