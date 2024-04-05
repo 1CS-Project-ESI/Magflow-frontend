@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import AgentLayout from "../agentLayout";
 import { Chapter } from "@/types";
 import { Article } from "@/types";
+import AddArticleButton from "@/components/buttons/addArticleButton";
 import ChapterDetailsTable from "@/components/tables/chapterDetailsTable";
 import getToken from "@/utils/getToken";
 
@@ -15,9 +16,8 @@ interface Props {
 
 const ChapterDetails: React.FC = () => {
   const [chapter, setChapter] = useState<Chapter>({
-    name: "chap1",
-    description: " simple description",
-    id_agentserviceachat: 0,
+    name: "",
+    description: "",
   });
 
   // link to getArtcile chapitre to be mapped in chapter details Tables 
@@ -74,7 +74,10 @@ const ChapterDetails: React.FC = () => {
         <div className="text-xl mb-4">
           Description :<span className="font-bold">{chapter.description}</span>
         </div>
-        <div className="text-xl mb-4">Articles :</div>
+        <div className="flex justify-between mb-4">
+        <div className="text-xl">Articles :</div>
+        <AddArticleButton showPopup={true}/>
+        </div>
         <ChapterDetailsTable articles={articlos} />
       </div>
     </AgentLayout>
