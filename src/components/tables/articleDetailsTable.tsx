@@ -3,12 +3,49 @@
 import React, { useState } from "react";
 import { Product } from "@/types";
 import dlt from "../../../public/assets/icons/delete.svg"
+import getToken from "@/utils/getToken";
 
 interface Props {
   products: Product[];
 }
 
+// link to delete a product 
+
+
+
 const ArticleDetailsTable: React.FC<Props> = ({ products }) => {
+
+
+
+const handleDeleteProducts = async (id?: number) => {
+ 
+  const accessToken = await getToken();
+
+  try {
+    const response = await fetch(
+      `http://localhost:4000/api/store/product/delete/${id}`,
+      {
+        method: "DELETE", // Set request method to DELETE
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error deleting structure: ${await response.text()}`);
+    }
+
+    console.log("product deleted successfully!");
+  
+  } catch (error) {
+    console.error("Error during deletion:", error);
+
+  } finally {
+   
+  }
+};
   return (
     //Table des articles de ce chapitre
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
@@ -38,13 +75,17 @@ const ArticleDetailsTable: React.FC<Props> = ({ products }) => {
                 <button
                   className="w-36 bg-transparent border-black border-2 hover:bg-black hover:text-white font-medium py-2 px-4 rounded-lg"
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2"
+                   onClick={async () => {
+                    await handleDeleteProducts(product.id);
+                  }}>
                     <img
                       src={dlt.src}
                       alt="delete"
                       width="18"
                       height="15"
                     />
+                    
                     <span>Supprimer</span>
                   </div>
                 </button>
