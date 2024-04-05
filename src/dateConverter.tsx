@@ -1,13 +1,15 @@
+"use client";
+
 import React from 'react';
 
 interface Props {
-  date: Date | undefined;
+  date: Date;
 }
 
 const Converter: React.FC<Props> = ({ date }) => {
   return (
     <div>
-      {date ? date.toLocaleDateString() : "No date available"}
+      {date ? date.toString() : "No date available"}
     </div>
   );
 };

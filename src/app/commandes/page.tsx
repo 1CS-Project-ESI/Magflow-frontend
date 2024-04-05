@@ -5,11 +5,11 @@ import AddCommandeButton from "@/components/buttons/addCommandeButton";
 import CommandesTable from "@/components/tables/commandesTable";
 import AgentLayout from "../agentLayout";
 
-const CommandesPage: React.FC = () => {
-  const [commandes, setCommandes] = useState([]);
+const CommandsPage: React.FC = () => {
+  const [commands, setCommands] = useState([]);
 
   useEffect(() => {
-    const fetchCommandes = async () => {
+    const fetchCommands = async () => {
       try {
         const response = await fetch('http://localhost:4000/api/bons/allcommands'); 
         const data = await response.json();
@@ -18,14 +18,14 @@ const CommandesPage: React.FC = () => {
           throw new Error(`Error fetching articles: ${data.message}`);
         }
 
-        setCommandes(data.commandes);
+        setCommands(data.commands);
       } catch (error) {
         console.error("Error fetching articles:", error);
         
       }
     };
 
-    fetchCommandes();
+    fetchCommands();
   }, []);
   return (
     <AgentLayout>
@@ -36,10 +36,10 @@ const CommandesPage: React.FC = () => {
         </div>
       </div>
       <div className="m-8 mt-8">
-        <CommandesTable commandes={commandes} />
+        <CommandesTable commandes={commands} />
       </div>
     </AgentLayout>
   );
 };
 
-export default CommandesPage;
+export default CommandsPage;

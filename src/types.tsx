@@ -57,7 +57,7 @@ export type Product = {
 };
 
 export type Commande = {
-  id?: number;
+  id: number;
   number: number;
   orderdate: Date;
   deliverydate: Date;
@@ -66,5 +66,5 @@ export type Commande = {
   total_ht: number;
   tva: number;
   total_ttc: number;
-  id_agentserviceachat?: number;
+  id_agentserviceachat: number;
 };
