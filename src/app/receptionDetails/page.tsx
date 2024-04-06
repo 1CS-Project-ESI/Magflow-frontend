@@ -1,13 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import AgentLayout from "../agentLayout";
-import getToken from "@/utils/getToken";
+
 
 import ReceptionDetailsTable from "@/components/tables/receptionDetailsTable";
 import { Reception } from "@/types";
 import { Product } from "@/types";
+import getToken from "@/utils/getToken";
 
 const ReceptionDetails: React.FC = () => {
+ 
+
   const [products, setProducts] = useState<Product[]>([]);
   
   useEffect(() => {
@@ -55,11 +58,13 @@ const ReceptionDetails: React.FC = () => {
           <p>Numero du bon de commande : 00001</p>
           {/* <p>Numero du bon de reception : {reception.id}</p> */}
         </div>
-        <ReceptionDetailsTable products={products} />
-
+        {/* Conditionally render table if products are available */}
+        {products.length > 0 && (
+          <ReceptionDetailsTable products={products} />
+        )}
       </div>
     </AgentLayout>
   );
-};
+        };
 
 export default ReceptionDetails;
