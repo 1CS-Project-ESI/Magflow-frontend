@@ -3,7 +3,7 @@
 import React from 'react';
 
 interface Props {
-  date: Date;
+  date?: Date;
 }
 
 const Converter: React.FC<Props> = ({ date }) => {
