@@ -1,104 +1,178 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AgentLayout from "../agentLayout";
 import { Product, Article, Fournisseur } from "@/types";
 import OptionSelection from "@/components/commands/selection";
 import save from "../../../public/assets/icons/EnregistrerPDF.svg";
+import getToken from "@/utils/getToken";
+import UserID from "@/utils/getID";
+import { constrainedMemory } from "process";
 
 const Page = () => {
+  const [articles, setArticles] = useState<Article[]>([]); // State for all articles
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null); // State for selected article
+  const [articleId, setArticleId] = useState<string>(''); // State for selected article's ID
+  const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
+  const [products, setProducts] = useState<Product[]>([]); // State for filtered products
   const [selectedOptions, setSelectedOptions] = useState<
     { article: Article | null; product: Product | null; quantity: number }[]
   >([]);
-  const [selectedFournisseurId, setSelectedFournisseurId] = useState<string>("");
-  const [articles, setArticles] = useState<Article[]>([
-    {
-      id: 1,
-      name: "Article 1",
-      description: "Description 1",
-      tva: 20,
-      chapter_id: 1,
-    },
-    {
-      id: 2,
-      name: "Article 2",
-      description: "Description 2",
-      tva: 15,
-      chapter_id: 2,
-    },
-    // Add more articles as needed
-  ]);
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: 1,
-      name: "Product 1",
-      caracteristics: "Caracteristics 1",
-      price: 100,
-      article_id: 1,
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      caracteristics: "Caracteristics 2",
-      price: 150,
-      article_id: 2,
-    },
-    // Add more products as needed
-  ]);
-  const [fournisseurs, setFournisseurs] = useState<Fournisseur[]>([
-    {
-      id: 1,
-      name: "Fournisseur 1",
-      email: "fournisseur1@example.com",
-      phone: 1234567890,
-      rc: "1234ABC",
-      nif: 123456,
-      rib: "ABC123",
-    },
-    {
-      id: 2,
-      name: "Fournisseur 2",
-      email: "fournisseur2@example.com",
-      phone: 9876543210,
-      rc: "5678DEF",
-      nif: 654321,
-      rib: "DEF567",
-    },
-    // Add more fournisseurs as needed
-  ]);
 
-  const handleSave = () => {
-    // Perform save operation with selected options and final select input value
-    console.log("Selected options:", selectedOptions);
-    console.log("Selected fournisseur ID:", selectedFournisseurId);
+ 
+ useEffect(() => {
+  const fetchArticles = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/store/article/all'); // Replace with your articles endpoint
+      const data = await response.json();
+      console.log("this is the article array",data)
+      setArticles(data.articles);
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+    }
   };
+  fetchArticles();
+}, []);
+
+const handleSelectArticle = (article: Article | null) => {
+  setSelectedArticle(article);
+  if (article) {
+    setArticleId(article.id?.toString() || '');
+    setSelectedArticleId(article.id?.toString() || null);
+  } else {
+    setArticleId('');
+    setSelectedArticleId(null);
+  }
+};
+
+useEffect(() => {
+  if (selectedArticleId !== null) {
+    console.log("final consol of  id article ",selectedArticleId)
+    fetchArticleProducts(selectedArticleId);
+  }
+}, [selectedArticleId]);
+
+const fetchArticleProducts = async (articleId: string) => {
+  const accessToken = await getToken();
+  console.log("id of article selected ",articleId );
+
+  try {
+    const response = await fetch(`http://localhost:4000/api/store/article/products/${articleId}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const products = data;
+      console.log(products);
+      setProducts(products);
+    } else {
+      console.error("Failed to fetch article products:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error fetching article products:", error);
+  }
+};
+
+//
+
+
+
+
+
+
+
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  const accessToken = await getToken();
+  const id = await UserID();
+
+  console.log("token is ",accessToken);
+  console.log("id is ",id);
+
+  const now = new Date();
+  const orderdate = now.toISOString().substring(0, 10); // Format date as YYYY-MM-DD 
+
+  // Generate a random order number
+  const randomNumber = Math.floor(Math.random() * 100000) + 100000; // Generate a 6-digit number
+  const number = `${randomNumber}`; // Prepend a string like "CMD-"
+
+  const DeliveryDate = new Date(now);
+  DeliveryDate.setDate(DeliveryDate.getDate() + 4);
+  const deliverydate = DeliveryDate.toISOString().substring(0, 10);
+
+  // const orderspecifications = // Get the order specifications value (replace with your logic)
+   const status =  "pending" ;// Get the status value (replace with your logic)
+
+  const productDetails = selectedOptions.map((option) => ({
+    productId: option.product?.id,
+    orderedQuantity: option.quantity,
+  }));
+  const orderspecifications = "Example command for linking";
+  try {
+    const response = await fetch(`http://localhost:4000/api/bons/create/${id}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        number,
+        orderdate,
+        deliverydate,
+        orderspecifications,
+        status,
+        productDetails,
+      }),
+      
+    });
+    console.log("this is the id of the slected article ",selectedArticle?.id)
+    if (response.ok) {
+
+      
+      
+    } else {
+ 
+      console.error('Error adding commandes:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error adding commandes:', error);
+  }
+};
+
+
+///
+
 
   return (
     <AgentLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-8 m-8 rounded-md">
         <h1 className="text-2xl mx-8">Nouvelle Commande Externe</h1>
         <OptionSelection
-          articles={articles}
-          products={products}
-          fournisseurs={fournisseurs}
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
-          selectedFournisseurId={selectedFournisseurId}
-          setSelectedFournisseurId={setSelectedFournisseurId}
-        />
+            articles={articles}
+            products={products}
+            selectedOptions={selectedOptions}
+            setSelectedOptions={setSelectedOptions}
+            onSelectArticle={handleSelectArticle}
+            setSelectedArticleId={setSelectedArticleId}
+          />
         <div className="w-full flex justify-end">
           <button
             className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 mx-8 rounded-lg"
-            onClick={handleSave}
+           
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2"  onClick={handleSubmit}>
               <img
                 src={save.src}
                 width="18"
                 height="18"
                 style={{ filter: "invert(100%)" }}
               />{" "}
-              <span>Enregistrer</span>
+             <span>Enregistrer</span>    {/*link of router.post('/create/:id_agentServiceAchat',createBonCommande); */}
             </div>
           </button>
         </div>
