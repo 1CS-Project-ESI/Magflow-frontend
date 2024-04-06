@@ -68,3 +68,13 @@ export type Commande = {
   total_ttc: number;
   id_agentserviceachat: number;
 };
+
+export type Fournisseur = {
+  id: number;
+  name: string;
+  email: string;
+  phone: number;
+  rc: string;
+  nif: number;
+  rib: string;
+};

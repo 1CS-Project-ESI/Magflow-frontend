@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Commande } from "@/types";
 import dlt from "../../../public/assets/icons/delete.svg";
 import Converter from "@/dateConverter";
@@ -34,12 +35,15 @@ const CommandesTable: React.FC<Props> = ({ commandes }) => {
                 {commande.status}
               </td>
               <td className="border-t bg-white text-center px-4 py-2 md:table-cell flex items-center justify-center">
-                <button className="w-36 bg-transparent border-black border-2 hover:bg-black hover:text-white font-medium py-2 px-4 rounded-lg">
-                  <div className="flex items-center space-x-2">
-                    <img src={dlt.src} width="18" height="15" />
-                    <span>Supprimer</span>
-                  </div>
-                </button>
+                <Link
+                  href={{
+                    pathname: "/commandDetails",
+                    query: { id: commande.id },
+                  }}
+                  className="text-gray-500"
+                >
+                  Details de la commande {">>"}
+                </Link>
               </td>
             </tr>
           ))}

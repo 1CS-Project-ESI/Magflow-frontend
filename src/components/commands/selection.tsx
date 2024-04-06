@@ -1,18 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { Product, Article } from "@/types";
+import { Product, Article, Fournisseur } from "@/types";
 import ajt from "../../../public/assets/icons/Add.svg";
 import dlt from "../../../public/assets/icons/delete.svg";
 
 interface OptionSelectionProps {
   articles: Article[];
   products: Product[];
+  fournisseurs: Fournisseur[];
   selectedOptions: {
     article: Article | null;
     product: Product | null;
     quantity: number;
   }[];
+  selectedFournisseurId: string;
+  setSelectedFournisseurId: React.Dispatch<React.SetStateAction<string>>;
   setSelectedOptions: React.Dispatch<
     React.SetStateAction<
       { article: Article | null; product: Product | null; quantity: number }[]
@@ -23,8 +26,11 @@ interface OptionSelectionProps {
 const OptionSelection: React.FC<OptionSelectionProps> = ({
   articles,
   products,
+  fournisseurs,
   selectedOptions,
   setSelectedOptions,
+  selectedFournisseurId,
+  setSelectedFournisseurId,
 }) => {
   const [selectedArticleId, setSelectedArticleId] = useState<string>("");
   const [selectedProductId, setSelectedProductId] = useState<string>("");
@@ -146,6 +152,21 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
             </tr>
           ))}
         </tbody>
+      </div>
+
+      <div className="flex items-center m-8">
+        <select
+          className="border border-gray-300 rounded-md p-2 w-1/3"
+          value={selectedFournisseurId}
+          onChange={(e) => setSelectedFournisseurId(e.target.value)}
+        >
+          <option value="">Sélectionner Fournisseur</option>
+          {fournisseurs.map((fournisseur) => (
+            <option key={fournisseur.id} value={fournisseur.id.toString()}>
+              {fournisseur.name}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
