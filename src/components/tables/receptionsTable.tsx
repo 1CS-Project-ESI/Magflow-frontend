@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Reception } from "@/types";
 import Converter from "@/dateConverter";
 
@@ -18,6 +19,7 @@ interface Props {
               <th className="px-4 py-2 font-light hidden md:table-cell">ID du Magasinier</th>
               <th className="px-4 py-2 font-light hidden md:table-cell">Date de reception</th>
               <th className="px-4 py-2 font-light hidden md:table-cell">Numéro du BCE</th>
+              <th className="px-4 py-2 font-light hidden md:table-cell"></th>
             </tr>
           </thead>
           <tbody>
@@ -34,7 +36,18 @@ interface Props {
                 </td>
                 <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                   {Bon.number}
-                </td> 
+                </td>
+                <td className="border-t bg-white text-center px-4 py-2 md:table-cell flex items-center justify-center">
+                <Link
+                  href={{
+                    pathname: "/commandDetails",
+                    query: { id: Bon.id },
+                  }}
+                  className="text-gray-500"
+                >
+                  Details du bon {">>"}
+                </Link>
+              </td> 
               </tr>
             ))}
           </tbody>

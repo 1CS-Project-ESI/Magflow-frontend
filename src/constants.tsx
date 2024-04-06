@@ -49,6 +49,11 @@ export const SIDENAV_AGENT_ITEMS: SideNavItem[] = [
     icon: <img src={cmd.src} width="18" height="18" />,
   },
   {
+    title: "Receptions",
+    path: "/receptions",
+    icon: <img src={cmd.src} width="18" height="18" />,
+  },
+  {
     title: "Chapitres",
     path: "/chapitres",
     icon: <img src={chp.src} width="18" height="18" />,
