@@ -40,7 +40,7 @@ const Receptionspage: React.FC = () => {
         <div className="text-3xl font-bold text-[#2C2D41] ml-10 mb-8 mt-4">
           Les Bons de reception
         </div>
-        <AddCommandButton path={""} />
+        <AddCommandButton path={"/newReception"} />
       </div>
       <div className="m-8 mt-8">
         <Receptiontable BonReçus={receptions} />

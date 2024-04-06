@@ -45,24 +45,25 @@ const LoginForm: React.FC = () => {
     console.log("token is ",accessToken);
     console.log("id is ",id);
     console.log("role is ",role);
+
     
 
-    switch (role) {
-      case 'admin':
-        window.location.href = 'comptes/';
-        break;
-      case 'agentserviceachat':
-        window.location.href = 'commandes/';
-        break;
-      case 'magasinier':
-        window.location.href = 'receptions/';
-        break;
-      default:
-        console.error('Invalid role');
-    }
+    // switch (role) {
+    //   case 'admin':
+    //     window.location.href = 'comptes/';
+    //     break;
+    //   case 'agentserviceachat':
+    //     window.location.href = 'commandes/';
+    //     break;
+    //   case 'magasinier':
+    //     window.location.href = 'receptions/';
+    //     break;
+    //   default:
+    //     console.error('Invalid role');
+    // }
   
   
-      console.log('Login successful:', data);
+      console.log('Login successful:', data); window.location.href = 'commandes/';
   
 
     

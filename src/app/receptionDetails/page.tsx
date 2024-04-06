@@ -12,7 +12,7 @@ const ReceptionDetails: React.FC = () => {
     id: 0,
     id_magasinier: 0,
     number: 0,
-    deleverydate: new Date(),
+    deliverydate: new Date(),
   });
   return (
     <AgentLayout>

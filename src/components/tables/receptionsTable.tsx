@@ -39,7 +39,7 @@ const Receptiontable: React.FC<Props> = ({ BonReçus }) => {
                 {Bon.id_magasinier}
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
-                <Converter date={Bon.deleverydate} />
+                <Converter date={Bon.deliverydate} />
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {Bon.number}
@@ -48,7 +48,7 @@ const Receptiontable: React.FC<Props> = ({ BonReçus }) => {
 
                 <Link
                   href={{
-                    pathname: "/commandDetails",
+                    pathname: "/receptionDetails",
                     query: { id: Bon.id },
                   }}
                   className="text-gray-500"
