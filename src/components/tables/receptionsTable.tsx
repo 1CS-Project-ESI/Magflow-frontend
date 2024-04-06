@@ -6,6 +6,7 @@ import { Reception } from "@/types";
 import Converter from "@/dateConverter";
 
 interface Props {
+
   BonReçus: Reception[];
 }
 
@@ -44,6 +45,7 @@ const Receptiontable: React.FC<Props> = ({ BonReçus }) => {
                 {Bon.number}
               </td>
               <td className="border-t bg-white text-center px-4 py-2 md:table-cell flex items-center justify-center">
+
                 <Link
                   href={{
                     pathname: "/commandDetails",
@@ -53,6 +55,7 @@ const Receptiontable: React.FC<Props> = ({ BonReçus }) => {
                 >
                   Details du bon {">>"}
                 </Link>
+
               </td>
             </tr>
           ))}

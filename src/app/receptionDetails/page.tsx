@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import AgentLayout from "../agentLayout";
+
 import ReceptionDetailsTable from "@/components/tables/receptionDetailsTable";
 import { Reception } from "@/types";
 import { Product } from "@/types";
@@ -23,6 +24,7 @@ const ReceptionDetails: React.FC = () => {
           <p>Fournisseur : pc-stor</p>
         </div>
         <ReceptionDetailsTable products={products} />
+
       </div>
     </AgentLayout>
   );

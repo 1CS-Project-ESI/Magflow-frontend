@@ -3,7 +3,9 @@
 import React, { useEffect, useState } from "react";
 import Receptiontable from "@/components/tables/receptionsTable";
 import AgentLayout from "../agentLayout";
+
 import AddCommandButton from "@/components/buttons/addCommandButton";
+
 
 const Receptionspage: React.FC = () => {
   const [receptions, setReceptions] = useState([]);
@@ -11,6 +13,7 @@ const Receptionspage: React.FC = () => {
   useEffect(() => {
     const fetchReceptions = async () => {
       try {
+
         const response = await fetch(
           "http://localhost:4000/api/bons/allreceptions"
         );
@@ -23,11 +26,13 @@ const Receptionspage: React.FC = () => {
         setReceptions(data.receptions);
       } catch (error) {
         console.error("Error fetching articles:", error);
+
       }
     };
 
     fetchReceptions();
   }, []);
+
 
   return (
     <AgentLayout> 

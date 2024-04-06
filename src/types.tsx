@@ -83,5 +83,5 @@ export type Reception={
   id: number;
   id_magasinier: number;
   number: number;
-  deleverydate: Date;
+  deliverydate: Date;
  }
