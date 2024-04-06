@@ -92,7 +92,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   const number = `${randomNumber}`; 
 
   const DeliveryDate = new Date(now);
-  DeliveryDate.setDate(DeliveryDate.getDate() + 4);
+  DeliveryDate.setDate(DeliveryDate.getDate() + 60);
   const deliverydate = DeliveryDate.toISOString().substring(0, 10);
 
 
