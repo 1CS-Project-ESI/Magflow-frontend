@@ -53,10 +53,10 @@ const fetchArtcileProduct = async () => {
     });
     if (response.ok) {
       const data = await response.json();
-      const productos = data;
-      console.log(productos);
+      const products = data;
+      console.log(products);
     
-      setProducts(productos);
+      setProducts(products);
 
     } else {
       console.error("Failed to fetch chapp artciles :", response.statusText);

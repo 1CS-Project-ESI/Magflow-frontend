@@ -29,9 +29,9 @@ const CommandsPage: React.FC = () => {
   }, []);
   return (
     <AgentLayout>
-      <div className="flex items-center justify-between">
-        <div className="text-4xl font-bold ml-10">BCE</div>
-        <div className="flex m-8 justify-end">
+      <div className="flex items-center  text-[#2C2D41] justify-between">
+        <div className="text-4xl text-[#2C2D41] font-bold ml-10">BCE</div>
+        <div className="flex m-8 text-[#2C2D41] justify-end">
           <AddCommandButton path="/newCommand" />
         </div>
       </div>

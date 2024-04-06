@@ -36,15 +36,31 @@ const LoginForm: React.FC = () => {
     const data = await response.json();
     const { accessToken } = data;
     const {id} = data;
+    const {role} = data ;
 
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('id', id);
+    localStorage.setItem('role', role);
    
     console.log("token is ",accessToken);
     console.log("id is ",id);
+    console.log("role is ",role);
     
 
-      window.location.href = 'commandes/';
+    switch (role) {
+      case 'admin':
+        window.location.href = 'comptes/';
+        break;
+      case 'agentserviceachat':
+        window.location.href = 'commandes/';
+        break;
+      case 'magasinier':
+        window.location.href = 'receptions/';
+        break;
+      default:
+        console.error('Invalid role');
+    }
+  
   
       console.log('Login successful:', data);
   

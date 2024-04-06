@@ -8,34 +8,33 @@ import dlt from "../../../public/assets/icons/delete.svg";
 interface OptionSelectionProps {
   articles: Article[];
   products: Product[];
-  fournisseurs: Fournisseur[];
   selectedOptions: {
     article: Article | null;
     product: Product | null;
     quantity: number;
   }[];
-  selectedFournisseurId: string;
-  setSelectedFournisseurId: React.Dispatch<React.SetStateAction<string>>;
   setSelectedOptions: React.Dispatch<
     React.SetStateAction<
       { article: Article | null; product: Product | null; quantity: number }[]
     >
   >;
+  onSelectArticle: (article: Article | null) => void;
+  setSelectedArticleId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const OptionSelection: React.FC<OptionSelectionProps> = ({
   articles,
   products,
-  fournisseurs,
   selectedOptions,
   setSelectedOptions,
-  selectedFournisseurId,
-  setSelectedFournisseurId,
+  onSelectArticle,
+
 }) => {
   const [selectedArticleId, setSelectedArticleId] = useState<string>("");
   const [selectedProductId, setSelectedProductId] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(0);
-
+  const [articleId, setArticleId] = useState<string>('');
+  
   const handleAddOption = () => {
     if (selectedArticleId && selectedProductId && quantity > 0) {
       const article = articles.find(
@@ -68,18 +67,25 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
     <div className="bg-white border border-gray-300 p-8 m-8 rounded-md">
       <div className="flex items-center m-8">
         <div className="flex-1 mr-4">
-          <select
-            className="border border-gray-300 rounded-md p-2 w-full"
-            value={selectedArticleId}
-            onChange={(e) => setSelectedArticleId(e.target.value)}
-          >
-            <option value="">Article</option>
-            {articles.map((article) => (
-              <option key={article.id} value={article.id?.toString()}>
-                {article.name}
-              </option>
-            ))}
-          </select>
+        
+            <select
+        className="border border-gray-300 rounded-md p-2 w-full"
+        value={selectedArticleId || ''}
+        onChange={(e) => {
+          const selectedArticle = articles.find(
+            (article) => article.id?.toString() === e.target.value
+          );
+          onSelectArticle(selectedArticle || null); 
+          setSelectedArticleId(e.target.value);
+        }}
+      >
+        <option value="">Article</option>
+        {articles.map((article) => (
+          <option key={article.id} value={article.id?.toString()}>
+            {article.name}
+          </option>
+        ))}
+      </select>
         </div>
         <div className="flex-1 mr-4">
           <select
@@ -157,15 +163,15 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
       <div className="flex items-center m-8">
         <select
           className="border border-gray-300 rounded-md p-2 w-1/3"
-          value={selectedFournisseurId}
-          onChange={(e) => setSelectedFournisseurId(e.target.value)}
+          // value={selectedFournisseurId}
+          // onChange={(e) => setSelectedFournisseurId(e.target.value)}
         >
-          <option value="">Sélectionner Fournisseur</option>
+          {/* <option value="">Sélectionner Fournisseur</option>
           {fournisseurs.map((fournisseur) => (
             <option key={fournisseur.id} value={fournisseur.id.toString()}>
               {fournisseur.name}
             </option>
-          ))}
+          ))} */}
         </select>
       </div>
     </div>

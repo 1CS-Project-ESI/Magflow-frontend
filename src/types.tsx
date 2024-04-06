@@ -78,9 +78,10 @@ export type Fournisseur = {
   nif: number;
   rib: string;
 };
+
 export type Reception={
- id: number;
- id_magasinier: number;
- number: number;
- deleverydate: Date;
-}
+  id: number;
+  id_magasinier: number;
+  number: number;
+  deliverydate: Date;
+ }

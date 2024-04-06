@@ -49,11 +49,11 @@ const handleDeleteChapter = async (id: number) => {
 
 const ChaptersTable: React.FC<ChaptersTableProps> = ({ chapters }) => {
   return (
-    <div>
+    <div >
       {chapters.map((chapter) => (
         <div
           key={chapter.id}
-          className="bg-white border border-gray-300 flex justify-between p-6 mb-4 rounded-md"
+          className="bg-white border border-gray-300  flex justify-between p-6 mb-4 rounded-md"
         >
           <div>
             <span className="font-bold text-xl mb-8">
