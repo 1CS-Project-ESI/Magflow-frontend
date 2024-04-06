@@ -28,7 +28,7 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
   selectedOptions,
   setSelectedOptions,
   onSelectArticle,
-  // setSelectedArticleId,
+
 }) => {
   const [selectedArticleId, setSelectedArticleId] = useState<string>("");
   const [selectedProductId, setSelectedProductId] = useState<string>("");
@@ -75,7 +75,7 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
           const selectedArticle = articles.find(
             (article) => article.id?.toString() === e.target.value
           );
-          onSelectArticle(selectedArticle || null); // Use onSelectArticle here
+          onSelectArticle(selectedArticle || null); 
           setSelectedArticleId(e.target.value);
         }}
       >

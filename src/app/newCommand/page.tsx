@@ -7,14 +7,13 @@ import OptionSelection from "@/components/commands/selection";
 import save from "../../../public/assets/icons/EnregistrerPDF.svg";
 import getToken from "@/utils/getToken";
 import UserID from "@/utils/getID";
-import { constrainedMemory } from "process";
 
 const Page = () => {
-  const [articles, setArticles] = useState<Article[]>([]); // State for all articles
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null); // State for selected article
-  const [articleId, setArticleId] = useState<string>(''); // State for selected article's ID
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null); 
+  const [articleId, setArticleId] = useState<string>('');
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
-  const [products, setProducts] = useState<Product[]>([]); // State for filtered products
+  const [products, setProducts] = useState<Product[]>([]); 
   const [selectedOptions, setSelectedOptions] = useState<
     { article: Article | null; product: Product | null; quantity: number }[]
   >([]);
@@ -23,7 +22,7 @@ const Page = () => {
  useEffect(() => {
   const fetchArticles = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/store/article/all'); // Replace with your articles endpoint
+      const response = await fetch('http://localhost:4000/api/store/article/all');
       const data = await response.json();
       console.log("this is the article array",data)
       setArticles(data.articles);
@@ -77,14 +76,6 @@ const fetchArticleProducts = async (articleId: string) => {
   }
 };
 
-//
-
-
-
-
-
-
-
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -97,17 +88,15 @@ const handleSubmit = async (e: React.FormEvent) => {
   const now = new Date();
   const orderdate = now.toISOString().substring(0, 10); // Format date as YYYY-MM-DD 
 
-  // Generate a random order number
   const randomNumber = Math.floor(Math.random() * 100000) + 100000; // Generate a 6-digit number
-  const number = `${randomNumber}`; // Prepend a string like "CMD-"
+  const number = `${randomNumber}`; 
 
   const DeliveryDate = new Date(now);
   DeliveryDate.setDate(DeliveryDate.getDate() + 4);
   const deliverydate = DeliveryDate.toISOString().substring(0, 10);
 
-  // const orderspecifications = // Get the order specifications value (replace with your logic)
-   const status =  "pending" ;// Get the status value (replace with your logic)
 
+  const status =  "pending" ;
   const productDetails = selectedOptions.map((option) => ({
     productId: option.product?.id,
     orderedQuantity: option.quantity,
@@ -145,9 +134,6 @@ const handleSubmit = async (e: React.FormEvent) => {
 };
 
 
-///
-
-
   return (
     <AgentLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-8 m-8 rounded-md">
@@ -172,7 +158,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 height="18"
                 style={{ filter: "invert(100%)" }}
               />{" "}
-             <span>Enregistrer</span>    {/*link of router.post('/create/:id_agentServiceAchat',createBonCommande); */}
+             <span>Enregistrer</span>  
             </div>
           </button>
         </div>
