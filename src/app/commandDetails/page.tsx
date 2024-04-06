@@ -91,7 +91,7 @@ const CommandDetails: React.FC = () => {
         <CommandDetailsTable products={products} />
         {/* <CommandDetailsPDF command={command} products={products} /> */}
         {/* PDF download link */}
-        <div className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 mx-8 rounded-lg">
+        <div className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg w-1/6">
           <PDFDownloadLink
             document={
               <CommandDetailsPDF command={command} products={products} />

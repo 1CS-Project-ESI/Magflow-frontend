@@ -1,22 +1,41 @@
 "use client";
 
 // CommandDetailsPDF.tsx
-import React from 'react';
-import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
-import { Commande, Product } from '@/types'; // Import the types if necessary
-import Converter from '@/dateConverter';
+import React from "react";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+} from "@react-pdf/renderer";
+import { Commande, Product } from "@/types"; // Import the types if necessary
+import Converter from "@/dateConverter";
 
 interface Props {
-    command?: Commande;
-    products: Product[];
-  }
+  command?: Commande;
+  products: Product[];
+}
 
 // Define styles using StyleSheet.create()
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
+    flexDirection: "row",
+    backgroundColor: "#FFFFFF",
     padding: 20, // Add padding to the page
+  },
+  head: {
+    fontSize: 26,
+    textAlign: "center",
+    marginBottom: 10,
+    fontWeight: "bold",
+  },
+  subhead: {
+    fontSize: 22,
+    textAlign: "center",
+    marginBottom: 40,
+    fontWeight: "bold",
   },
   section: {
     margin: 10,
@@ -25,14 +44,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 10,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   subtitle: {
     fontSize: 16,
     marginBottom: 5,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   text: {
     fontSize: 12,
@@ -44,31 +63,31 @@ const styles = StyleSheet.create({
     marginBottom: 10, // Add some bottom margin to the image
   },
   table: {
-    display: 'table' as any, // Cast the display property value to any    
+    display: "table" as any, // Cast the display property value to any
     //width: 'auto',
-    borderStyle: 'solid',
+    borderStyle: "solid",
     borderWidth: 0,
   },
   tableRow: {
-    margin: 'auto',
-    flexDirection: 'row',
+    margin: "auto",
+    flexDirection: "row",
   },
   tableColHeader: {
     padding: 6,
     textAlign: "center",
     fontSize: 12,
-    width: '25%',
-    borderStyle: 'solid',
+    width: "25%",
+    borderStyle: "solid",
     borderWidth: 1,
-    backgroundColor: '#f0f0f0',
-    fontWeight: 'bold',
+    backgroundColor: "#f0f0f0",
+    fontWeight: "bold",
   },
   tableCol: {
     padding: 6,
     textAlign: "center",
     fontSize: 12,
-    width: '25%',
-    borderStyle: 'solid',
+    width: "25%",
+    borderStyle: "solid",
     borderWidth: 1,
   },
 });
@@ -77,11 +96,21 @@ const CommandDetailsPDF: React.FC<Props> = ({ command, products }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
-        <Text style={styles.title}>Bon de Commande Extern N {command?.number}</Text>
+        <Text style={styles.head}>ESI-SBA</Text>
+        <Text style={styles.subhead}>Service des Achats</Text>
+        <Text style={styles.title}>
+          Bon de Commande Extern N {command?.number}
+        </Text>
         <Text style={styles.subtitle}>État: {command?.status}</Text>
-        <Text style={styles.text}>Date: <Converter date={command?.orderdate} /></Text>
-        <Text style={styles.text}>Date de livraison: <Converter date={command?.deliverydate} /></Text>
-        <Text style={styles.text}>Spécifications: {command?.orderspecifications}</Text>
+        <Text style={styles.text}>
+          Date: <Converter date={command?.orderdate} />
+        </Text>
+        <Text style={styles.text}>
+          Date de livraison: <Converter date={command?.deliverydate} />
+        </Text>
+        <Text style={styles.text}>
+          Spécifications: {command?.orderspecifications}
+        </Text>
         <Text style={styles.subtitle}>Produits:</Text>
         <View style={styles.table}>
           <View style={styles.tableRow}>
