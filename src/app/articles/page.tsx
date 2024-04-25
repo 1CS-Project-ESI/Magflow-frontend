@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 
 import AddArticleButton from "@/components/buttons/addArticleButton";
 import ArticlesTable from "@/components/tables/articlesTable";
@@ -32,14 +32,14 @@ const ArticlesPage: React.FC = () => {
   }, []);
 
   return (
-    <AgentLayout>
+    <RootLayout>
       <div className="flex m-8 justify-end">
         <AddArticleButton showPopup={true} />
       </div>
       <div className="m-8 mt-8">
         <ArticlesTable articles={articles} />
       </div>
-    </AgentLayout>
+    </RootLayout>
   );
 };
 

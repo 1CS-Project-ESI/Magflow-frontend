@@ -1,48 +1,96 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import AgentLayout from "../agentLayout";
-import { Product, Article, Fournisseur } from "@/types";
+import RootLayout from "../rootLayout";
+import {Chapter, Product, Article, Fournisseur } from "@/types";
 import OptionSelection from "@/components/commands/selection";
 import save from "../../../public/assets/icons/EnregistrerPDF.svg";
 import getToken from "@/utils/getToken";
 import UserID from "@/utils/getID";
 
 const Page = () => {
+  const [chapters, setChapters] = useState<Chapter[]>([]);
+  const [selectedChapter, setSelectedChapter] = useState<Chapter | null>(null); 
+  const [chapterId, setChapterId] = useState<string>('');
+  const [selectedChapterId, setSelectedChapterId] = useState<string | null>(null);
   const [articles, setArticles] = useState<Article[]>([]);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null); 
   const [articleId, setArticleId] = useState<string>('');
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
   const [products, setProducts] = useState<Product[]>([]); 
   const [selectedOptions, setSelectedOptions] = useState<
-    { article: Article | null; product: Product | null; quantity: number }[]
+    {chapter: Chapter | null; article: Article | null; product: Product | null; price: number; quantity: number }[]
   >([]);
 
- 
- useEffect(() => {
-  const fetchArticles = async () => {
-    try {
-      const response = await fetch('http://localhost:4000/api/store/article/all');
-      const data = await response.json();
-      console.log("this is the article array",data)
-      setArticles(data.articles);
-    } catch (error) {
-      console.error("Error fetching articles:", error);
+  useEffect(() => {
+    const fetchChapters = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/store/chapter/all');
+        const data = await response.json();
+        console.log("this is chapter array",data)
+        setChapters(data.chapters);
+      } catch (error) {
+        console.error("Error fetching chapters:", error);
+      }
+    };
+    fetchChapters();
+  }, []);
+  
+  const handleSelectdChapter = (chapter: Chapter | null) => {
+    setSelectedChapter(chapter);
+    if (chapter) {
+      setChapterId(chapter.id?.toString() || '');
+      setSelectedChapterId(chapter.id?.toString() || null);
+    } else {
+      setChapterId('');
+      setSelectedChapterId(null);
     }
   };
-  fetchArticles();
-}, []);
+  
+  useEffect(() => {
+    if (selectedChapterId !== null) {
+      console.log("final consol of  id chapter ",selectedChapterId)
+      fetchChapterArticles(selectedChapterId);
+    }
+  }, [selectedChapterId]);
+  
+  const fetchChapterArticles = async (chapterId: string) => {
+    const accessToken = await getToken();
+    console.log("id of chapter selected ",chapterId );
+  
+    try {
+      const response = await fetch(`http://localhost:4000/api/store/chapter/articles/${chapterId}`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        const articles = data;
+        console.log(articles);
+        setArticles(articles);
+      } else {
+        console.error("Failed to fetch chapter articles:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching chapter articles:", error);
+    }
+  };
 
-const handleSelectArticle = (article: Article | null) => {
-  setSelectedArticle(article);
-  if (article) {
-    setArticleId(article.id?.toString() || '');
-    setSelectedArticleId(article.id?.toString() || null);
-  } else {
-    setArticleId('');
-    setSelectedArticleId(null);
-  }
-};
+
+
+  const handleSelectedArticle = (article : Article | null) => {
+    setSelectedArticle(article);
+    if (article) {
+      setArticleId(article.id?.toString() || '');
+      setSelectedArticleId(article.id?.toString() || null);
+    } else {
+      setArticleId('');
+      setSelectedArticleId(null);
+    }
+  };
 
 useEffect(() => {
   if (selectedArticleId !== null) {
@@ -136,15 +184,18 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
   return (
-    <AgentLayout>
+    <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-8 m-8 rounded-md">
-        <h1 className="text-2xl mx-8">Nouvelle Commande Externe</h1>
+        <h1 className="text-3xl mx-8">Nouvelle Commande Externe</h1>
         <OptionSelection
+            chapters={chapters}
             articles={articles}
             products={products}
             selectedOptions={selectedOptions}
             setSelectedOptions={setSelectedOptions}
-            onSelectArticle={handleSelectArticle}
+            onSelectChapter={handleSelectdChapter}
+            setSelectedChapterId={setSelectedChapterId}
+            onSelectArticle={handleSelectedArticle}
             setSelectedArticleId={setSelectedArticleId}
           />
         <div className="w-full flex justify-end">
@@ -164,7 +215,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           </button>
         </div>
       </div>
-    </AgentLayout>
+    </RootLayout>
   );
 };
 

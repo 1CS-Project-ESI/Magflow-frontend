@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 
 import AddChapterButton from "@/components/buttons/addChapterButton";
 import ChaptersTable from "@/components/tables/chapterTable";
@@ -32,14 +32,14 @@ const ChaptersPage: React.FC = () => {
   }, []);
 
   return (
-    <AgentLayout>
+    <RootLayout>
       <div className="flex m-8 justify-end">
         <AddChapterButton showPopup={true} />
       </div>
       <div className="m-8 mt-8">
         <ChaptersTable chapters={chapters} />
       </div>
-    </AgentLayout>
+    </RootLayout>
   );
 };
 

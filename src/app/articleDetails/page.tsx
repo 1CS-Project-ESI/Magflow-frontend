@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 import { Article } from "@/types";
 import { Product } from "@/types";
 import ArticleDetailsTable from "@/components/tables/articleDetailsTable";
@@ -70,7 +70,7 @@ const fetchArtcileProduct = async () => {
 
 
   return (
-    <AgentLayout>
+    <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
         <div className="text-xl mb-4">
           Nom d'Article <span className="font-bold"> {article.name}</span>
@@ -84,7 +84,7 @@ const fetchArtcileProduct = async () => {
         </div>
         <ArticleDetailsTable products={products} />
       </div>
-    </AgentLayout>
+    </RootLayout>
   );
 };
 

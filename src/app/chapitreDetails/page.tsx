@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 import { Chapter } from "@/types";
 import { Article } from "@/types";
 import AddArticleButton from "@/components/buttons/addArticleButton";
@@ -64,7 +64,7 @@ const ChapterDetails: React.FC = () => {
   };
 
   return (
-    <AgentLayout>
+    <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
         <div className="text-xl mb-4">
           Code du chapitre : <span className="font-bold"> {chapter.name}</span>
@@ -78,7 +78,7 @@ const ChapterDetails: React.FC = () => {
         </div>
         <ChapterDetailsTable articles={articlos} />
       </div>
-    </AgentLayout>
+    </RootLayout>
   );
 };
 

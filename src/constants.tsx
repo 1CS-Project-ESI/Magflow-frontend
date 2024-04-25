@@ -44,6 +44,39 @@ export const SIDENAV_ADMIN_ITEMS: SideNavItem[] = [
 
 export const SIDENAV_AGENT_ITEMS: SideNavItem[] = [
   {
+    title: "Commandes Externes",
+    path: "/commandes",
+    icon: <img src={cmd.src} width="18" height="18" />,
+  },
+  {
+    title: "Chapitres",
+    path: "/chapitres",
+    icon: <img src={chp.src} width="18" height="18" />,
+  },
+  {
+    title: "Articles",
+    path: "/articles",
+    icon: <img src={art.src} width="18" height="18" />,
+  },
+  {
+    title: "Produits",
+    path: "/produits",
+    icon: <img src={prd.src} width="18" height="18" />,
+  },
+  {
+    title: "Statistiques",
+    path: "/stats",
+    icon: <img src={back.src} width="18" height="18" />,
+  },
+  {
+    title: "Parametres",
+    path: "/settingsAgent",
+    icon: <img src={param.src} width="18" height="18" />,
+  },
+];
+
+export const SIDENAV_MAGASINIER_ITEMS: SideNavItem[] = [
+  {
     title: "Commandes",
     path: "/commandes",
     icon: <img src={cmd.src} width="18" height="18" />,

@@ -1,13 +1,13 @@
 import React from "react";
 
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 
 const SettingsPage: React.FC = () => (
-  <AgentLayout>
+  <RootLayout>
     <div className="text-4xl font-bold">
       Parametres
     </div>
-  </AgentLayout>
+  </RootLayout>
 );
 
 export default SettingsPage;

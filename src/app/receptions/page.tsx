@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Receptiontable from "@/components/tables/receptionsTable";
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 
 import AddCommandButton from "@/components/buttons/addCommandButton";
 
@@ -35,7 +35,7 @@ const Receptionspage: React.FC = () => {
 
 
   return (
-    <AgentLayout> 
+    <RootLayout> 
       <div className="flex items-center justify-between mr-8">
         <div className="text-3xl font-bold text-[#2C2D41] ml-10 mb-8 mt-4">
           Les Bons de reception
@@ -45,7 +45,7 @@ const Receptionspage: React.FC = () => {
       <div className="m-8 mt-8">
         <Receptiontable BonReçus={receptions} />
       </div>
-    </AgentLayout>
+    </RootLayout>
   );
 };
 

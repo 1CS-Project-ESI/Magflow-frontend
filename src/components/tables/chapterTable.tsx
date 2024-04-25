@@ -1,7 +1,6 @@
 
 import React from "react";
 import Link from "next/link";
-import UpdateChapterButton from "../buttons/updateChapterButton";
 import deleteIcon from "../../../public/assets/icons/delete.svg";
 import getToken from "@/utils/getToken";
 

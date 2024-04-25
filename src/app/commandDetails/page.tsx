@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 import { Commande } from "@/types";
 import { Product } from "@/types";
 import CommandDetailsTable from "@/components/tables/commandDetailsTable";
@@ -58,7 +58,7 @@ const CommandDetails: React.FC = () => {
   };
 
   return (
-    <AgentLayout>
+    <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
         <div className="text-xl mb-4">
           Commande numero : <span className="font-bold">{command?.number}</span>
@@ -104,7 +104,7 @@ const CommandDetails: React.FC = () => {
           </PDFDownloadLink>
         </div>
       </div>
-    </AgentLayout>
+    </RootLayout>
   );
 };
 

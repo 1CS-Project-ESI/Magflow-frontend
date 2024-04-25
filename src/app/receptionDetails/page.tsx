@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 
 
 import ReceptionDetailsTable from "@/components/tables/receptionDetailsTable";
@@ -51,7 +51,7 @@ const ReceptionDetails: React.FC = () => {
     }
   };
   return (
-    <AgentLayout>
+    <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md flex-col">
         <p className="text-[#2C2D41] my-3">La date : </p>
         <div className="flex justify-between text-[#2C2D41] my-3">
@@ -63,7 +63,7 @@ const ReceptionDetails: React.FC = () => {
           <ReceptionDetailsTable products={products} />
         )}
       </div>
-    </AgentLayout>
+    </RootLayout>
   );
         };
 

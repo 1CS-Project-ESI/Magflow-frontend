@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 
 import AddProductButton from "@/components/buttons/addProductButton";
 import ProductsTable from "@/components/tables/productsTable";
@@ -32,14 +32,14 @@ const ProductsPage: React.FC = () => {
   }, []);
 
   return (
-    <AgentLayout>
+    <RootLayout>
       <div className="flex m-8 justify-end">
         <AddProductButton showPopup={true} />
       </div>
       <div className="m-8 mt-8">
         <ProductsTable products={products} />
       </div>
-    </AgentLayout>
+    </RootLayout>
   );
 };
 

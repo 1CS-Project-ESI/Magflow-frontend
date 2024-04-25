@@ -37,6 +37,7 @@ export type Chapter = {
   id?: number;
   name: string;
   description: string;
+  code?: number;
   id_agentserviceachat?: number;
 };
 
@@ -52,8 +53,6 @@ export type Product = {
   id?: number;
   name: string;
   caracteristics: string;
-  price?: number;
-  article_id?: number;
 };
 
 export type Commande = {

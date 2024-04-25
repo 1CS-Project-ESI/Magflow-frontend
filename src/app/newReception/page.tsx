@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import AgentLayout from "../agentLayout";
+import RootLayout from "../rootLayout";
 import { Product, Commande } from "@/types";
 import OptionSelection from "@/components/receptions/selection";
 import save from "../../../public/assets/icons/EnregistrerPDF.svg";
@@ -136,7 +136,7 @@ const Page = () => {
   };
 
 return (
-  <AgentLayout>
+  <RootLayout>
     <div className="bg-white border border-gray-300 grid grid-cols-1 p-8 m-8 rounded-md">
       <h1 className="text-2xl mx-8">Nouvelle Reception</h1>
       <OptionSelection
@@ -160,7 +160,7 @@ return (
         </button>
       </div>
     </div>
-  </AgentLayout>
+  </RootLayout>
 );
 };
 

@@ -3,12 +3,30 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SIDENAV_ADMIN_ITEMS } from "@/constants";
+import {
+  SIDENAV_ADMIN_ITEMS,
+  SIDENAV_AGENT_ITEMS,
+  SIDENAV_MAGASINIER_ITEMS,
+} from "@/constants";
 import { SideNavItem } from "@/types";
 import { Icon } from "@iconify/react";
 import logo from "../../../public/assets/images/logo/magflow.png";
 
 const SideNav = () => {
+  var sidebar: SideNavItem[];
+  const role = localStorage.getItem("role");
+  switch (role) {
+    case "admin":
+      sidebar = SIDENAV_ADMIN_ITEMS;
+    case "agentserviceachat":
+      sidebar = SIDENAV_AGENT_ITEMS;
+    case "magasinier":
+      sidebar = SIDENAV_MAGASINIER_ITEMS;
+    default:
+      console.error("Invalid role");
+      sidebar = [];
+      break;
+  }
   return (
     <div className="md:w-60 bg-slate-800 h-screen flex-1 fixed border-r hidden md:flex">
       <div className="flex flex-col space-y-6 w-full">
@@ -16,7 +34,7 @@ const SideNav = () => {
           <img src={logo.src} className="w-52" alt="Logo" />
         </div>
         <div className="flex flex-col space-y-2 md:px-6">
-          {SIDENAV_ADMIN_ITEMS.map((item, idx) => {
+          {sidebar.map((item, idx) => {
             return <MenuItem key={idx} item={item} />;
           })}
         </div>
