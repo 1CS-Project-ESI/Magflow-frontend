@@ -5,10 +5,11 @@ import React, { useState } from "react";
 import ajt from "../../../public/assets/icons/Add.svg";
 
 interface AddCommandButtonProps {
+  label: string;
   path: string; 
 }
 
-const AddCommandButton: React.FC<AddCommandButtonProps> = ({ path }) => {
+const AddCommandButton: React.FC<AddCommandButtonProps> = ({ label, path }) => {
   
   const handleClick = () => {
     window.location.href = path;
@@ -27,7 +28,7 @@ const AddCommandButton: React.FC<AddCommandButtonProps> = ({ path }) => {
             height="18"
             style={{ filter: "invert(100%)" }}
           />
-          <span>Ajouter</span>
+          <span>{label}</span>
         </div>
       </button>
     </>

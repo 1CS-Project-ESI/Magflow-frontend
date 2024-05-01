@@ -7,6 +7,7 @@ import {
   SIDENAV_ADMIN_ITEMS,
   SIDENAV_AGENT_ITEMS,
   SIDENAV_MAGASINIER_ITEMS,
+  SIDENAV_CONSOMMATEUR_ITEMS,
 } from "@/constants";
 import { SideNavItem } from "@/types";
 import { Icon } from "@iconify/react";
@@ -18,10 +19,16 @@ const SideNav = () => {
   switch (role) {
     case "admin":
       sidebar = SIDENAV_ADMIN_ITEMS;
+      break;
     case "agentserviceachat":
       sidebar = SIDENAV_AGENT_ITEMS;
+      break;
     case "magasinier":
       sidebar = SIDENAV_MAGASINIER_ITEMS;
+      break;
+    case "consumer":
+      sidebar = SIDENAV_CONSOMMATEUR_ITEMS;
+      break;
     default:
       console.error("Invalid role");
       sidebar = [];

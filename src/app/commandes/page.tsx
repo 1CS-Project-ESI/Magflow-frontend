@@ -30,9 +30,9 @@ const CommandsPage: React.FC = () => {
   return (
     <RootLayout>
       <div className="flex items-center  text-[#2C2D41] justify-between">
-        <div className="text-4xl text-[#2C2D41] font-bold ml-10">BCE</div>
+        <div className="text-4xl text-[#2C2D41] font-bold ml-10">Bons de Commandes Externes</div>
         <div className="flex m-8 text-[#2C2D41] justify-end">
-          <AddCommandButton path="/newCommand" />
+          <AddCommandButton label="Ajouter une commande externe" path="/newCommand" />
         </div>
       </div>
       <div className="m-8 mt-8">

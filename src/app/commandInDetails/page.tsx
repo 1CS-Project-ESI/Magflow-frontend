@@ -2,23 +2,25 @@
 import React, { useState, useEffect } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import RootLayout from "../rootLayout";
-import { Commande } from "@/types";
-import { Product } from "@/types";
-import CommandDetailsTable from "@/components/tables/commandDetailsTable";
+import { CommandeIn, ProductCommandeIn } from "@/types";
+import CommandInDetailsTable from "@/components/tables/commandInDetailsTable";
 import Converter from "@/dateConverter";
 import CommandDetailsPDF from "@/components/pdf/CommandPDF";
 import AddCommandButton from "@/components/buttons/addCommandButton";
 import getToken from "@/utils/getToken";
 interface Props {
-  commands: Commande[];
-  products: Product[];
+  commands: CommandeIn[];
+  products: ProductCommandeIn[];
 }
 
 // link product artcile
 
-const CommandDetails: React.FC = () => {
-  const [command, setCommand] = useState<Commande>();
-  const [products, setProducts] = useState<Product[]>([]);
+const CommandInDetails: React.FC = () => {
+  const [command, setCommand] = useState<CommandeIn>();
+  const [products, setProducts] = useState<ProductCommandeIn[]>([]);
+
+  const role = localStorage.getItem("role");
+  var valid: boolean;
 
   useEffect(() => {
     fetchCommandProduct();
@@ -36,7 +38,7 @@ const CommandDetails: React.FC = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/bons/command/details/${id}`,
+        `http://localhost:4000/api/bons/commandinterne/details/${id}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -65,35 +67,36 @@ const CommandDetails: React.FC = () => {
           Commande numero : <span className="font-bold">{command?.number}</span>
         </div>
         <div className="text-xl mb-4">
-          Etat : <span className="font-bold">{command?.status}</span>
+          Consommateur :{" "}
+          <span className="font-bold">{command?.id_consommateur}</span>
+        </div>
+        <div className="text-xl mb-4">
+          Etat :{" "}
+          <span className="font-bold">
+            {command?.validation === 3 ? <p>Validee</p> : <p>En attente</p>}
+          </span>
         </div>
         <div className="text-xl mb-4">
           Date :{" "}
           <span className="font-bold">
-            <Converter date={command?.orderdate} />
+            <Converter date={command?.date} />
           </span>
-        </div>
-        <div className="text-xl mb-4">
-          Date de livraison :{" "}
-          <span className="font-bold">
-            <Converter date={command?.deliverydate} />
-          </span>
-        </div>
-        <div className="text-xl mb-4">
-          Specifications :{" "}
-          <span className="font-bold">{command?.orderspecifications}</span>
-        </div>
-        <div className="text-xl mb-4">
-          Total TTC : <span className="font-bold">{command?.total_ttc}</span>
         </div>
         <div className="flex justify-between mb-4">
           <div className="text-xl">Produits :</div>
         </div>
-        <CommandDetailsTable products={products} />
+        {(role === "structureresponsable" &&
+          command &&
+          command.validation < 1) ||
+        (role === "magasinier" && command && command.validation < 2) ||
+        (role === "dirctor" && command && command.validation < 3)
+          ? (valid = false)
+          : (valid = true)}
+        <CommandInDetailsTable valid={valid} products={products} />
         {/* <CommandDetailsPDF command={command} products={products} /> */}
         {/* PDF download link */}
         <div className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg w-1/6">
-          <PDFDownloadLink
+          {/* <PDFDownloadLink
             document={
               <CommandDetailsPDF command={command} products={products} />
             }
@@ -102,17 +105,33 @@ const CommandDetails: React.FC = () => {
             {({ blob, url, loading, error }) =>
               loading ? "Loading document..." : "Download PDF"
             }
-          </PDFDownloadLink>
+          </PDFDownloadLink> */}
         </div>
-        <div className="mx-8 rounded-lg w-1/6">
-          <AddCommandButton
-            label="Ajouter un bon de reception"
-            path={`/newReception?id=${command?.id}`}
-          />
-        </div>
+        {!valid ? (
+          <div>
+            <button
+              className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 rounded-lg"
+              onClick={() => {
+                if (command) {
+                  command.validation++;
+                }
+              }}
+            >
+              Valider
+            </button>
+          </div>
+        ) : null}
+        {command && command.validation === 3 ? (
+          <div className="mx-8 rounded-lg w-1/6">
+            <AddCommandButton
+              label="Ajouter un bon de sortie"
+              path={`/newSortie?id=${command?.id}`}
+            />
+          </div>
+        ) : null}
       </div>
     </RootLayout>
   );
 };
 
-export default CommandDetails;
+export default CommandInDetails;
