@@ -53,6 +53,7 @@ export type Product = {
   id?: number;
   name: string;
   caracteristics: string;
+  price: string;
 };
 
 export type Commande = {
@@ -88,7 +89,7 @@ export type Reception={
  export type CommandeIn={
   id: number;
   id_consommateur: number;
-  number: number;
+  number: string;
   date: Date;
   validation: number;
  }
@@ -99,3 +100,21 @@ export type Reception={
   orderedquantity: number;
   accordedquantity: number;
  }
+
+export type BonSorti ={
+id: number;
+id_bonCommandInterne : number;
+id_magasinier : number;
+observation : string;
+service: string;
+date: Date;
+}
+
+export type BonDecharge ={
+  id: number;
+  id_bonCommandInterne : number;
+  id_magasinier : number;
+  observation : string;
+  service: string;
+  date: Date;
+  }

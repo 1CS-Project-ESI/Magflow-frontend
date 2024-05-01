@@ -26,10 +26,13 @@ const styles = StyleSheet.create({
     padding: 20, // Add padding to the page
   },
   head: {
-    fontSize: 26,
-    textAlign: "center",
-    marginBottom: 10,
-    fontWeight: "bold",
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10, // Ajoutez une marge inférieure pour séparer l'en-tête du reste
+  },
+  headerImage: {
+    width: 150, // Ajustez la largeur selon vos besoins
+    height: 50, // Ajustez la hauteur selon vos besoins
   },
   subhead: {
     fontSize: 22,
@@ -95,6 +98,12 @@ const styles = StyleSheet.create({
 const CommandDetailsPDF: React.FC<Props> = ({ command, products }) => (
   <Document>
     <Page size="A4" style={styles.page}>
+    <View style={styles.head}>
+        <Image
+          source={{ uri: "/public/assets/images/entete.png", method: "GET", body: "", headers: "" }}
+          style={styles.headerImage}
+        />
+      </View>
       <View style={styles.section}>
         <Text style={styles.head}>ESI-SBA</Text>
         <Text style={styles.subhead}>Service des Achats</Text>
