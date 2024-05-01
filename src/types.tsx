@@ -18,6 +18,12 @@ export type User = {
   role: string;
 };
 
+export type Consumer = {
+  user_id :string,
+  matricule :string,
+};
+
+
 export interface Archive {
   id: string;
   filename: string;
@@ -50,9 +56,12 @@ export type Article = {
 };
 
 export type Product = {
+  quantity: string | number | readonly string[] | undefined;
   id?: number;
   name: string;
   caracteristics: string;
+  price:string | number | readonly string[] | undefined;
+  seuil: string | number | readonly string[] | undefined;
 };
 
 export type Commande = {
@@ -99,3 +108,27 @@ export type Reception={
   orderedquantity: number;
   accordedquantity: number;
  }
+
+
+ export type Structure = {
+  id: number;
+  name: string;
+  responsable_Name: string;
+};
+
+
+/* li zdhom krimou */
+export type ProduitBCI = {
+  id_BCI: number;
+  id: number;
+  orderedQuantity: number;
+  accordeQuantity: number;
+};
+export type BCI = {
+  id: number;
+  num: number;
+  date: Date;
+  phone: number;
+  Validation: number;
+};
+
