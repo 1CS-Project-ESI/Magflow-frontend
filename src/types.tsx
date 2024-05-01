@@ -84,3 +84,18 @@ export type Reception={
   number: number;
   deliverydate: Date;
  }
+
+ export type CommandeIn={
+  id: number;
+  id_consommateur: number;
+  number: number;
+  date: Date;
+  validation: number;
+ }
+
+ export type ProductCommandeIn={
+  id_produit: number;
+  id_boncommandeinterne: number;
+  orderedquantity: number;
+  accordedquantity: number;
+ }

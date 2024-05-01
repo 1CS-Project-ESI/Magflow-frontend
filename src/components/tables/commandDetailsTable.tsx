@@ -8,15 +8,9 @@ interface Props {
   products: Product[];
 }
 
-// link to delete a product 
-
-
+// link to delete a product
 
 const CommandDetailsTable: React.FC<Props> = ({ products }) => {
-
-
-
-
   return (
     //Table des produits de cette commande
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
@@ -27,7 +21,6 @@ const CommandDetailsTable: React.FC<Props> = ({ products }) => {
             <th className="px-4 py-2 font-light hidden md:table-cell">
               Caracteristiques
             </th>
-            <th className="px-4 py-2 font-light hidden md:table-cell">Prix</th>
           </tr>
         </thead>
         <tbody>
@@ -38,9 +31,6 @@ const CommandDetailsTable: React.FC<Props> = ({ products }) => {
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {product.caracteristics}
-              </td>
-              <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
-                {product.price}
               </td>
             </tr>
           ))}

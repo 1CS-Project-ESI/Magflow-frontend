@@ -77,13 +77,28 @@ export const SIDENAV_AGENT_ITEMS: SideNavItem[] = [
 
 export const SIDENAV_MAGASINIER_ITEMS: SideNavItem[] = [
   {
-    title: "Commandes",
+    title: "Commandes Externes",
     path: "/commandes",
     icon: <img src={cmd.src} width="18" height="18" />,
   },
   {
     title: "Receptions",
     path: "/receptions",
+    icon: <img src={cmd.src} width="18" height="18" />,
+  },
+  {
+    title: "Commandes Internes",
+    path: "/commandesIn",
+    icon: <img src={cmd.src} width="18" height="18" />,
+  },
+  {
+    title: "Sorties",
+    path: "/sorties",
+    icon: <img src={cmd.src} width="18" height="18" />,
+  },
+  {
+    title: "Decharges",
+    path: "/decharges",
     icon: <img src={cmd.src} width="18" height="18" />,
   },
   {
@@ -100,6 +115,60 @@ export const SIDENAV_MAGASINIER_ITEMS: SideNavItem[] = [
     title: "Produits",
     path: "/produits",
     icon: <img src={prd.src} width="18" height="18" />,
+  },
+  {
+    title: "Statistiques",
+    path: "/stats",
+    icon: <img src={back.src} width="18" height="18" />,
+  },
+  {
+    title: "Parametres",
+    path: "/settingsAgent",
+    icon: <img src={param.src} width="18" height="18" />,
+  },
+];
+
+export const SIDENAV_RESPON_ITEMS: SideNavItem[] = [
+  {
+    title: "Commandes Internes",
+    path: "/commandesIn",
+    icon: <img src={cmd.src} width="18" height="18" />,
+  },
+  {
+    title: "Statistiques",
+    path: "/stats",
+    icon: <img src={back.src} width="18" height="18" />,
+  },
+  {
+    title: "Parametres",
+    path: "/settingsAgent",
+    icon: <img src={param.src} width="18" height="18" />,
+  },
+];
+
+export const SIDENAV_DIRECTOR_ITEMS: SideNavItem[] = [
+  {
+    title: "Commandes Internes",
+    path: "/commandesIn",
+    icon: <img src={cmd.src} width="18" height="18" />,
+  },
+  {
+    title: "Statistiques",
+    path: "/stats",
+    icon: <img src={back.src} width="18" height="18" />,
+  },
+  {
+    title: "Parametres",
+    path: "/settingsAgent",
+    icon: <img src={param.src} width="18" height="18" />,
+  },
+];
+
+export const SIDENAV_CONSOMMATEUR_ITEMS: SideNavItem[] = [
+  {
+    title: "Commandes Internes",
+    path: "/commandesIn",
+    icon: <img src={cmd.src} width="18" height="18" />,
   },
   {
     title: "Statistiques",
