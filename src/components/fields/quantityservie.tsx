@@ -2,12 +2,12 @@ import Image from "next/image";
 import Passw from "../../../public/assets/icons/edit.svg";
 import Link from "next/link";
 import { useState } from "react";
-import { ProduitBCI } from "@/types";
+import { ProductCommandeIn, ProduitBCI } from "@/types";
 import inc from "../../../public/assets/icons/Increment.svg";
 import dec from "../../../public/assets/icons/Decrement.svg";
 
 interface Props {
-  ProduitBCI: ProduitBCI;
+  ProduitBCI: ProductCommandeIn;
 }
 
 const QuantityServie: React.FC<Props> = ({ ProduitBCI }) => {

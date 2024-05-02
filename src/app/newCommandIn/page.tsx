@@ -93,7 +93,7 @@ const Page = () => {
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-8 m-8 rounded-md">
         <h1 className="text-3xl mx-8">Nouvelle Commande Interne</h1>
         <select
-              className="border border-gray-300 rounded-md p-2 w-2/3"
+              className="border border-gray-300 rounded-md mx-8 p-2 w-2/3"
               value={typecommande}
               onChange={(e) => setTypeCommand(e.target.value)}
             >

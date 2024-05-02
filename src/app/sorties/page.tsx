@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import BonTable from "@/components/tables/sortiesTable";;
 import RootLayout from "../rootLayout";
+import { Sortie } from "@/types";
 
 const CommandsPage: React.FC = () => {
   const [bons, setCommands] = useState([]);
@@ -30,10 +31,10 @@ const CommandsPage: React.FC = () => {
   return (
     <RootLayout>
     <div className="flex items-center  text-[#2C2D41] justify-between">
-      <div className="text-4xl text-[#2C2D41] font-bold ml-10">Bons de Sorti</div>
+      <div className="text-4xl text-[#2C2D41] font-bold m-8">Bons de Sorties</div>
     </div>
     <div className="m-8 mt-8">
-      <BonTable Bons={bons} />
+      <BonTable bons={bons} />
     </div>
   </RootLayout>
   );

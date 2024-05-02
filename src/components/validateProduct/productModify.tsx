@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Commande } from "@/types";
+import { Commande, CommandeIn, ProductCommandeIn } from "@/types";
 import dlt from "../../../public/assets/icons/delete.svg";
 import Converter from "@/dateConverter";
 import { ProduitBCI } from "@/types";
@@ -12,12 +12,10 @@ import QuantityServie from "../fields/quantityservie";
 import { useState } from "react";
 
 interface Props {
-  BCIs: BCI[];
-  ProduitsBCI: ProduitBCI[];
-  Products: Product[];
+  ProduitsBCI: ProductCommandeIn[];
 }
 
-const ProduitServie: React.FC<Props> = ({ BCIs, ProduitsBCI, Products }) => {
+const ProduitServie: React.FC<Props> = ({  ProduitsBCI}) => {
   return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -33,7 +31,7 @@ const ProduitServie: React.FC<Props> = ({ BCIs, ProduitsBCI, Products }) => {
           </tr>
         </thead>
         <tbody>
-          {Products.map((Product, productIndex) => (
+          {ProduitsBCI.map((Product, productIndex) => (
             <tr
               key={productIndex}
               className="border-b text-[#2C2D41] border-gray-200"
@@ -42,7 +40,7 @@ const ProduitServie: React.FC<Props> = ({ BCIs, ProduitsBCI, Products }) => {
                 {Product.name}
               </td>
               {ProduitsBCI.map((ProduitBCI, produitIndex) => {
-                if (ProduitBCI.id === Product.id) {
+                if (ProduitBCI.id_produit === Product.id_produit) {
                   const [observation, setObservation] = useState("");
 
                   const handleObservationChange = (event: {

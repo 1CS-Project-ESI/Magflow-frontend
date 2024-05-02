@@ -129,6 +129,15 @@ export type ProduitBCI = {
   orderedQuantity: number;
   accordeQuantity: number;
 };
+export type Sortie = {
+  id: number;
+  id_boncommandeinterne: number;
+  id_magasinier: number;
+  observation: string;
+  date: Date;
+  service: string;
+};
+
 export type BCI = {
   id: number;
   num: number;
@@ -136,5 +145,7 @@ export type BCI = {
   phone: number;
   Validation: number;
 };
+
+
 
 
