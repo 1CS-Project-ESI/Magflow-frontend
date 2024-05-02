@@ -2,11 +2,11 @@
 
 import React from "react";
 import Link from "next/link";
-import { CommandeInter } from "@/types";
+import { CommandeIn } from "@/types";
 import Converter from "@/dateConverter";
 
 interface Props {
-    commandes: CommandeInter[];
+    commandes: CommandeIn[];
   }
   
   const CommandesTable: React.FC<Props> = ({ commandes }) => {

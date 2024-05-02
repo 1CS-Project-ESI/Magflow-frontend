@@ -9,7 +9,7 @@ interface Props {
     Bons: BonSorti[];
   }
   
-  const CommandesTable: React.FC<Props> = ({ Bons }) => {
+const CommandesTable: React.FC<Props> = ({ Bons }) => {
     return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -51,7 +51,7 @@ interface Props {
             <td className="border-t bg-white text-center px-2 py-1 md:table-cell flex items-center justify-center">
               <Link
                 href={{
-                  // pathname: "/commandDetails",
+                  // pathname: "/newBonDeSortie",
                   // query: { id: commande.id },
                 }}
                 className="text-gray-500 font-bold"
