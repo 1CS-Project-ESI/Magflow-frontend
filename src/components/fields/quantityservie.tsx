@@ -11,7 +11,7 @@ interface Props {
 }
 
 const QuantityServie: React.FC<Props> = ({ ProduitBCI }) => {
-  const [quantity, setQuantity] = useState(ProduitBCI.orderedQuantity);
+  const [quantity, setQuantity] = useState(ProduitBCI.accordedQuantity);
   const minQuantity = 0;
 
   const handleChange = (event: { target: { value: string } }) => {
@@ -24,7 +24,7 @@ const QuantityServie: React.FC<Props> = ({ ProduitBCI }) => {
   };
 
   const incrementQuantity = () => {
-    setQuantity(Math.min(quantity + 1, ProduitBCI.orderedQuantity));
+    setQuantity(Math.min(quantity + 1, ProduitBCI.accordedQuantity));
   };
 
   const decrementQuantity = () => {
