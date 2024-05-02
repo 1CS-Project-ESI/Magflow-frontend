@@ -17,9 +17,13 @@ const Page = () => {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null); 
   const [articleId, setArticleId] = useState<string>('');
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
+  const [fournisseurs, setFournisseurs] = useState<Fournisseur[]>([]);
+  const [selectedFournisseur, setSelectedFournisseur] = useState<Fournisseur | null>(null); 
+  const [fournisseurId, setFournisseurId] = useState<string>('');
+  const [selectedFournisseurId, setSelectedFournisseurId] = useState<string | null>(null);
   const [products, setProducts] = useState<Product[]>([]); 
   const [selectedOptions, setSelectedOptions] = useState<
-    {chapter: Chapter | null; article: Article | null; product: Product | null; price: number; quantity: number }[]
+    {chapter: Chapter | null; article: Article | null; product: Product | null; fournisseur: Fournisseur | null; price: number; quantity: number }[]
   >([]);
 
   useEffect(() => {
@@ -124,6 +128,51 @@ const fetchArticleProducts = async (articleId: string) => {
   }
 };
 
+useEffect(() => {
+  if (selectedChapterId !== null) {
+    console.log("final consol of  id chapter ",selectedChapterId)
+    fetchChapterFournisseurs(selectedChapterId);
+  }
+}, [selectedChapterId]);
+
+const fetchChapterFournisseurs = async (chapterId: string) => {
+  const accessToken = await getToken();
+  console.log("id of chapter selected ",chapterId );
+
+  try {
+    const response = await fetch(`http://localhost:4000/api/fournisseur/fournisseurschapter/${chapterId}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const fournisseurs = data;
+      console.log(fournisseurs);
+      setFournisseurs(fournisseurs);
+    } else {
+      console.error("Failed to fetch chapter fournisseurs:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error fetching chapter fournisseurs:", error);
+  }
+};
+
+
+
+const handleSelectedFournisseur = (fournisseur : Fournisseur | null) => {
+  setSelectedFournisseur(fournisseur);
+  if (fournisseur) {
+    setFournisseurId(fournisseur.id?.toString() || '');
+    setSelectedFournisseurId(fournisseur.id?.toString() || null);
+  } else {
+    setFournisseurId('');
+    setSelectedFournisseurId(null);
+  }
+};
+
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -145,11 +194,14 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
   const status =  "pending" ;
-  const productDetails = selectedOptions.map((option) => ({
+  const productsOrdered = selectedOptions.map((option) => ({
     productId: option.product?.id,
-    orderedQuantity: option.quantity,
+    ordered_quantity: option.quantity,
+    price: option.price,
   }));
   const orderspecifications = "Example command for linking";
+  const id_fournisseur = selectedFournisseur?.id;
+  console.log("this is the id of the slected fournisseur ",selectedFournisseur?.id)
   try {
     const response = await fetch(`http://localhost:4000/api/bons/create/${id}`, {
       method: 'POST',
@@ -160,10 +212,10 @@ const handleSubmit = async (e: React.FormEvent) => {
       body: JSON.stringify({
         number,
         orderdate,
-        deliverydate,
         orderspecifications,
         status,
-        productDetails,
+        productsOrdered,
+        id_fournisseur,
       }),
       
     });
@@ -191,12 +243,15 @@ const handleSubmit = async (e: React.FormEvent) => {
             chapters={chapters}
             articles={articles}
             products={products}
+            fournisseurs={fournisseurs}
             selectedOptions={selectedOptions}
             setSelectedOptions={setSelectedOptions}
             onSelectChapter={handleSelectdChapter}
             setSelectedChapterId={setSelectedChapterId}
             onSelectArticle={handleSelectedArticle}
             setSelectedArticleId={setSelectedArticleId}
+            onSelectFournisseur={handleSelectedFournisseur}
+            setSelectedFournisseurId={setSelectedFournisseurId}
           />
         <div className="w-full flex justify-end">
           <button
@@ -204,12 +259,12 @@ const handleSubmit = async (e: React.FormEvent) => {
            
           >
             <div className="flex items-center space-x-2"  onClick={handleSubmit}>
-              <img
+              {/* <img
                 src={save.src}
                 width="18"
                 height="18"
                 style={{ filter: "invert(100%)" }}
-              />{" "}
+              />{" "} */}
              <span>Enregistrer</span>  
             </div>
           </button>

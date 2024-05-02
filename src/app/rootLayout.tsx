@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`bg-white${inter.className}`}>
-        <div className="flex">
+        <div className="flex text-[#2C2D41]">
           <SideNav />
           <main className="flex-1">
             <MarginWidthWrapper>

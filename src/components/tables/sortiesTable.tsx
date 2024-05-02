@@ -2,14 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { BonDecharge} from "@/types";
+import { BonSorti} from "@/types";
 import Converter from "@/dateConverter";
 
 interface Props {
-    Bons: BonDecharge[];
+    Bons: BonSorti[];
   }
   
-const CommandesTable: React.FC<Props> = ({ Bons }) => {
+const SortiesTable: React.FC<Props> = ({ Bons }) => {
     return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -51,12 +51,12 @@ const CommandesTable: React.FC<Props> = ({ Bons }) => {
             <td className="border-t bg-white text-center px-2 py-1 md:table-cell flex items-center justify-center">
               <Link
                 href={{
-                  // pathname: "/newBonDecharge",
+                  // pathname: "/newBonDeSortie",
                   // query: { id: commande.id },
                 }}
                 className="text-gray-500 font-bold"
               >
-                Details du BON decharge {">>"}
+                Details du bon de sortie {">>"}
               </Link>
             </td>
           </tr> 
@@ -67,4 +67,4 @@ const CommandesTable: React.FC<Props> = ({ Bons }) => {
   );
 };
 
-export default CommandesTable;
+export default SortiesTable;

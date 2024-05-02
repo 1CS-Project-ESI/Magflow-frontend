@@ -77,6 +77,7 @@ export type Fournisseur = {
   rc: string;
   nif: number;
   rib: string;
+  id_chapitre: number;
 };
 
 export type Reception={
@@ -92,13 +93,15 @@ export type Reception={
   number: string;
   date: Date;
   validation: number;
+  typecommande: string;
  }
 
  export type ProductCommandeIn={
+  name: string;
   id_produit: number;
   id_boncommandeinterne: number;
-  orderedquantity: number;
-  accordedquantity: number;
+  orderedQuantity: number;
+  accordedQuantity: number;
  }
 
 export type BonSorti ={

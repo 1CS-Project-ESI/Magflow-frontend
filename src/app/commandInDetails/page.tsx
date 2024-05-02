@@ -87,16 +87,16 @@ const CommandInDetails: React.FC = () => {
         </div>
         {(role === "structureresponsable" &&
           command &&
-          command.validation < 1) ||
-        (role === "magasinier" && command && command.validation < 2) ||
-        (role === "dirctor" && command && command.validation < 3)
+          command.validation === 0) ||
+        (role === "magasinier" && command && command.validation === 2) ||
+        (role === "director" && command && command.validation === 1)
           ? (valid = false)
           : (valid = true)}
         <CommandInDetailsTable valid={valid} products={products} />
         {/* <CommandDetailsPDF command={command} products={products} /> */}
         {/* PDF download link */}
-        <div className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg w-1/6">
-          {/* <PDFDownloadLink
+        {/* <div className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg w-1/6">
+          <PDFDownloadLink
             document={
               <CommandDetailsPDF command={command} products={products} />
             }
@@ -105,12 +105,12 @@ const CommandInDetails: React.FC = () => {
             {({ blob, url, loading, error }) =>
               loading ? "Loading document..." : "Download PDF"
             }
-          </PDFDownloadLink> */}
-        </div>
+          </PDFDownloadLink>
+        </div> */}
         {!valid ? (
           <div>
             <button
-              className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 rounded-lg"
+              className="bg-purple-950 text-white hover:bg-black font-medium mt-8 py-2 px-4 rounded-lg"
               onClick={() => {
                 if (command) {
                   command.validation++;
@@ -121,14 +121,36 @@ const CommandInDetails: React.FC = () => {
             </button>
           </div>
         ) : null}
-        {command && command.validation === 3 ? (
-          <div className="mx-8 rounded-lg w-1/6">
-            <AddCommandButton
-              label="Ajouter un bon de sortie"
-              path={`/newSortie?id=${command?.id}`}
-            />
-          </div>
-        ) : null}
+        {role === "magasinier" && command && command.validation === 3 && (
+          <>
+            {(() => {
+              switch (command.typecommande) {
+                case "Commande Interne":
+                  return (
+                    <div className="m-8 rounded-lg w-1/3">
+                      <AddCommandButton
+                        label="Ajouter un bon de sortie"
+                        path={`/newSortie?id=${command?.id}`}
+                      />
+                    </div>
+                  );
+                  break;
+                case "Commande Decharges":
+                  return (
+                    <div className="m-8 rounded-lg w-1/3">
+                      <AddCommandButton
+                        label="Ajouter un bon de decharge"
+                        path={`/newDecharge?id=${command?.id}`}
+                      />
+                    </div>
+                  );
+                  break;
+                default:
+                  return null;
+              }
+            })()}
+          </>
+        )}
       </div>
     </RootLayout>
   );
