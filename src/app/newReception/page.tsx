@@ -10,51 +10,60 @@ import getToken from "@/utils/getToken";
 import UserID from "@/utils/getID";
 
 const Page = () => {
-  const [commands, setCommands] = useState<Commande[]>([]);
-  const [selectedCommand, setSelectedCommand] = useState<Commande | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [deliveryQuantities, setDeliveryQuantities] = useState<number[]>([]);
 
   const [selectedOptions, setSelectedOptions] = useState<
     {
-      command: Commande | null;
       product: Product | null;
       deliveredQuantity: number;
     }[]
   >([]);
 
-  useEffect(() => {
-    fetchCommands();
-  }, []);
+  // useEffect(() => {
+  //   fetchCommands();
+  // }, []);
 
-  const fetchCommands = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/api/bons/allcommands");
-      const data = await response.json();
-      if (response.ok) {
-        setCommands(data.commands);
-      } else {
-        console.error("Error fetching commands:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error fetching commands:", error);
-    }
-  };
+  // const fetchCommands = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:4000/api/bons/allcommands");
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       setCommands(data.commands);
+  //     } else {
+  //       console.error("Error fetching commands:", response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching commands:", error);
+  //   }
+  // };
   
-  const handleSelectCommand = (command: Commande | null) => {
-    setSelectedCommand(command);
-    if (command) {
-      console.log("this is the selected commands  command.id",command.id);
-      fetchCommandProducts(command.id.toString());
-    } else {
-      setProducts([]);
+  // const handleSelectCommand = (command: Commande | null) => {
+  //   if (command) {
+  //     console.log("this is the selected commands  command.id",command.id);
+  //     fetchCommandProducts(command.id.toString());
+  //   } else {
+  //     setProducts([]);
+  //   }
+  // };
+
+  useEffect(() => {
+      fetchCommandProducts();
+    }, []);
+  
+
+
+  const fetchCommandProducts = async () => {
+    const accessToken = await getToken();
+    const url = new URL(window.location.href);
+    const idString = url.searchParams.get("id");
+    let id = null;
+
+    if (idString !== null) {
+      id = parseInt(idString, 10);
     }
-  };
-
-
-  const fetchCommandProducts = async (selectedCommand: string) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/bons/commandproducts/${selectedCommand}`);
+      const response = await fetch(`http://localhost:4000/api/bons/commandproducts/${id}`);
       if (response.ok) {
         const data = await response.json();
         console.log("this is the data.products",data.products);
@@ -86,7 +95,6 @@ const Page = () => {
     const orderdate = now.toISOString().substring(0, 10);
     const randomNumber = Math.floor(Math.random() * 900000) + 100000;
     const number = `${randomNumber}`;
-    const commandId = selectedCommand?.id.toString() || "";
     const DeliveryDate = new Date(now);
     DeliveryDate.setDate(DeliveryDate.getDate());
     const deliverydate = DeliveryDate.toISOString().substring(0, 10);
@@ -100,11 +108,9 @@ const Page = () => {
      console.log("the user with is has a magatiner role",id);
     console.log("this is the products array ",products);
     console.log("this is receivedQuantities",deliveryQuantities);
-    console.log("this is the commadn it saletdt ",commandId)
     
     const formData = {
       number,
-      commandId,
       deliverydate,
       products,
       deliveryQuantities,
@@ -140,12 +146,10 @@ return (
     <div className="bg-white border border-gray-300 grid grid-cols-1 p-8 m-8 rounded-md">
       <h1 className="text-2xl mx-8">Nouvelle Reception</h1>
       <OptionSelection
-          commands={commands}
           products={products}
           selectedOptions={selectedOptions}
           setSelectedOptions={setSelectedOptions} // Pass the prop here
           onDeliveryQuantityChange={handleDeliveryQuantityChange}
-          onSelectCommand={handleSelectCommand}
         />
 
       <div className="w-full flex justify-end">
