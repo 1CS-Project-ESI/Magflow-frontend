@@ -6,7 +6,7 @@ import PopupForm from "../popups/addAccount";
 import ajt from "../../../public/assets/icons/Add.svg";
 
 interface AjoutButtonProps {
-  showPopup: boolean; 
+  showPopup: boolean;
 }
 
 const AjoutButton: React.FC<AjoutButtonProps> = ({ showPopup }) => {
@@ -34,7 +34,10 @@ const AjoutButton: React.FC<AjoutButtonProps> = ({ showPopup }) => {
       </button>
       {showPopup && isPopupVisible && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-          <PopupForm onClose={togglePopup} />
+          <PopupForm
+            onClose={togglePopup}
+            structures={[{ id: 0, name: "333", responsable_Name: "ffff" }]}
+          />
         </div>
       )}
     </>
@@ -42,4 +45,3 @@ const AjoutButton: React.FC<AjoutButtonProps> = ({ showPopup }) => {
 };
 
 export default AjoutButton;
-
