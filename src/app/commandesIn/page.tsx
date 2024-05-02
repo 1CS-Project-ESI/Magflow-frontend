@@ -11,12 +11,13 @@ const CommandsPage: React.FC = () => {
     const fetchCommands = async () => {
       try {
         const role = localStorage.getItem("role");
+        console.log("this is the role from ",role)
         if (role !== null) {
           const url = new URL(
             "http://localhost:4000/api/bons/getAllBonCommandInterneFFordirectorMagazinier"
           );
           url.searchParams.append("role", role);
-
+          console.log(url)
           const response = await fetch(url);
 
           const data = await response.json();
