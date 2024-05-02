@@ -153,7 +153,7 @@ const CommandInDetails: React.FC = () => {
        
         {role === "magasinier" &&
           command &&
-          command.validation === 3 &&
+          command.validation >= 3 &&
           valid && (
             <>
               {(() => {

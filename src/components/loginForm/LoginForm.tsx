@@ -47,7 +47,7 @@ const LoginForm: React.FC = () => {
     console.log("role is ",role);
 
     
-
+///commandesIn
     switch (role) {
       case 'admin':
         window.location.href = 'comptes/';
@@ -58,12 +58,15 @@ const LoginForm: React.FC = () => {
       case 'magasinier':
         window.location.href = 'receptions/';
         break;
+        case 'structureresponsable':
+        window.location.href = 'commandesIn/';
+        break;
       default:
         console.error('Invalid role');
     }
   
   
-      console.log('Login successful:', data); window.location.href = 'commandes/';
+      // console.log('Login successful:', data); window.location.href = 'commandes/';
   
 
     
