@@ -60,8 +60,10 @@ export type Product = {
   id?: number;
   name: string;
   caracteristics: string;
+
   price:string | number | readonly string[] | undefined;
   seuil: string | number | readonly string[] | undefined;
+
 };
 
 export type Commande = {
@@ -85,6 +87,7 @@ export type Fournisseur = {
   rc: string;
   nif: number;
   rib: string;
+  id_chapitre: number;
 };
 
 export type Reception={
@@ -97,16 +100,18 @@ export type Reception={
  export type CommandeIn={
   id: number;
   id_consommateur: number;
-  number: number;
+  number: string;
   date: Date;
   validation: number;
+  typecommande: string;
  }
 
  export type ProductCommandeIn={
+  name: string;
   id_produit: number;
   id_boncommandeinterne: number;
-  orderedquantity: number;
-  accordedquantity: number;
+  orderedQuantity: number;
+  accordedQuantity: number;
  }
 
 
@@ -131,4 +136,5 @@ export type BCI = {
   phone: number;
   Validation: number;
 };
+
 
