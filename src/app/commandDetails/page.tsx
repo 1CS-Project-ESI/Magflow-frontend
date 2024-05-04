@@ -59,6 +59,36 @@ const CommandDetails: React.FC = () => {
     }
   };
 
+  const handleSavePDF = async () => {
+    try {
+      const url = new URL(window.location.href);
+      const idString = url.searchParams.get("id");
+      let id = null;
+
+      if (idString !== null) {
+        id = parseInt(idString, 10);
+      }
+      const pdfUrl = new URL(
+        `http://localhost:4000/api/pdf//pdfboncommande/${id}`
+      );
+      const pdfResponse = await fetch(pdfUrl.toString());
+
+      if (pdfResponse.ok) {
+        const blob = await pdfResponse.blob();
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `bon-sortie-${id}.pdf`;
+        link.click();
+        URL.revokeObjectURL(link.href); // Clean up memory leak
+        console.log("PDF generated successfully and downloaded.");
+      } else {
+        console.error("Failed to generate PDF. Error:", pdfResponse.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching bonSortie data or generating PDF:", error);
+    }
+  };
+
   return (
     <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
@@ -113,7 +143,10 @@ const CommandDetails: React.FC = () => {
               Total TTC :{" "}
               <span className="font-bold">{command?.total_ttc}</span>
             </div>
-            <button className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg">
+            <button
+              className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg"
+              onClick={handleSavePDF}
+            >
               <div className="flex items-center space-x-2">
                 <img
                   src={save.src}
