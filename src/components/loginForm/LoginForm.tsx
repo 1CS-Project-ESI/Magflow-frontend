@@ -56,9 +56,15 @@ const LoginForm: React.FC = () => {
         window.location.href = 'commandes/';
         break;
       case 'magasinier':
-        window.location.href = 'receptions/';
+        window.location.href = 'commandesIn/';
         break;
-        case 'structureresponsable':
+      case 'structureresponsable':
+        window.location.href = 'commandesIn/';
+        break;
+      case 'director':
+        window.location.href = 'commandesIn/';
+        break;
+      case 'consumer':
         window.location.href = 'commandesIn/';
         break;
       default:
