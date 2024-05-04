@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const withAuth = (WrappedComponent, allowedRoles = []) => {
   const AuthComponent = (props) => {
