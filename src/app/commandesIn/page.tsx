@@ -88,12 +88,20 @@ const CommandsPage: React.FC = () => {
           url = new URL(
             "http://localhost:4000/api/bons/getAllBonCommandInterneFFordirectorMagazinier"
           );
+
           url.searchParams.append("role", role); 
          console.log(url)
-        } else {
+
+        } else if (role === "structureresponsable") {
+
           const id_structureresponsable = localStorage.getItem("id");
           url = new URL(
             `http://localhost:4000/api/bons/allcomandsforresposnable/${id_structureresponsable}`
+          );
+        } else  {
+          const id_consumer = localStorage.getItem("id");
+          url = new URL(
+            `http://localhost:4000/api/bons/allcomandsforresposnable/${id_consumer}`
           );
         }
 

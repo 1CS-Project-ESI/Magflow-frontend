@@ -63,7 +63,7 @@ const Page = () => {
     
     try {
       const response = await fetch(
-        `http://localhost:4000/api/bons/create-bon-commande-interne/${id}`,
+        `http://localhost:4000/api/bons/create-bon-sortie/${id}`,
         {
           method: "POST",
           headers: {

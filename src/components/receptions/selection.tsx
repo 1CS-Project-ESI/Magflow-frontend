@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 // import React, { useState } from "react";
 // import { Product, Commande } from "@/types";
@@ -177,35 +177,28 @@ import ajt from "../../../public/assets/icons/Add.svg";
 import dlt from "../../../public/assets/icons/delete.svg";
 
 interface OptionSelectionProps {
-  commands: Commande[];
   products: Product[];
   selectedOptions: {
-    command: Commande | null;
     product: Product | null;
     deliveredQuantity: number;
   }[];
   setSelectedOptions: React.Dispatch<
     React.SetStateAction<
       {
-        command: Commande | null;
         product: Product | null;
         deliveredQuantity: number;
       }[]
     >
   >;
   onDeliveryQuantityChange: (index: number, value: number) => void;
-  onSelectCommand: (command: Commande | null) => void;
 }
 
 const OptionSelection: React.FC<OptionSelectionProps> = ({
-  commands,
   products,
   selectedOptions,
   setSelectedOptions,
   onDeliveryQuantityChange,
-  onSelectCommand,
 }) => {
-  const [selectedCommandId, setSelectedCommandId] = useState<string>("");
   const [selectedProductId, setSelectedProductId] = useState<string>("");
   const [deliveredQuantity, setDeliveredQuantity] = useState<number>(0);
 
@@ -223,19 +216,15 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
   // };
 
   const handleAddOption = () => {
-    if (selectedCommandId && selectedProductId) {
-      const command = commands.find(
-        (command) => command.id?.toString() === selectedCommandId
-      );
+    if (selectedProductId) {
       const product = products.find(
         (product) => product.id?.toString() === selectedProductId
       );
-      if (command && product) {
+      if (product) {
         setSelectedOptions((prevOptions) => [
           ...prevOptions,
-          { command, product, deliveredQuantity },
+          { product, deliveredQuantity },
         ]);
-        setSelectedCommandId("");
         setSelectedProductId("");
         setDeliveredQuantity(0); // Reset deliveredQuantity
       }
@@ -253,26 +242,6 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
   return (
     <div className="bg-white border border-gray-300 p-8 m-8 rounded-md">
       <div className="flex items-center m-8">
-        <div className="flex-1 mr-4">
-          <select
-            className="border border-gray-300 rounded-md p-2 w-full"
-            value={selectedCommandId}
-            onChange={(e) => {
-              const selectedCommand = commands.find(
-                (command) => command.id?.toString() === e.target.value
-              );
-              onSelectCommand(selectedCommand || null);
-              setSelectedCommandId(e.target.value);
-            }}
-          >
-            <option value="">Commande</option>
-            {commands?.map((article) => (
-              <option key={article.id} value={article.id?.toString()}>
-                {article.id}
-              </option>
-            ))}
-          </select>
-        </div>
         <div className="flex-1 mr-4">
           <select
             className="border border-gray-300 rounded-md p-2 w-full"
@@ -330,12 +299,21 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
 
                 <input
                   type="number"
-                  placeholder="Quantite Livrée" // Label changed to Quantite Livrée
+                  placeholder="Quantite Livrée"
                   className="border border-gray-300 rounded-md p-2 w-full"
-                  value={option.deliveredQuantity} // Changed here
-                  onChange={(e) =>
-                    handleQuantityChange(index, parseInt(e.target.value))
-                  }
+                  value={option.deliveredQuantity || ""}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value);
+                    handleQuantityChange(index, value);
+                    setSelectedOptions((prevOptions) => {
+                      const newOptions = [...prevOptions];
+                      newOptions[index] = {
+                        ...newOptions[index],
+                        deliveredQuantity: value,
+                      };
+                      return newOptions;
+                    });
+                  }}
                 />
               </th>
               <th className="bg-white text-center px-4 py-4">
