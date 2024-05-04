@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import RootLayout from "../rootLayout";
-import { Commande } from "@/types";
+import { Commande, ProductCommande } from "@/types";
 import { Product } from "@/types";
 import CommandDetailsTable from "@/components/tables/commandDetailsTable";
 import Converter from "@/dateConverter";
@@ -11,14 +11,14 @@ import AddCommandButton from "@/components/buttons/addCommandButton";
 import getToken from "@/utils/getToken";
 interface Props {
   commands: Commande[];
-  products: Product[];
+  products: ProductCommande[];
 }
 
 // link product artcile
 
 const CommandDetails: React.FC = () => {
   const [command, setCommand] = useState<Commande>();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductCommande[]>([]);
 
   useEffect(() => {
     fetchCommandProduct();
@@ -92,7 +92,7 @@ const CommandDetails: React.FC = () => {
         <CommandDetailsTable products={products} />
         {/* <CommandDetailsPDF command={command} products={products} /> */}
         {/* PDF download link */}
-        <div className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg w-1/6">
+        {/* <div className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg w-1/6">
           <PDFDownloadLink
             document={
               <CommandDetailsPDF command={command} products={products} />
@@ -103,7 +103,7 @@ const CommandDetails: React.FC = () => {
               loading ? "Loading document..." : "Download PDF"
             }
           </PDFDownloadLink>
-        </div>
+        </div> */}
         <div className="mx-8 rounded-lg w-1/6">
           <AddCommandButton
             label="Ajouter un bon de reception"
