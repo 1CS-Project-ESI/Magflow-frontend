@@ -79,6 +79,14 @@ export type Commande = {
   id_agentserviceachat: number;
 };
 
+export type ProductCommande={
+  name: string;
+  id_produit: number;
+  id_boncommande: number;
+  ordered_quantity: number;
+  price: number;
+ }
+
 export type Fournisseur = {
   id: number;
   name: string;
