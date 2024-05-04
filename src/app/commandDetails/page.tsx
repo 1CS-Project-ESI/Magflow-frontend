@@ -72,7 +72,7 @@ const CommandDetails: React.FC = () => {
         id = parseInt(idString, 10);
       }
       const pdfUrl = new URL(
-        `http://localhost:4000/api/pdf//pdfboncommande/${id}`
+        `http://localhost:4000/api/pdf/pdfboncommande/${id}`
       );
       const pdfResponse = await fetch(pdfUrl.toString());
 
