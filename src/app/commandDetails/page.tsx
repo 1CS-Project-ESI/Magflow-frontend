@@ -95,6 +95,7 @@ const CommandDetails: React.FC = () => {
   return (
     <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
+        <h1 className="text-4xl font-bold flex justify-center">Commande Externe</h1>
         <div className="text-xl mb-4">
           Commande numero : <span className="font-bold">{command?.number}</span>
         </div>
