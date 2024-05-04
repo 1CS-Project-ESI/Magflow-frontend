@@ -2,9 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import RootLayout from "../rootLayout";
-import { Commande, ProductCommande } from "@/types";
+import { Commande, ProductCommande, Reception } from "@/types";
 import { Product } from "@/types";
 import CommandDetailsTable from "@/components/tables/commandDetailsTable";
+import Receptiontable from "@/components/tables/receptionsTable";
 import Converter from "@/dateConverter";
 import CommandDetailsPDF from "@/components/pdf/CommandPDF";
 import save from "../../../public/assets/icons/EnregistrerPDF.svg";
@@ -20,6 +21,7 @@ interface Props {
 const CommandDetails: React.FC = () => {
   const [command, setCommand] = useState<Commande>();
   const [products, setProducts] = useState<ProductCommande[]>([]);
+  const [AllBonRecepttions, setReceptions] = useState<Reception[]>([]);
 
   useEffect(() => {
     fetchCommandProduct();
@@ -51,6 +53,7 @@ const CommandDetails: React.FC = () => {
         console.log("Response data:", data); // Log the response data
         setCommand(data.command);
         setProducts(data.products); // Assuming the response structure matches { products: [...] }
+        setReceptions(data.AllBonRecepttions);
       } else {
         console.error("Failed to fetch command products:", response.statusText);
       }
@@ -136,13 +139,18 @@ const CommandDetails: React.FC = () => {
             </button>
           </div>
         </div>
-
-        <div className="mx-8 rounded-lg w-1/6">
-          <AddCommandButton
-            label="Ajouter un bon de reception"
-            path={`/newReception?id=${command?.id}`}
-          />
+        <div className="flex justify-between">
+          <div className="flex justify-between my-4">
+            <div className="text-xl">Bons de receptions :</div>
+          </div>
+          <div className="my-4 rounded-lg flex justify-end">
+            <AddCommandButton
+              label="Ajouter un bon de reception"
+              path={`/newReception?id=${command?.id}`}
+            />
+          </div>
         </div>
+        <Receptiontable BonReçus={AllBonRecepttions} />
       </div>
     </RootLayout>
   );
