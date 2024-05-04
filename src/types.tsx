@@ -70,13 +70,13 @@ export type Commande = {
   id: number;
   number: number;
   orderdate: Date;
-  deliverydate: Date;
   orderspecifications: string;
   status: string;
   total_ht: number;
   tva: number;
   total_ttc: number;
   id_agentserviceachat: number;
+  fournisseur_name: string;
 };
 
 export type ProductCommande={

@@ -7,6 +7,7 @@ import { Product } from "@/types";
 import CommandDetailsTable from "@/components/tables/commandDetailsTable";
 import Converter from "@/dateConverter";
 import CommandDetailsPDF from "@/components/pdf/CommandPDF";
+import save from "../../../public/assets/icons/EnregistrerPDF.svg";
 import AddCommandButton from "@/components/buttons/addCommandButton";
 import getToken from "@/utils/getToken";
 interface Props {
@@ -65,26 +66,21 @@ const CommandDetails: React.FC = () => {
           Commande numero : <span className="font-bold">{command?.number}</span>
         </div>
         <div className="text-xl mb-4">
-          Etat : <span className="font-bold">{command?.status}</span>
-        </div>
-        <div className="text-xl mb-4">
           Date :{" "}
           <span className="font-bold">
             <Converter date={command?.orderdate} />
           </span>
         </div>
         <div className="text-xl mb-4">
-          Date de livraison :{" "}
-          <span className="font-bold">
-            <Converter date={command?.deliverydate} />
-          </span>
+          Fournisseur :{" "}
+          <span className="font-bold">{command?.fournisseur_name}</span>
+        </div>
+        <div className="text-xl mb-4">
+          Etat : <span className="font-bold">{command?.status}</span>
         </div>
         <div className="text-xl mb-4">
           Specifications :{" "}
           <span className="font-bold">{command?.orderspecifications}</span>
-        </div>
-        <div className="text-xl mb-4">
-          Total TTC : <span className="font-bold">{command?.total_ttc}</span>
         </div>
         <div className="flex justify-between mb-4">
           <div className="text-xl">Produits :</div>
@@ -92,8 +88,42 @@ const CommandDetails: React.FC = () => {
         <CommandDetailsTable products={products} />
         {/* <CommandDetailsPDF command={command} products={products} /> */}
         {/* PDF download link */}
-        {/* <div className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg w-1/6">
-          <PDFDownloadLink
+        <div className="flex justify-end my-4 mx-10">
+          {" "}
+          {/* Parent div aligned to the extreme right */}
+          <div className="grid grid-cols-1">
+            {" "}
+            {/* Children div */}
+            <div className="text-xl my-4 flex justify-start">
+              Total HT : <span className="font-bold"> {command?.total_ht}</span>
+            </div>
+            <div className="text-xl mb-4 flex justify-start">
+              {command && (
+                <>
+                  TVA <span className="font-bold"> {command.tva}%</span> :{" "}
+                  <span className="font-bold">
+                    {((command?.tva / 100) * (command?.total_ht || 0)).toFixed(
+                      2
+                    )}
+                  </span>
+                </>
+              )}
+            </div>
+            <div className="text-xl mb-4 flex justify-start">
+              Total TTC :{" "}
+              <span className="font-bold">{command?.total_ttc}</span>
+            </div>
+            <button className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <img
+                  src={save.src}
+                  width="18"
+                  height="18"
+                  style={{ filter: "invert(100%)" }}
+                />{" "}
+                <span>Enregistrer</span>
+              </div>
+              {/* <PDFDownloadLink
             document={
               <CommandDetailsPDF command={command} products={products} />
             }
@@ -102,8 +132,11 @@ const CommandDetails: React.FC = () => {
             {({ blob, url, loading, error }) =>
               loading ? "Loading document..." : "Download PDF"
             }
-          </PDFDownloadLink>
-        </div> */}
+          </PDFDownloadLink> */}
+            </button>
+          </div>
+        </div>
+
         <div className="mx-8 rounded-lg w-1/6">
           <AddCommandButton
             label="Ajouter un bon de reception"

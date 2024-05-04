@@ -24,6 +24,9 @@ const CommandDetailsTable: React.FC<Props> = ({ products }) => {
             <th className="px-4 py-2 font-light hidden md:table-cell">
               Prix Unitaire
             </th>
+            <th className="px-4 py-2 font-light hidden md:table-cell">
+              Montant
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +40,9 @@ const CommandDetailsTable: React.FC<Props> = ({ products }) => {
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {product.price}
+              </td>
+              <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
+                {product.price * product.ordered_quantity}
               </td>
             </tr>
           ))}
