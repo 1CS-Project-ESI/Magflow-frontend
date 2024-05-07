@@ -8,13 +8,14 @@ import AddArticleButton from "@/components/buttons/addArticleButton";
 import ArticlesTable from "@/components/tables/articlesTable";
 
 const ArticlesPage: React.FC = () => {
-
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/store/article/all'); 
+        const response = await fetch(
+          "http://localhost:4000/api/store/article/all"
+        );
         const data = await response.json();
         console.log(data);
         if (!response.ok) {
@@ -24,7 +25,6 @@ const ArticlesPage: React.FC = () => {
         setArticles(data.articles);
       } catch (error) {
         console.error("Error fetching articles:", error);
-        
       }
     };
 
@@ -33,9 +33,7 @@ const ArticlesPage: React.FC = () => {
 
   return (
     <RootLayout>
-      <div className="flex m-8 justify-end">
-        <AddArticleButton showPopup={true} />
-      </div>
+      <div className="text-4xl text-[#2C2D41] font-bold m-8">Articles</div>
       <div className="m-8 mt-8">
         <ArticlesTable articles={articles} />
       </div>

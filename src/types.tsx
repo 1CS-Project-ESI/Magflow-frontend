@@ -41,8 +41,8 @@ export type ButtonProps = {
 
 export type Chapter = {
   id?: number;
-  name: string;
-  description: string;
+  name?: string;
+  description?: string;
   code?: number;
   id_agentserviceachat?: number;
 };
@@ -60,8 +60,6 @@ export type Product = {
   id?: number;
   name: string;
   caracteristics: string;
-
-  price:string | number | readonly string[] | undefined;
   seuil: string | number | readonly string[] | undefined;
 
 };

@@ -39,7 +39,7 @@ const PopupAddProduct: React.FC<PopupAddProps> = ({ onClose }) => {
      }
      console.log("this id the ", id);
     try {
-      const response = await fetch(`http://localhost:4000/api/store/product/create/${id}`, {
+      const response = await fetch(`http://localhost:4000/api/store/product/create`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${accessToken}`,
