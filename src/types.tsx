@@ -87,6 +87,16 @@ export type ProductCommande={
   price: number;
  }
 
+ export type ProductReception={
+  name: string;
+  productId: number;
+  id_bonreception: number;
+  receivedquantity: number;
+  orderedQuantity: number;
+  remainingQuantity: number;
+ }
+ 
+
 export type Fournisseur = {
   id: number;
   name: string;
@@ -101,6 +111,7 @@ export type Fournisseur = {
 export type Reception={
   id: number;
   id_magasinier: number;
+  id_boncommande: number;
   number: number;
   deliverydate: Date;
  }
