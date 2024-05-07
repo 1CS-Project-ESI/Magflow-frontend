@@ -18,6 +18,7 @@ const Page = () => {
     }[]
   >([]);
 
+
   // useEffect(() => {
   //   fetchCommands();
   // }, []);
@@ -60,12 +61,14 @@ const Page = () => {
     }
     try {
       const response = await fetch(
+
         `http://localhost:4000/api/bons/remaining-products/${id}`
       );
       if (response.ok) {
         const data = await response.json();
         console.log("this is the data.products", data.remainingProducts);
         setProducts(data.remainingProducts);
+
       } else {
         console.error("Failed to fetch command products:", response.statusText);
         setProducts([]);
@@ -80,7 +83,7 @@ const Page = () => {
   const handleDeliveryQuantityChange = (index: number, value: number) => {
     setReceivedQuantities((prevQuantities) => {
       const newQuantities = [...prevQuantities];
-      newQuantities[index] = value; // Update quantity at specific index
+      newQuantities[index] = value;
       return newQuantities;
     });
   };
@@ -88,6 +91,7 @@ const Page = () => {
     e.preventDefault();
     const accessToken = await getToken();
     const id_magasinier = await UserID();
+
 
     const url = new URL(window.location.href);
     const idString = url.searchParams.get("id");
@@ -100,11 +104,14 @@ const Page = () => {
     console.log("this id the ", id);
 
     const now = new Date();
+
     const randomNumber = Math.floor(Math.random() * 900000) + 100000;
     const number = `${randomNumber}`;
+
     const DeliveryDate = new Date(now);
     DeliveryDate.setDate(DeliveryDate.getDate());
     const deliverydate = DeliveryDate.toISOString().substring(0, 10);
+
 
     // const products = selectedOptions.map((option) => option.product?.id);
     const products = selectedOptions
@@ -145,17 +152,52 @@ const Page = () => {
         }
       );
 
-      if (response.ok) {
-        console.log("Commandes added successfully");
-        // Add any additional success handling here
-      } else {
-        console.error("Error adding commandes:", response.statusText);
+    if (idString !== null) {
+      id_boncommande = parseInt(idString, 10);
+
+      const products = selectedOptions
+        .filter(
+          (option) => option.product !== undefined && option.product !== null
+        )
+        .map((option) => option.product?.id);
+
+      console.log("the user with is has a magatiner role", id_magasinier);
+      console.log("this is the products array ", products);
+      console.log("this is receivedQuantities", deliveryQuantities);
+
+      const formData = {
+        id_magasinier,
+        number,
+        deliverydate,
+        products,
+        deliveryQuantities,
+      };
+
+      console.log("thhis is the formData", formData);
+      try {
+        const response = await fetch(
+          `http://localhost:4000/api/bons/create-bon-reception/${id_boncommande}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+
+        if (response.ok) {
+          console.log("bon reception  added successfully");
+        } else {
+          console.error("Error adding bon reception :", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error adding bon de reception :", error);
       }
-    } catch (error) {
-      console.error("Error adding commandes:", error);
     }
   };
-
+                
   return (
     <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-8 m-8 rounded-md">
@@ -163,7 +205,7 @@ const Page = () => {
         <OptionSelection
           remainingProducts={remainingProducts}
           selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions} // Pass the prop here
+          setSelectedOptions={setSelectedOptions}
           onDeliveryQuantityChange={handleDeliveryQuantityChange}
         />
 

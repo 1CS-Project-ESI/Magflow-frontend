@@ -260,8 +260,7 @@ const BonDeSortie: React.FC = () => {
         `http://localhost:4000/api/pdf/pdfbonsortie/${bonSortieId}`
       );
       const pdfResponse = await fetch(url.toString());
-      // const pdfResponse = await fetch(
-
+      
 
       if (pdfResponse.ok) {
       console.log("pdf gegenrated succ ");
