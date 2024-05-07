@@ -56,6 +56,11 @@ const handleDeleteProducts = async (id?: number) => {
             <th className="px-4 py-2 font-light hidden md:table-cell">
               Caracteristiques
             </th>
+            <th className="px-4 py-2 font-light hidden md:table-cell">
+              Quantité
+            </th>
+            <th className="px-4 py-2 font-light hidden md:table-cell">
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +72,10 @@ const handleDeleteProducts = async (id?: number) => {
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {product.caracteristics}
               </td>
-              <td>
+              <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
+                {product.quantity}
+              </td>
+              <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 <button
                   className="w-36 bg-transparent border-black border-2 hover:bg-black hover:text-white font-medium py-2 px-4 rounded-lg"
                 >

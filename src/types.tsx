@@ -41,8 +41,8 @@ export type ButtonProps = {
 
 export type Chapter = {
   id?: number;
-  name: string;
-  description: string;
+  name?: string;
+  description?: string;
   code?: number;
   id_agentserviceachat?: number;
 };
@@ -60,8 +60,6 @@ export type Product = {
   id?: number;
   name: string;
   caracteristics: string;
-
-  price:string | number | readonly string[] | undefined;
   seuil: string | number | readonly string[] | undefined;
 
 };
@@ -87,6 +85,16 @@ export type ProductCommande={
   price: number;
  }
 
+ export type ProductReception={
+  name: string;
+  productId: number;
+  id_bonreception: number;
+  receivedquantity: number;
+  orderedQuantity: number;
+  remainingQuantity: number;
+ }
+ 
+
 export type Fournisseur = {
   id: number;
   name: string;
@@ -101,6 +109,7 @@ export type Fournisseur = {
 export type Reception={
   id: number;
   id_magasinier: number;
+  id_boncommande: number;
   number: number;
   deliverydate: Date;
  }

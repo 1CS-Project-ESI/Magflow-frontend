@@ -22,6 +22,8 @@ const CommandDetails: React.FC = () => {
   const [command, setCommand] = useState<Commande>();
   const [products, setProducts] = useState<ProductCommande[]>([]);
   const [AllBonRecepttions, setReceptions] = useState<Reception[]>([]);
+  const role = localStorage.getItem("role");
+  console.log(role);
 
   useEffect(() => {
     fetchCommandProduct();
@@ -95,7 +97,9 @@ const CommandDetails: React.FC = () => {
   return (
     <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
-        <h1 className="text-4xl font-bold flex justify-center">Commande Externe</h1>
+        <h1 className="text-4xl font-bold flex justify-center">
+          Commande Externe
+        </h1>
         <div className="text-xl mb-4">
           Commande numero : <span className="font-bold">{command?.number}</span>
         </div>
@@ -173,18 +177,22 @@ const CommandDetails: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="flex justify-between">
-          <div className="flex justify-between my-4">
-            <div className="text-xl">Bons de receptions :</div>
-          </div>
-          <div className="my-4 rounded-lg flex justify-end">
-            <AddCommandButton
-              label="Ajouter un bon de reception"
-              path={`/newReception?id=${command?.id}`}
-            />
-          </div>
-        </div>
-        <Receptiontable BonReçus={AllBonRecepttions} />
+        {role === "magasinier" ? (
+          <>
+            <div className="flex justify-between">
+              <div className="flex justify-between my-4">
+                <div className="text-xl">Bons de receptions :</div>
+              </div>
+              <div className="my-4 rounded-lg flex justify-end">
+                <AddCommandButton
+                  label="Ajouter un bon de reception"
+                  path={`/newReception?id=${command?.id}`}
+                />
+              </div>
+            </div>
+            <Receptiontable BonReçus={AllBonRecepttions} />
+          </>
+        ) : null}
       </div>
     </RootLayout>
   );
