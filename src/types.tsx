@@ -118,3 +118,14 @@ export type BonDecharge ={
   service: string;
   date: Date;
   }
+
+export type Notification={
+  id: number;
+  message: string;
+  date: string;
+} 
+ 
+export type NotificationSent={
+  id_notification: number;
+  id_user: number;
+}
