@@ -6,7 +6,7 @@ import RootLayout from "../rootLayout";
 import { Sortie } from "@/types";
 
 const CommandsPage: React.FC = () => {
-  const [bons, setCommands] = useState([]);
+  const [sorties, setCommands] = useState<Sortie[]>([]);
 
   useEffect(() => {
     const fetchCommands = async () => {
@@ -18,7 +18,7 @@ const CommandsPage: React.FC = () => {
           throw new Error(`Error fetching commandes internes : ${data.message}`);
         }
 
-        setCommands(data.bons);
+        setCommands(data);
       } catch (error) {
         console.error("Error fetching articles:", error);
         
@@ -34,7 +34,7 @@ const CommandsPage: React.FC = () => {
       <div className="text-4xl text-[#2C2D41] font-bold m-8">Bons de Sorties</div>
     </div>
     <div className="m-8 mt-8">
-      <BonTable bons={bons} />
+      <BonTable bons={sorties} />
     </div>
   </RootLayout>
   );

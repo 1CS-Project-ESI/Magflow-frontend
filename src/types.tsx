@@ -57,7 +57,7 @@ export type Article = {
 
 export type Product = {
   quantity: string | number | readonly string[] | undefined;
-  id?: number;
+  id: number;
   name: string;
   caracteristics: string;
   seuil: string | number | readonly string[] | undefined;
@@ -163,6 +163,12 @@ export type BCI = {
   Validation: number;
 };
 
+export type Inventaire = {
+  id: number;
+  num: number;
+  date: Date;
+  statuts: boolean;
+};
 
 
 

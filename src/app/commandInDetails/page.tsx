@@ -13,9 +13,9 @@ import getToken from "@/utils/getToken";
 const CommandInDetails: React.FC = () => {
   const [command, setCommand] = useState<CommandeIn>();
   const [products, setProducts] = useState<ProductCommandeIn[]>([]);
-  const [validated, setValidated] = useState<boolean>(false); 
+  const [validated, setValidated] = useState<boolean>(false);
   var valid: boolean;
-  const [updatedQuantities, setUpdatedQuantities] = useState<number[]>([]); 
+  const [updatedQuantities, setUpdatedQuantities] = useState<number[]>([]);
   const role = localStorage.getItem("role");
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const CommandInDetails: React.FC = () => {
     if (idString !== null) {
       id = parseInt(idString, 10);
     }
-  
+
     try {
       const response = await fetch(
         `http://localhost:4000/api/bons/validation/${id}`,
@@ -78,7 +78,7 @@ const CommandInDetails: React.FC = () => {
 
           body: JSON.stringify({
             products: products.map((product, index) => ({
-              id_produit:product.id_produit,
+              id_produit: product.id_produit,
               accordedquantity:
                 updatedQuantities[index] || product.accordedQuantity,
             })),
@@ -87,7 +87,6 @@ const CommandInDetails: React.FC = () => {
       );
 
       if (response.ok) {
-        
         console.log("Command validated successfully");
         setValidated(true);
       } else {
@@ -101,13 +100,18 @@ const CommandInDetails: React.FC = () => {
   return (
     <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
-       
+        <h1 className="text-4xl font-bold flex justify-center m-8">
+          Commande Interne
+        </h1>
         <div className="text-xl mb-4">
           Commande numero : <span className="font-bold">{command?.number}</span>
         </div>
         <div className="text-xl mb-4">
           Consommateur :{" "}
           <span className="font-bold">{command?.id_consommateur}</span>
+        </div>
+        <div className="text-xl mb-4">
+          Type Commande : <span className="font-bold">{command?.typecommande}</span>
         </div>
         <div className="text-xl mb-4">
           Etat :{" "}
@@ -132,14 +136,13 @@ const CommandInDetails: React.FC = () => {
           ? (valid = false)
           : (valid = true)}
 
-       
         <CommandInDetailsTable
           valid={valid}
           products={products}
-          updatedQuantities={updatedQuantities} 
+          updatedQuantities={updatedQuantities}
           onQuantityChange={setUpdatedQuantities}
         />
-      
+
         {!valid && (
           <div>
             <button
@@ -150,7 +153,7 @@ const CommandInDetails: React.FC = () => {
             </button>
           </div>
         )}
-       
+
         {role === "magasinier" &&
           command &&
           command.validation >= 3 &&
@@ -172,7 +175,7 @@ const CommandInDetails: React.FC = () => {
                       <div className="m-8 rounded-lg w-1/3">
                         <AddCommandButton
                           label="Ajouter un bon de decharge"
-                          path={`/newDecharge?id=${command?.id}`}
+                          path={`/newSortie?id=${command?.id}`}
                         />
                       </div>
                     );
