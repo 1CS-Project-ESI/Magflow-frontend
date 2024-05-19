@@ -16,7 +16,7 @@ const InventairePage: React.FC = () => {
     const fetchInventaires = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/store/product/all"
+          "http://localhost:4000/api/inventaire/all-etat"
         );
         const data = await response.json();
         console.log(data);
@@ -24,7 +24,7 @@ const InventairePage: React.FC = () => {
           throw new Error(`Error fetching products: ${data.message}`);
         }
 
-        setInventaires(data.inventaires);
+        setInventaires(data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }

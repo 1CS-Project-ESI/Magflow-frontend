@@ -6,16 +6,12 @@ import Produits from "@/components/validateProduct/inventaireValidation";
 import RootLayout from "../rootLayout";
 import getToken from "@/utils/getToken";
 import { Inventaire, Product } from "@/types";
-import save from "../../../public/assets/icons/EnregistrerPDF.svg";
-import { Underdog } from "next/font/google";
-import UserID from "@/utils/getID";
-import Converter from "@/dateConverter";
 
 const EtatInventaire: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [observations, setObservations] = useState<
+  const [produits, setProduits] = useState<Product[]>([]);
+  const [products, setProducts] = useState<
     {
-      id: number;
+      produitId: number;
       physicalQuantity: number;
       observation: string;
     }[]
@@ -23,13 +19,13 @@ const EtatInventaire: React.FC = () => {
 
   useEffect(() => {
     // Initialize the servedQuantities state with default values based on products
-    const initialObservations = products.map(({ id }) => ({
-      id,
+    const initialObservations = products.map(({ produitId }) => ({
+      produitId,
       physicalQuantity: 0,
       observation: "",
     }));
-    setObservations(initialObservations);
-  }, [products]);
+    setProducts(initialObservations);
+  }, [produits]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -43,7 +39,7 @@ const EtatInventaire: React.FC = () => {
           throw new Error(`Error fetching products: ${data.message}`);
         }
 
-        setProducts(data.products);
+        setProduits(data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -68,18 +64,18 @@ const EtatInventaire: React.FC = () => {
       id = parseInt(idString, 10);
     }
 
-    const observation = observations.map(
-      ({ id, physicalQuantity, observation }) => ({
-        id,
+    const product = products.map(
+      ({ produitId, physicalQuantity, observation }) => ({
+        produitId,
         physicalQuantity,
         observation,
       })
     );
-    console.log("this is the observations ", observation);
+    console.log("this is the observations ", product);
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/bons/create-bon-sortie/${id}`,
+        `http://localhost:4000/api/inventaire/create`,
         {
           method: "POST",
           headers: {
@@ -88,7 +84,7 @@ const EtatInventaire: React.FC = () => {
           },
           body: JSON.stringify({
             number,
-            observations,
+            products,
             date,
           }),
         }
@@ -194,9 +190,9 @@ const EtatInventaire: React.FC = () => {
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-8 m-8 rounded-md">
         <h1 className="text-4xl text-center mb-8">Etat d'Inventaire</h1>
         <Produits
-          Produits={products}
-          observations={observations}
-          setObservations={setObservations}
+          Produits={produits}
+          observations={products}
+          setObservations={setProducts}
         ></Produits>
         <div className="w-full flex justify-end">
           <button
@@ -204,13 +200,6 @@ const EtatInventaire: React.FC = () => {
             onClick={handleSubmit}
           >
             <div className="flex items-center space-x-2">
-              {/* <img
-                          src={save.src}
-                          width="18"
-                          height="18"
-                          style={{ filter: "invert(100%)" }}
-                          alt="Save"
-                        />{" "} */}
               <span>Enregistrer l'etat</span>
             </div>
           </button>

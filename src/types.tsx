@@ -165,9 +165,9 @@ export type BCI = {
 
 export type Inventaire = {
   id: number;
-  num: number;
+  number: number;
   date: Date;
-  statuts: boolean;
+  validation: number;
 };
 
 

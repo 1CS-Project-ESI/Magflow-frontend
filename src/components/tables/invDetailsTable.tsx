@@ -4,11 +4,21 @@ import React, { useState } from "react";
 import { Product } from "@/types";
 
 interface Props {
-  Produits: Product[];
-  observations: { id: number; physicalQuantity: number; observation: string }[];
+  observations: {
+    id_produit: number;
+    id_inventaire: number;
+    physicalQuantity: number;
+    observation: string;
+    Produit: {
+      name: string;
+      caracteristics: string | null;
+      quantity: number;
+      seuil: number;
+    };
+  }[];
 }
 
-const InvDetailsTable: React.FC<Props> = ({ Produits, observations }) => {
+const InvDetailsTable: React.FC<Props> = ({ observations }) => {
   return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -30,32 +40,28 @@ const InvDetailsTable: React.FC<Props> = ({ Produits, observations }) => {
           </tr>
         </thead>
         <tbody>
-          {Produits.map((Product, productIndex) => (
+          {observations?.map((Product, productIndex) => (
             <tr
               key={productIndex}
               className="border-b text-[#2C2D41] border-gray-200"
             >
               <td className="border-t bg-white text-center px-4 py-4">
-                {Product.name}
+                {Product.Produit.name}
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
-                {Product.seuil}
+                {Product.Produit.seuil}
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
-                {Product.quantity}
+                {Product.Produit.quantity}
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 <div>
-                  {
-                    observations.find((q) => q.id === Product.id)
-                      ?.physicalQuantity
-                  }
+                  {Product.physicalQuantity}
                 </div>
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 <div>
-                  {observations.find((q) => q.id === Product.id)?.observation ||
-                    ""}
+                  {Product.observation}
                 </div>
               </td>
             </tr>
