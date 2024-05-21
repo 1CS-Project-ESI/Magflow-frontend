@@ -141,7 +141,7 @@ export const SIDENAV_RESPON_ITEMS: SideNavItem[] = [
   },
   {
     title: "Statistiques",
-    path: "/stats",
+    path: "/statisticRS",
     icon: <img src={back.src} width="18" height="18" />,
   },
   {
@@ -156,6 +156,11 @@ export const SIDENAV_DIRECTOR_ITEMS: SideNavItem[] = [
     title: "Commandes Internes",
     path: "/commandesIn",
     icon: <img src={cmd.src} width="18" height="18" />,
+  },
+  {
+    title: "Inventaire",
+    path: "/inventaire",
+    icon: <img src={prd.src} width="18" height="18" />,
   },
   {
     title: "Statistiques",
