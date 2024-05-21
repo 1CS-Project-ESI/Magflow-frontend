@@ -168,6 +168,7 @@ export type Inventaire = {
   number: number;
   date: Date;
   validation: number;
+  id_article: number;
 };
 
 

@@ -1,91 +1,77 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import RootLayout from "../rootLayout";
-import { Inventaire, Product, Reception } from "@/types";
 import InvDetailsTable from "@/components/tables/invDetailsTable";
-import Receptiontable from "@/components/tables/receptionsTable";
+import { Product, Inventaire } from "@/types";
 import Converter from "@/dateConverter";
-import CommandDetailsPDF from "@/components/pdf/CommandPDF";
-import save from "../../../public/assets/icons/EnregistrerPDF.svg";
-import AddCommandButton from "@/components/buttons/addCommandButton";
 import getToken from "@/utils/getToken";
-
-// link product artcile
 
 const CommandDetails: React.FC = () => {
   const [inventaire, setInventaire] = useState<Inventaire>();
-const [products, setProducts] = useState<Product[]>([]);
-const [observations, setObservations] = useState<
-  {
-    id_produit: number;
-    physicalQuantity: number;
-    observation: string;
-    id_inventaire: number;
-    Produit: {
-      name: string;
-      caracteristics: string | null;
-      quantity: number;
-      seuil: number;
+  const [chapter, setChapter] = useState<string>();
+  const [article, setArticle] = useState<string>();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [observations, setObservations] = useState<any[]>([]);
+  const role = localStorage.getItem("role");
+  console.log(role);
+
+  useEffect(() => {
+    fetchInventaireDetails();
+  }, []);
+
+  const fetchInventaireDetails = async () => {
+    const accessToken = await getToken();
+    const url = new URL(window.location.href);
+    const idString = url.searchParams.get("id");
+    let id = null;
+
+    if (idString !== null) {
+      id = parseInt(idString, 10);
     }
-  }[]
->([]);
-const role = localStorage.getItem("role");
-console.log(role);
 
-useEffect(() => {
-  fetchInventaireDetails();
-}, []);
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/inventaire/details/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-const fetchInventaireDetails = async () => {
-  const accessToken = await getToken();
-  const url = new URL(window.location.href);
-  const idString = url.searchParams.get("id");
-  let id = null;
-
-  if (idString !== null) {
-    id = parseInt(idString, 10);
-  }
-
-  try {
-    const response = await fetch(
-      `http://localhost:4000/api/inventaire/details/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Response data:", data);
+        
+        // Adjust mapping to match backend response
+        const mappedObservations = data.products.map((product: any) => ({
+          id_produit: product.id_produit,
+          designation: product.designation,
+          n_inventaire: product.n_inventaire,
+          reste: product.reste,
+          entree: product.entree,
+          sortie: product.sortie,
+          quantity_logique: product.quantity_logique,
+          physicalquantity: product.physicalquantity,
+          ecart: product.ecart,
+          obs: product.obs,
+          produit: {
+            caracteristics: product.produit.caracteristics,
+            stock_mini: product.produit.stock_mini,
+          },
+        }));
+        setObservations(mappedObservations);
+        setInventaire(data.inventaire);
+        setChapter(data.chapitre);
+        setArticle(data.article);
+      } else {
+        console.error("Failed to fetch command products:", response.statusText);
       }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Response data:", data); // Log the response data
-      // setInventaire(data.inventaire);
-      // setProducts(data.produits);
-      // Map the observations to match the expected structure
-      const mappedObservations = data.etatInventaires.map((observation: any) => ({
-        id_produit: observation.id_produit,
-        physicalQuantity: observation.physicalquantity,
-        observation: observation.observation,
-        Produit: {
-          name: observation.Produit.name,
-          caracteristics: observation.Produit.caracteristics,
-          quantity: observation.Produit.quantity,
-          seuil: observation.Produit.seuil,
-        },
-      }));
-      setObservations(mappedObservations);
-      setInventaire(data.inventaire);
-      console.log("haha data:", mappedObservations);
-      console.log("haha data:", inventaire);
-    } else {
-      console.error("Failed to fetch command products:", response.statusText);
+    } catch (error) {
+      console.error("Error fetching command products:", error);
     }
-  } catch (error) {
-    console.error("Error fetching command products:", error);
-  }
-};
+  };
 
   const validateEtat = async () => {
     const accessToken = await getToken();
@@ -110,7 +96,7 @@ const fetchInventaireDetails = async () => {
       );
 
       if (response.ok) {
-        console.log("state validated successfully");
+        console.log("State validated successfully");
       } else {
         console.error("Failed to validate state:", response.statusText);
       }
@@ -131,6 +117,12 @@ const fetchInventaireDetails = async () => {
             {" "}
             <Converter date={inventaire?.date} />
           </span>
+        </div>
+        <div className="text-xl mb-4">
+          Chapitre : <span className="font-bold">{chapter}</span>
+        </div>
+        <div className="text-xl mb-4">
+          Article : <span className="font-bold">{article}</span>
         </div>
         <>
           {(() => {
