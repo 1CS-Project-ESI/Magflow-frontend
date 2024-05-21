@@ -118,7 +118,7 @@ export const SIDENAV_MAGASINIER_ITEMS: SideNavItem[] = [
   },
   {
     title: "Statistiques",
-    path: "/stats",
+    path: "/statisticMG",
     icon: <img src={back.src} width="18" height="18" />,
   },
   {
