@@ -1,6 +1,4 @@
-
-// components/Card3.tsx
-
+"use client";
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import {
@@ -21,7 +19,7 @@ interface Card3Props {
   color: string;
 }
 
-const Card2: React.FC<Card3Props> = ({ count, percentage, title, color }) => {
+const Card4: React.FC<Card3Props> = ({ count, percentage, title, color }) => {
   const data: ChartData<"doughnut"> = {
     datasets: [
       {
@@ -44,10 +42,10 @@ const Card2: React.FC<Card3Props> = ({ count, percentage, title, color }) => {
   return (
     <div className="bg-white border border-gray-300 rounded-md p-4 flex justify-between items-center shadow-sm">
       <div>
-        <p className="text-3xl font-bold text-gray-800">
-          {count} <span className="text-lg font-normal m-2">{percentage}%</span>
+        <p className="text-xl font-bold text-gray-800">
+          {count} <span className="text-[15px] font-normal">{percentage}%</span>
         </p>
-        <p className="text-gray-500 text-[13px] text-sm">{title}</p>
+        <p className=" text-gray-500 text-[10px]">{title}</p>
       </div>
       <div className="relative w-16 h-16">
         <Doughnut data={data} options={options} />
@@ -56,5 +54,4 @@ const Card2: React.FC<Card3Props> = ({ count, percentage, title, color }) => {
   );
 };
 
-export default Card2;
-
+export default Card4;

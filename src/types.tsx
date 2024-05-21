@@ -159,6 +159,18 @@ export type BCI = {
   id: number;
   num: number;
   date: Date;
+  }
+
+export type Notification={
+  id: number;
+  message: string;
+  date: string;
+} 
+ 
+export type NotificationSent={
+  id_notification: number;
+  id_user: number;
+}
   phone: number;
   Validation: number;
 };
@@ -170,6 +182,3 @@ export type Inventaire = {
   validation: number;
   id_article: number;
 };
-
-
-

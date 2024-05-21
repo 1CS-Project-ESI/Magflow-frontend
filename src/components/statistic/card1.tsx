@@ -1,3 +1,4 @@
+
 "use client";
 import React from "react";
 
@@ -22,3 +23,4 @@ const Card1: React.FC<Props> = ({ title, subtitle, count }) => {
 };
 
 export default Card1;
+
