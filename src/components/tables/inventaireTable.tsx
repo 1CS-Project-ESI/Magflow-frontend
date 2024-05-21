@@ -60,7 +60,7 @@ const InventairesTable: React.FC<Props> = ({ inventaires }) => {
                   }}
                   className="text-gray-500"
                 >
-                  Details de la commande {">>"}
+                  Details {">>"}
                 </Link>
               </td>
             </tr>
