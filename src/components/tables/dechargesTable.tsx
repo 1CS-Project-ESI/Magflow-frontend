@@ -2,14 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { BonSorti} from "@/types";
+import { Sortie} from "@/types";
 import Converter from "@/dateConverter";
 
 interface Props {
-    Bons: BonSorti[];
+    Bons: Sortie[];
   }
   
-const CommandesTable: React.FC<Props> = ({ Bons }) => {
+const DechargesTable: React.FC<Props> = ({ Bons }) => {
     return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -21,7 +21,6 @@ const CommandesTable: React.FC<Props> = ({ Bons }) => {
             <th className="px-4 py-2 font-light hidden md:table-cell">Service</th>
             <th className="px-4 py-2 font-light hidden md:table-cell">Date</th>
             <th className="px-4 py-2 font-light hidden md:table-cell">Observation</th>
-            <th className="px-4 py-2 font-light hidden md:table-cell"></th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +30,7 @@ const CommandesTable: React.FC<Props> = ({ Bons }) => {
               {bon.id}
             </td>
             <td className="border-t bg-white text-center px-2 py-1 hidden md:table-cell">
-              {bon.id_bonCommandInterne}
+              {bon.id_boncommandeinterne}
             </td>
             <td className="border-t bg-white text-center px-2 py-1 hidden md:table-cell">
               {bon.id_magasinier}
@@ -48,17 +47,6 @@ const CommandesTable: React.FC<Props> = ({ Bons }) => {
            <td className="border-t bg-white text-center px-2 py-1 hidden md:table-cell">
               <Converter date={bon.date} />
             </td>
-            <td className="border-t bg-white text-center px-2 py-1 md:table-cell flex items-center justify-center">
-              <Link
-                href={{
-                  // pathname: "/newBonDeSortie",
-                  // query: { id: commande.id },
-                }}
-                className="text-gray-500 font-bold"
-              >
-                Details du BON {">>"}
-              </Link>
-            </td>
           </tr> 
           ))}
         </tbody>
@@ -67,4 +55,4 @@ const CommandesTable: React.FC<Props> = ({ Bons }) => {
   );
 };
 
-export default CommandesTable;
+export default DechargesTable;

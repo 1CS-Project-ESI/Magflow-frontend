@@ -23,9 +23,6 @@ const Receptiontable: React.FC<Props> = ({ BonReçus }) => {
             <th className="px-4 py-2 font-light hidden md:table-cell">
               Date de reception
             </th>
-            <th className="px-4 py-2 font-light hidden md:table-cell">
-              Numéro du BCE
-            </th>
             <th className="px-4 py-2 font-light hidden md:table-cell"></th>
           </tr>
         </thead>
@@ -40,9 +37,6 @@ const Receptiontable: React.FC<Props> = ({ BonReçus }) => {
               </td>
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 <Converter date={Bon.deliverydate} />
-              </td>
-              <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
-                {Bon.number}
               </td>
               <td className="border-t bg-white text-center px-4 py-2 md:table-cell flex items-center justify-center">
 

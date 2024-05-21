@@ -2,23 +2,28 @@
 import React, { useState, useEffect } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import RootLayout from "../rootLayout";
-import { Commande } from "@/types";
+import { Commande, ProductCommande, Reception } from "@/types";
 import { Product } from "@/types";
 import CommandDetailsTable from "@/components/tables/commandDetailsTable";
+import Receptiontable from "@/components/tables/receptionsTable";
 import Converter from "@/dateConverter";
 import CommandDetailsPDF from "@/components/pdf/CommandPDF";
+import save from "../../../public/assets/icons/EnregistrerPDF.svg";
 import AddCommandButton from "@/components/buttons/addCommandButton";
 import getToken from "@/utils/getToken";
 interface Props {
   commands: Commande[];
-  products: Product[];
+  products: ProductCommande[];
 }
 
 // link product artcile
 
 const CommandDetails: React.FC = () => {
   const [command, setCommand] = useState<Commande>();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductCommande[]>([]);
+  const [AllBonRecepttions, setReceptions] = useState<Reception[]>([]);
+  const role = localStorage.getItem("role");
+  console.log(role);
 
   useEffect(() => {
     fetchCommandProduct();
@@ -50,6 +55,7 @@ const CommandDetails: React.FC = () => {
         console.log("Response data:", data); // Log the response data
         setCommand(data.command);
         setProducts(data.products); // Assuming the response structure matches { products: [...] }
+        setReceptions(data.AllBonRecepttions);
       } else {
         console.error("Failed to fetch command products:", response.statusText);
       }
@@ -58,14 +64,44 @@ const CommandDetails: React.FC = () => {
     }
   };
 
+  const handleSavePDF = async () => {
+    try {
+      const url = new URL(window.location.href);
+      const idString = url.searchParams.get("id");
+      let id = null;
+
+      if (idString !== null) {
+        id = parseInt(idString, 10);
+      }
+      const pdfUrl = new URL(
+        `http://localhost:4000/api/pdf/pdfboncommande/${id}`
+      );
+      const pdfResponse = await fetch(pdfUrl.toString());
+
+      if (pdfResponse.ok) {
+        const blob = await pdfResponse.blob();
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `bon-sortie-${id}.pdf`;
+        link.click();
+        URL.revokeObjectURL(link.href); // Clean up memory leak
+        console.log("PDF generated successfully and downloaded.");
+      } else {
+        console.error("Failed to generate PDF. Error:", pdfResponse.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching bonSortie data or generating PDF:", error);
+    }
+  };
+
   return (
     <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
+        <h1 className="text-4xl font-bold flex justify-center m-8">
+          Commande Externe
+        </h1>
         <div className="text-xl mb-4">
           Commande numero : <span className="font-bold">{command?.number}</span>
-        </div>
-        <div className="text-xl mb-4">
-          Etat : <span className="font-bold">{command?.status}</span>
         </div>
         <div className="text-xl mb-4">
           Date :{" "}
@@ -74,17 +110,15 @@ const CommandDetails: React.FC = () => {
           </span>
         </div>
         <div className="text-xl mb-4">
-          Date de livraison :{" "}
-          <span className="font-bold">
-            <Converter date={command?.deliverydate} />
-          </span>
+          Fournisseur :{" "}
+          <span className="font-bold">{command?.fournisseur_name}</span>
+        </div>
+        <div className="text-xl mb-4">
+          Etat : <span className="font-bold">{command?.status}</span>
         </div>
         <div className="text-xl mb-4">
           Specifications :{" "}
           <span className="font-bold">{command?.orderspecifications}</span>
-        </div>
-        <div className="text-xl mb-4">
-          Total TTC : <span className="font-bold">{command?.total_ttc}</span>
         </div>
         <div className="flex justify-between mb-4">
           <div className="text-xl">Produits :</div>
@@ -92,8 +126,45 @@ const CommandDetails: React.FC = () => {
         <CommandDetailsTable products={products} />
         {/* <CommandDetailsPDF command={command} products={products} /> */}
         {/* PDF download link */}
-        <div className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg w-1/6">
-          <PDFDownloadLink
+        <div className="flex justify-end my-4 mx-10">
+          {" "}
+          {/* Parent div aligned to the extreme right */}
+          <div className="grid grid-cols-1">
+            {" "}
+            {/* Children div */}
+            <div className="text-xl my-4 flex justify-start">
+              Total HT : <span className="font-bold"> {command?.total_ht}</span>
+            </div>
+            <div className="text-xl mb-4 flex justify-start">
+              {command && (
+                <>
+                  TVA <span className="font-bold"> {command.tva}%</span> :{" "}
+                  <span className="font-bold">
+                    {((command?.tva / 100) * (command?.total_ht || 0)).toFixed(
+                      2
+                    )}
+                  </span>
+                </>
+              )}
+            </div>
+            <div className="text-xl mb-4 flex justify-start">
+              Total TTC :{" "}
+              <span className="font-bold">{command?.total_ttc}</span>
+            </div>
+            <button
+              className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg"
+              onClick={handleSavePDF}
+            >
+              <div className="flex items-center space-x-2">
+                <img
+                  src={save.src}
+                  width="18"
+                  height="18"
+                  style={{ filter: "invert(100%)" }}
+                />{" "}
+                <span>Enregistrer</span>
+              </div>
+              {/* <PDFDownloadLink
             document={
               <CommandDetailsPDF command={command} products={products} />
             }
@@ -102,14 +173,26 @@ const CommandDetails: React.FC = () => {
             {({ blob, url, loading, error }) =>
               loading ? "Loading document..." : "Download PDF"
             }
-          </PDFDownloadLink>
+          </PDFDownloadLink> */}
+            </button>
+          </div>
         </div>
-        <div className="mx-8 rounded-lg w-1/6">
-          <AddCommandButton
-            label="Ajouter un bon de reception"
-            path={`/newReception?id=${command?.id}`}
-          />
-        </div>
+        {role === "magasinier" ? (
+          <>
+            <div className="flex justify-between">
+              <div className="flex justify-between my-4">
+                <div className="text-xl">Bons de receptions :</div>
+              </div>
+              <div className="my-4 rounded-lg flex justify-end">
+                <AddCommandButton
+                  label="Ajouter un bon de reception"
+                  path={`/newReception?id=${command?.id}`}
+                />
+              </div>
+            </div>
+            <Receptiontable BonReçus={AllBonRecepttions} />
+          </>
+        ) : null}
       </div>
     </RootLayout>
   );

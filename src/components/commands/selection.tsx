@@ -9,10 +9,12 @@ interface OptionSelectionProps {
   chapters: Chapter[];
   articles: Article[];
   products: Product[];
+  fournisseurs: Fournisseur[];
   selectedOptions: {
     chapter: Chapter | null;
     article: Article | null;
     product: Product | null;
+    fournisseur: Fournisseur | null;
     price: number;
     quantity: number;
   }[];
@@ -22,6 +24,7 @@ interface OptionSelectionProps {
         chapter: Chapter | null;
         article: Article | null;
         product: Product | null;
+        fournisseur: Fournisseur | null;
         price: number;
         quantity: number;
       }[]
@@ -31,20 +34,26 @@ interface OptionSelectionProps {
   setSelectedChapterId: React.Dispatch<React.SetStateAction<string | null>>;
   onSelectArticle: (article: Article | null) => void;
   setSelectedArticleId: React.Dispatch<React.SetStateAction<string | null>>;
+  onSelectFournisseur: (fournisseur: Fournisseur | null) => void;
+  setSelectedFournisseurId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const OptionSelection: React.FC<OptionSelectionProps> = ({
   chapters,
   articles,
   products,
+  fournisseurs,
   selectedOptions,
   setSelectedOptions,
   onSelectChapter,
   onSelectArticle,
+  onSelectFournisseur,
 }) => {
   const [selectedChapterId, setSelectedChapterId] = useState<string>("");
   const [selectedArticleId, setSelectedArticleId] = useState<string>("");
   const [selectedProductId, setSelectedProductId] = useState<string>("");
+  const [selectedFournisseurId, setSelectedFournisseurId] =
+    useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(0);
 
@@ -58,8 +67,18 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
     onSelectArticle(article); // This calls the prop function to update the selected article in the parent component
   };
 
+  const handleSelectFournisseur = (fournisseur: Fournisseur | null) => {
+    setSelectedOptions([]); // Reset selected options when a new article is selected
+    onSelectFournisseur(fournisseur); // This calls the prop function to update the selected article in the parent component
+  };
+
   const handleAddOption = () => {
-    if (selectedChapterId && selectedArticleId && selectedProductId) {
+    if (
+      selectedChapterId &&
+      selectedArticleId &&
+      selectedProductId &&
+      selectedFournisseurId
+    ) {
       const chapter = chapters.find(
         (chapter) => chapter.id?.toString() === selectedChapterId
       );
@@ -69,14 +88,17 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
       const product = products.find(
         (product) => product.id?.toString() === selectedProductId
       );
-      if (chapter && article && product) {
+      const fournisseur = fournisseurs.find(
+        (fournisseur) => fournisseur.id?.toString() === selectedFournisseurId
+      );
+      if (chapter && article && product && fournisseur) {
         const isProductSelected = selectedOptions.some(
           (option) => option.product?.id === product.id
         );
         if (!isProductSelected) {
           setSelectedOptions((prevOptions) => [
             ...prevOptions,
-            { chapter, article, product, price, quantity },
+            { chapter, article, product, fournisseur, price, quantity },
           ]);
         } else {
           console.log("Product already selected");
@@ -138,6 +160,29 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
               {articles.map((article) => (
                 <option key={article.id} value={article.id?.toString()}>
                   {article.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="flex items-center mx-8 mb-4">
+          <div className="text-lg">Séléctionner un fournisseur :</div>
+          <div className="w-full flex-1 flex items-center justify-center">
+            <select
+              className="border border-gray-300 rounded-md p-2 w-1/3"
+              value={selectedFournisseurId}
+              onChange={(e) => {
+                const selectedFournisseur = fournisseurs.find(
+                  (fournisseur) => fournisseur.id?.toString() === e.target.value
+                );
+                handleSelectFournisseur(selectedFournisseur || null);
+                setSelectedFournisseurId(e.target.value);
+              }}
+            >
+              <option value="">Fournisseur</option>
+              {fournisseurs.map((fournisseur) => (
+                <option key={fournisseur.id} value={fournisseur.id.toString()}>
+                  {fournisseur.name}
                 </option>
               ))}
             </select>
@@ -244,24 +289,6 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
               ))}
             </tbody>
           </table>
-        </div>
-        <h1 className="text-2xl mx-8">Fournisseur :</h1>
-        <div className="flex items-center mx-8">
-          <div className="text-lg">Séléctionner un fournisseur :</div>
-          <div className="w-full flex-1 flex items-center justify-center">
-            <select
-              className="border border-gray-300 rounded-md p-2 w-1/3"
-              // value={selectedFournisseurId}
-              // onChange={(e) => setSelectedFournisseurId(e.target.value)}
-            >
-              {/* <option value="">Sélectionner Fournisseur</option>
-          {fournisseurs.map((fournisseur) => (
-            <option key={fournisseur.id} value={fournisseur.id.toString()}>
-              {fournisseur.name}
-            </option>
-          ))} */}
-            </select>
-          </div>
         </div>
       </div>
     </div>

@@ -1,67 +1,78 @@
+
+
 "use client";
 
 import React, { useState, useEffect } from "react";
 import RootLayout from "../rootLayout";
-import { User } from "@/types";
+import { User , Consumer } from "@/types";
 
 import StructureUserTable from "@/components/tables/structureUsersTable";
 import getToken from "@/utils/getToken";
 
 interface Responsable {
+  id: number;
   firstname: string;
   lastname: string;
   email: string;
 }
 
+
+
+
 const StructureDetailsPage: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [consumers, setConsumer] = useState<Consumer[]>([]);
   const [responsable, setResponsable] = useState<Responsable | null>(null);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [id, setId] = useState<number | null>(null);
 
-
-  const url = new URL(window.location.href);
-  const idString = url.searchParams.get('id');
-
-  let id: number | null = null;
-
-  if (idString !== null) {
-    id = parseInt(idString, 10);
-    // or id = +idString; // Using the unary plus operator
-  }
-
-  // Now you can safely use the `id` variable, but handle the case where it's null
-  if (id !== null) {
-    // Call your API with the `id` value
-    // ...
-  } else {
-    // Handle the case where the `id` parameter is missing from the URL
-    console.log('id parameter is missing from the URL');
-  }
   useEffect(() => {
-    fetchUsers(id);
+    const url = new URL(window.location.href);
+    const idString = url.searchParams.get("id");
+    let parsedId: number | null = null;
+
+    console.log("Full URL:", window.location.href);
+
+    if (idString !== null) {
+      parsedId = parseInt(idString, 10);
+    }
+
+    setId(parsedId);
   }, []);
 
-  const fetchUsers = async (id:any) => {
-    const accessToken = await getToken();
-    try {
+  useEffect(() => {
+    if (id !== null) {
+      fetchUsers(id);
+      fetchResponsable(id);
+    } else {
+      console.log("id parameter is missing from the URL");
+    }
+  }, [id]);
 
-      const response = await fetch(`http://localhost:4000/api/structures/users/${id}`,{
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
+  const fetchUsers = async (id: any) => {
+    const accessToken = await getToken();
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/structures/users/${id}`,
+        {
+          headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       if (response.ok) {
         const data = await response.json();
+        console.log("Fetched users data:", data);
 
-        const extractedUsers = data.users.map((user: any) => ({
-          firstname: user.firstname,
-          lastname: user.lastname,
-          email: user.email,
-          isActive: user.isactive,
-          role: user.role,
+        const extractedUsers = data.users.map((consumers: any) => ({
+          user_id: consumers.user_id,
+          matricule: consumers.matricule,
         }));
-        setUsers(extractedUsers);
+        
+        console.log("this is extraced user ",extractedUsers);
+        setConsumer(extractedUsers);
         setFilteredUsers(extractedUsers);
       } else {
         console.error("Failed to fetch users:", response.statusText);
@@ -71,54 +82,51 @@ const StructureDetailsPage: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetchResponsable(id);
-  }, []);
-
-  const fetchResponsable = async (id:any) => {
+  const fetchResponsable = async (id: any) => {
     const accessToken = await getToken();
+
     try {
-      const response = await fetch(`http://localhost:4000/api/structures/responsable/${id}`,{
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `http://localhost:4000/api/structures/responsable/${id}`,
+        {
+          headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       if (response.ok) {
         const responsableData = await response.json();
-        const { firstname, lastname, email } = responsableData?.responsables?.[0] || {};
-         setResponsable({ firstname, lastname, email }); 
-    } else {
+        console.log("Fetched responsable data:", responsableData);
+
+        // Add your mapping logic here after inspecting the data structure
+      } else {
+        console.error("Failed to fetch responsable:", response.statusText);
       }
     } catch (error) {
       console.error("Error fetching responsable:", error);
     }
   };
 
-
-  
-
-
-
   return (
     <RootLayout>
-      <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
+      <div className="bg-white border text-[#2c2d41] border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">
         <div className="text-xl mb-4">
           Structure : <span className="font-bold">Name</span>
         </div>
         <div className="text-xl mb-4">
-            Responsable :{" "}
-            <span className="font-bold">
+          Responsable :{" "}
+          <span className="font-bold">
             {responsable?.firstname} {responsable?.lastname} ({responsable?.email})
-            
-            </span>
-          </div>
-        <div className="text-xl mb-4">Users  :</div>
-        <StructureUserTable users={filteredUsers} />
+          </span>
+        </div>
+        <div className="text-xl mb-4">Users :</div>
+        <StructureUserTable consumers={consumers} />
       </div>
     </RootLayout>
   );
 };
 
-
 export default StructureDetailsPage;
+

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import RootLayout from "../rootLayout";
-import { Chapter, Product, Article, Fournisseur } from "@/types";
+import { Chapter, Product, Article, Fournisseur, CommandeIn } from "@/types";
 import OptionSelection from "@/components/commands/selectionIn";
 import save from "../../../public/assets/icons/EnregistrerPDF.svg";
 import getToken from "@/utils/getToken";
@@ -10,6 +10,7 @@ import UserID from "@/utils/getID";
 
 const Page = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [typecommande, setTypeCommand] = useState<string>();
   const [selectedOptions, setSelectedOptions] = useState<
     { product: Product | null; quantity: number }[]
   >([]);
@@ -51,15 +52,18 @@ const Page = () => {
 
     const date = new Date(now);
 
-    const validation = "pending";
-    const productDetails = selectedOptions.map((option) => ({
-      productId: option.product?.id,
-      orderedQuantity: option.quantity,
+    const produitsCommandes = selectedOptions.map((option) => ({
+      id_produit: option.product?.id,
+      orderedquantity: option.quantity,
     }));
-    const orderspecifications = "Example command for linking";
+
+    console.log(produitsCommandes);
+    console.log(typecommande)
+
+    
     try {
       const response = await fetch(
-        `http://localhost:4000/api/bons/create-bon-commande-interne/${id}`,
+        `http://localhost:4000/api/bons/create-bon-sortie/${id}`,
         {
           method: "POST",
           headers: {
@@ -69,9 +73,8 @@ const Page = () => {
           body: JSON.stringify({
             number,
             date,
-            orderspecifications,
-            validation,
-            productDetails,
+            produitsCommandes,
+            typecommande,
           }),
         }
       );
@@ -89,6 +92,15 @@ const Page = () => {
     <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-8 m-8 rounded-md">
         <h1 className="text-3xl mx-8">Nouvelle Commande Interne</h1>
+        <select
+              className="border border-gray-300 rounded-md mx-8 p-2 w-2/3"
+              value={typecommande}
+              onChange={(e) => setTypeCommand(e.target.value)}
+            >
+              <option value="">Type</option>
+              <option value="Commande Interne">Commande Interne</option>
+              <option value="Commande Decharges">Commande Decharges</option>
+            </select>
         <OptionSelection
           products={products}
           selectedOptions={selectedOptions}

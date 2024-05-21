@@ -18,6 +18,12 @@ export type User = {
   role: string;
 };
 
+export type Consumer = {
+  user_id :string,
+  matricule :string,
+};
+
+
 export interface Archive {
   id: string;
   filename: string;
@@ -35,8 +41,8 @@ export type ButtonProps = {
 
 export type Chapter = {
   id?: number;
-  name: string;
-  description: string;
+  name?: string;
+  description?: string;
   code?: number;
   id_agentserviceachat?: number;
 };
@@ -50,24 +56,44 @@ export type Article = {
 };
 
 export type Product = {
-  id?: number;
+  quantity: string | number | readonly string[] | undefined;
+  id: number;
   name: string;
   caracteristics: string;
-  price: string;
+  seuil: string | number | readonly string[] | undefined;
+
 };
 
 export type Commande = {
   id: number;
   number: number;
   orderdate: Date;
-  deliverydate: Date;
   orderspecifications: string;
   status: string;
   total_ht: number;
   tva: number;
   total_ttc: number;
   id_agentserviceachat: number;
+  fournisseur_name: string;
 };
+
+export type ProductCommande={
+  name: string;
+  id_produit: number;
+  id_boncommande: number;
+  ordered_quantity: number;
+  price: number;
+ }
+
+ export type ProductReception={
+  name: string;
+  productId: number;
+  id_bonreception: number;
+  receivedquantity: number;
+  orderedQuantity: number;
+  remainingQuantity: number;
+ }
+ 
 
 export type Fournisseur = {
   id: number;
@@ -77,11 +103,13 @@ export type Fournisseur = {
   rc: string;
   nif: number;
   rib: string;
+  id_chapitre: number;
 };
 
 export type Reception={
   id: number;
   id_magasinier: number;
+  id_boncommande: number;
   number: number;
   deliverydate: Date;
  }
@@ -92,30 +120,44 @@ export type Reception={
   number: string;
   date: Date;
   validation: number;
+  typecommande: string;
  }
 
  export type ProductCommandeIn={
+  name: string;
   id_produit: number;
   id_boncommandeinterne: number;
-  orderedquantity: number;
-  accordedquantity: number;
+  orderedQuantity: number;
+  accordedQuantity: number;
  }
 
-export type BonSorti ={
-id: number;
-id_bonCommandInterne : number;
-id_magasinier : number;
-observation : string;
-service: string;
-date: Date;
-}
 
-export type BonDecharge ={
+ export type Structure = {
   id: number;
-  id_bonCommandInterne : number;
-  id_magasinier : number;
-  observation : string;
+  name: string;
+  responsable_Name: string;
+};
+
+
+/* li zdhom krimou */
+export type ProduitBCI = {
+  id_BCI: number;
+  id: number;
+  orderedQuantity: number;
+  accordeQuantity: number;
+};
+export type Sortie = {
+  id: number;
+  id_boncommandeinterne: number;
+  id_magasinier: number;
+  observation: string;
+  date: Date;
   service: string;
+};
+
+export type BCI = {
+  id: number;
+  num: number;
   date: Date;
   }
 
@@ -129,3 +171,14 @@ export type NotificationSent={
   id_notification: number;
   id_user: number;
 }
+  phone: number;
+  Validation: number;
+};
+
+export type Inventaire = {
+  id: number;
+  number: number;
+  date: Date;
+  validation: number;
+  id_article: number;
+};

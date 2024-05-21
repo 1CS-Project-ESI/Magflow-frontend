@@ -1,16 +1,21 @@
 "use client";
 
+
 import React from "react";
 import Link from "next/link";
 import { Commande } from "@/types";
 import dlt from "../../../public/assets/icons/delete.svg";
 import Converter from "@/dateConverter";
+import withAuth from "../../utils/withAuth";
 
 interface Props {
   commandes: Commande[];
 }
 
-const CommandesTable: React.FC<Props> = ({ commandes }) => {
+const CommandesTableTab: React.FC<Props> = ({ commandes }) => {
+  // Sort the commandes array by commande.id
+  const sortedCommandes = commandes.sort((a, b) => b.id - a.id);
+
   return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -23,7 +28,7 @@ const CommandesTable: React.FC<Props> = ({ commandes }) => {
           </tr>
         </thead>
         <tbody>
-          {commandes.map((commande, index) => (
+          {sortedCommandes.map((commande, index) => (
             <tr key={index} className="border-b border-gray-200">
               <td className="border-t bg-white text-center px-4 py-4">
                 {commande.id}
@@ -52,5 +57,7 @@ const CommandesTable: React.FC<Props> = ({ commandes }) => {
     </div>
   );
 };
+
+const CommandesTable = withAuth(CommandesTableTab,["agentserviceachat","magasinier",]);
 
 export default CommandesTable;

@@ -13,7 +13,8 @@ const PopupAddProduct: React.FC<PopupAddProps> = ({ onClose }) => {
   const [formData, setFormData] = useState<Product>({
     name: "",
     caracteristics: "",
-    price: undefined,
+    quantity: undefined,
+    seuil :undefined,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -38,7 +39,7 @@ const PopupAddProduct: React.FC<PopupAddProps> = ({ onClose }) => {
      }
      console.log("this id the ", id);
     try {
-      const response = await fetch(`http://localhost:4000/api/store/product/create/${id}`, {
+      const response = await fetch(`http://localhost:4000/api/store/product/create`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${accessToken}`,
@@ -93,11 +94,22 @@ const PopupAddProduct: React.FC<PopupAddProps> = ({ onClose }) => {
         <div className="mb-4 w-full">
           <input
             type="number"
-            id="price"
-            name="price"
-            placeholder="Prix Produit"
+            id="quantity"
+            name="quantity"
+            placeholder="Quantite"
             className="input-field h-9 w-full"
-            value={formData.price}
+            value={formData.quantity}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <input
+            type="number"
+            id="seuil"
+            name="seuil"
+            placeholder="Seuil"
+            className="input-field h-9 w-full"
+            value={formData.seuil}
             onChange={handleInputChange}
           />
         </div>

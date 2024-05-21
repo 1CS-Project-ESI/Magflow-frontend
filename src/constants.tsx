@@ -117,6 +117,11 @@ export const SIDENAV_MAGASINIER_ITEMS: SideNavItem[] = [
     icon: <img src={prd.src} width="18" height="18" />,
   },
   {
+    title: "Inventaire",
+    path: "/inventaire",
+    icon: <img src={prd.src} width="18" height="18" />,
+  },
+  {
     title: "Statistiques",
     path: "/statisticMG",
     icon: <img src={back.src} width="18" height="18" />,
