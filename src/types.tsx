@@ -153,6 +153,7 @@ export type Sortie = {
   observation: string;
   date: Date;
   service: string;
+  id_consommateur: number;
 };
 
 export type BCI = {
@@ -170,7 +171,7 @@ export type Notification={
 export type NotificationSent={
   id_notification: number;
   id_user: number;
-}
+
   phone: number;
   Validation: number;
 };
