@@ -39,7 +39,7 @@ const ProductsPage: React.FC = () => {
         <div className="text-4xl text-[#2C2D41] font-bold m-8">Produits</div>
         {role === "agentserviceachat" ? (
           <div className="flex m-8 justify-end">
-            <AddProductButton showPopup={true} />
+            {role === 'agentserviceachat' && <AddProductButton showPopup={true} />}
           </div>
         ) : null}
       </div>

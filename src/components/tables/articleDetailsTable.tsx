@@ -14,12 +14,13 @@ interface Props {
 
 
 const ArticleDetailsTable: React.FC<Props> = ({ products }) => {
-
+const role = localStorage.getItem("role")
 
 
 const handleDeleteProducts = async (id?: number) => {
  
   const accessToken = await getToken();
+  ;
 
   try {
     const response = await fetch(
@@ -75,7 +76,7 @@ const handleDeleteProducts = async (id?: number) => {
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {product.quantity}
               </td>
-              <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
+              {role === 'agentserviceachat' && <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 <button
                   className="w-36 bg-transparent border-black border-2 hover:bg-black hover:text-white font-medium py-2 px-4 rounded-lg"
                 >
@@ -93,7 +94,7 @@ const handleDeleteProducts = async (id?: number) => {
                     <span>Supprimer</span>
                   </div>
                 </button>
-              </td>
+              </td>}
             </tr>
           ))}
         </tbody>
