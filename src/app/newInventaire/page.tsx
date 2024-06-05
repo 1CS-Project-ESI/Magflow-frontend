@@ -1,6 +1,10 @@
+
+
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import CSS for styling
 import AddCommandButton from "@/components/buttons/addCommandButton";
 import Produits from "@/components/validateProduct/inventaireValidation";
 import RootLayout from "../rootLayout";
@@ -38,24 +42,6 @@ const EtatInventaire: React.FC = () => {
     setProducts(initialObservations);
   }, [produits]);
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:4000/api/store/product/all");
-  //       const data = await response.json();
-  //       console.log(data);
-  //       if (!response.ok) {
-  //         throw new Error(`Error fetching products: ${data.message}`);
-  //       }
-  //       setProduits(data.products);
-  //     } catch (error) {
-  //       console.error("Error fetching products:", error);
-  //     }
-  //   };
-
-  //   fetchProducts();
-  // }, []);
-
   useEffect(() => {
     const fetchChapters = async () => {
       try {
@@ -63,11 +49,9 @@ const EtatInventaire: React.FC = () => {
           "http://localhost:4000/api/store/chapter/all"
         );
         const data = await response.json();
-        console.log(data);
         if (!response.ok) {
           throw new Error(`Error fetching chapters: ${data.message}`);
         }
-
         setChapters(data.chapters);
       } catch (error) {
         console.error("Error fetching chapters:", error);
@@ -90,14 +74,12 @@ const EtatInventaire: React.FC = () => {
 
   useEffect(() => {
     if (selectedChapterId !== null) {
-      console.log("final consol of  id chapter ", selectedChapterId);
       fetchChapterArticles(selectedChapterId);
     }
   }, [selectedChapterId]);
 
   const fetchChapterArticles = async (chapterId: string) => {
     const accessToken = await getToken();
-    console.log("id of chapter selected ", chapterId);
 
     try {
       const response = await fetch(
@@ -113,7 +95,6 @@ const EtatInventaire: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         const articles = data;
-        console.log(articles);
         setArticles(articles);
       } else {
         console.error("Failed to fetch chapter articles:", response.statusText);
@@ -136,14 +117,12 @@ const EtatInventaire: React.FC = () => {
 
   useEffect(() => {
     if (selectedArticleId !== null) {
-      console.log("final consol of  id article ", selectedArticleId);
       fetchArticleProducts(selectedArticleId);
     }
   }, [selectedArticleId]);
 
   const fetchArticleProducts = async (articleId: string) => {
     const accessToken = await getToken();
-    console.log("id of article selected ", articleId);
 
     try {
       const response = await fetch(
@@ -159,7 +138,6 @@ const EtatInventaire: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         const products = data;
-        console.log(products);
         setProduits(products);
       } else {
         console.error("Failed to fetch article products:", response.statusText);
@@ -191,9 +169,8 @@ const EtatInventaire: React.FC = () => {
         observation,
       })
     );
-    console.log("this is the observations ", product);
 
-    const articleId = selectedArticleId; 
+    const articleId = selectedArticleId;
 
     try {
       const response = await fetch(
@@ -213,9 +190,15 @@ const EtatInventaire: React.FC = () => {
         }
       );
 
-      // Handle successful response
+      if (response.ok) {
+        toast.success("Etat d'inventaire enregistré avec succès!");
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
     } catch (error) {
-      console.error("Error creating bon de sortie:", error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      toast.error(`Erreur lors de l'enregistrement de l'état d'inventaire: ${errorMessage}`);
     }
   };
 
@@ -275,6 +258,7 @@ const EtatInventaire: React.FC = () => {
             </div>
           </button>
         </div>
+        <ToastContainer /> {/* Add ToastContainer to display toast messages */}
       </div>
     </RootLayout>
   );

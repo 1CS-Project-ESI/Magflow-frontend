@@ -56,6 +56,7 @@ export type Article = {
 };
 
 export type Product = {
+  logicalQuantity: any;
   quantity: string | number | readonly string[] | undefined;
   id: number;
   name: string;
