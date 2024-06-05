@@ -30,6 +30,10 @@ const PopupNotif: React.FC<PopupNotifProps> = ({ onClose, userId }) => { // Chan
          
           url = `http://localhost:4000/api/notifications/directeur/${id}`;
         }
+        else if (role === "consumer"){
+          url = `http://localhost:4000/api/notifications/consommateur/${id}`;
+
+        }
         
         const response = await fetch(url);
         const data = await response.json();
