@@ -329,6 +329,7 @@ const CommandInDetails: React.FC = () => {
     }
   };
 
+
   return (
     <RootLayout>
       <div className="bg-white border border-gray-300 grid grid-cols-1 p-6 mb-4 mx-8 mt-8 rounded-md">

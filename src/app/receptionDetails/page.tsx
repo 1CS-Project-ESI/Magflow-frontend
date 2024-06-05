@@ -759,7 +759,7 @@ const ReceptionDetails: React.FC = () => {
         <div className="flex justify-end my-4 mx-10">
           <div className="grid grid-cols-1">
             <button
-              className="bg-purple-950 text-white hover:bg-black font-medium py-2 px-4 m-8 rounded-lg"
+             className="bg-purple-950 text-white hover:bg-blue-700 font-medium py-2 px-4 rounded-lg"
               onClick={handleSavePDF}
             >
               <div className="flex items-center space-x-2">
@@ -780,7 +780,7 @@ const ReceptionDetails: React.FC = () => {
                 className="my-2"
               />
               <button
-                className="bg-blue-500 text-white hover:bg-blue-700 font-medium py-2 px-4 rounded-lg"
+                className="bg-purple-950 text-white hover:bg-blue-700 font-medium py-2 px-4 rounded-lg"
                 onClick={handleUploadPDF}
               >
                 Upload Bon Livraison
