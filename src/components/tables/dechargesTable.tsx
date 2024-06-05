@@ -10,6 +10,7 @@ interface Props {
   }
   
 const DechargesTable: React.FC<Props> = ({ Bons }) => {
+  const sortedBons = Bons.sort((a, b) => b.id - a.id);
     return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -23,7 +24,7 @@ const DechargesTable: React.FC<Props> = ({ Bons }) => {
           </tr>
         </thead>
         <tbody>
-          {Bons?.map((bon, index) => (
+          {sortedBons?.map((bon, index) => (
             <tr key={index} className="border-b border-gray-200">
             <td className="border-t bg-white text-center px-2 py-2">
               {bon.id}

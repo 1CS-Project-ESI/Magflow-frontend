@@ -9,6 +9,7 @@ interface Props {
 }
 
 const ProductsTable: React.FC<Props> = ({ products }) => {
+  const role = localStorage.getItem("role");
   return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -21,7 +22,7 @@ const ProductsTable: React.FC<Props> = ({ products }) => {
             <th className="px-4 py-2 font-light hidden md:table-cell">
               Quantité
             </th>
-            <th className="px-4 py-2 font-light hidden md:table-cell"></th>
+            {role === 'agentserviceachat' && <th className="px-4 py-2 font-light hidden md:table-cell"></th>}
           </tr>
         </thead>
         <tbody>
@@ -36,7 +37,7 @@ const ProductsTable: React.FC<Props> = ({ products }) => {
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {product.quantity}
               </td>
-              <td className="border-t bg-white text-center px-4 py-2 md:table-cell flex items-center justify-center">
+              {role === 'agentserviceachat' && <td className="border-t bg-white text-center px-4 py-2 md:table-cell flex items-center justify-center">
                 <button
                   className="w-36 bg-transparent border-black border-2 hover:bg-black hover:text-white font-medium py-2 px-4 rounded-lg"
                 >
@@ -45,7 +46,7 @@ const ProductsTable: React.FC<Props> = ({ products }) => {
                     <span>Supprimer</span>
                   </div>
                 </button>
-              </td>
+              </td>}
             </tr>
           ))}
         </tbody>
