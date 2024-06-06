@@ -21,6 +21,7 @@ export type User = {
 export type Consumer = {
   user_id :string,
   matricule :string,
+  name: string
 };
 
 

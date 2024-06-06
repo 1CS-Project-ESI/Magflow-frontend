@@ -180,7 +180,7 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
               }}
             >
               <option value="">Fournisseur</option>
-              {fournisseurs.map((fournisseur) => (
+              {fournisseurs?.map((fournisseur) => (
                 <option key={fournisseur.id} value={fournisseur.id.toString()}>
                   {fournisseur.name}
                 </option>

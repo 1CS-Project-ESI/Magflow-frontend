@@ -125,6 +125,17 @@ export const SIDENAV_MAGASINIER_ITEMS: SideNavItem[] = [
     title: "Statistiques",
     path: "/statisticMG",
     icon: <img src={back.src} width="18" height="18" />,
+    submenu: true,
+    subMenuItems: [{
+      title: "Produits",
+      path: "/statsProduits",
+      icon: <img src={prd.src} width="18" height="18" />,
+    },
+    {
+      title: "Consommateurs",
+      path: "/statsConsumers",
+      icon: <img src={prd.src} width="18" height="18" />,
+    }]
   },
   {
     title: "Parametres",
