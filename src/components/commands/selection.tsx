@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -5,7 +6,7 @@ import { Chapter, Product, Article, Fournisseur } from "@/types";
 import ajt from "../../../public/assets/icons/Add.svg";
 import dlt from "../../../public/assets/icons/delete.svg";
 
-interface OptionSelectionProps {
+type OptionSelectionProps = {
   chapters: Chapter[];
   articles: Article[];
   products: Product[];
@@ -31,12 +32,13 @@ interface OptionSelectionProps {
     >
   >;
   onSelectChapter: (chapter: Chapter | null) => void;
-  setSelectedChapterId: React.Dispatch<React.SetStateAction<string | null>>;
   onSelectArticle: (article: Article | null) => void;
-  setSelectedArticleId: React.Dispatch<React.SetStateAction<string | null>>;
   onSelectFournisseur: (fournisseur: Fournisseur | null) => void;
+  setSelectedChapterId: React.Dispatch<React.SetStateAction<string | null>>;
+  setSelectedArticleId: React.Dispatch<React.SetStateAction<string | null>>;
   setSelectedFournisseurId: React.Dispatch<React.SetStateAction<string | null>>;
-}
+};
+
 
 const OptionSelection: React.FC<OptionSelectionProps> = ({
   chapters,
@@ -52,8 +54,7 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
   const [selectedChapterId, setSelectedChapterId] = useState<string>("");
   const [selectedArticleId, setSelectedArticleId] = useState<string>("");
   const [selectedProductId, setSelectedProductId] = useState<string>("");
-  const [selectedFournisseurId, setSelectedFournisseurId] =
-    useState<string>("");
+  const [selectedFournisseurId, setSelectedFournisseurId] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(0);
 
@@ -68,35 +69,20 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
   };
 
   const handleSelectFournisseur = (fournisseur: Fournisseur | null) => {
-    setSelectedOptions([]); // Reset selected options when a new article is selected
-    onSelectFournisseur(fournisseur); // This calls the prop function to update the selected article in the parent component
+    setSelectedOptions([]); // Reset selected options when a new fournisseur is selected
+    onSelectFournisseur(fournisseur); // This calls the prop function to update the selected fournisseur in the parent component
   };
 
   const handleAddOption = () => {
-    if (
-      selectedChapterId &&
-      selectedArticleId &&
-      selectedProductId &&
-      selectedFournisseurId
-    ) {
-      const chapter = chapters.find(
-        (chapter) => chapter.id?.toString() === selectedChapterId
-      );
-      const article = articles.find(
-        (article) => article.id?.toString() === selectedArticleId
-      );
-      const product = products.find(
-        (product) => product.id?.toString() === selectedProductId
-      );
-      const fournisseur = fournisseurs.find(
-        (fournisseur) => fournisseur.id?.toString() === selectedFournisseurId
-      );
+    if (selectedChapterId && selectedArticleId && selectedProductId && selectedFournisseurId) {
+      const chapter = chapters.find(chapter => chapter.id?.toString() === selectedChapterId);
+      const article = articles.find(article => article.id?.toString() === selectedArticleId);
+      const product = products.find(product => product.id?.toString() === selectedProductId);
+      const fournisseur = fournisseurs.find(fournisseur => fournisseur.id?.toString() === selectedFournisseurId);
       if (chapter && article && product && fournisseur) {
-        const isProductSelected = selectedOptions.some(
-          (option) => option.product?.id === product.id
-        );
+        const isProductSelected = selectedOptions.some(option => option.product?.id === product.id);
         if (!isProductSelected) {
-          setSelectedOptions((prevOptions) => [
+          setSelectedOptions(prevOptions => [
             ...prevOptions,
             { chapter, article, product, fournisseur, price, quantity },
           ]);
@@ -109,7 +95,7 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
   };
 
   const handleDeleteOption = (index: number) => {
-    setSelectedOptions((prevOptions) => {
+    setSelectedOptions(prevOptions => {
       const newOptions = [...prevOptions];
       newOptions.splice(index, 1);
       return newOptions;
@@ -118,10 +104,10 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
 
   return (
     <div className="bg-white border border-gray-300 p-8 m-8 rounded-md">
-      <div className=" grid grid-cols-1">
+      <div className="grid grid-cols-1">
         <h1 className="text-2xl mx-8">Ajouter des produits :</h1>
         <div className="text-lg mx-8 mt-4 mb-2">
-          Séléctionner un chapitre et un article :
+          Sélectionner un chapitre et un article :
         </div>
         <div className="flex items-center mx-8 mb-4">
           <div className="flex-1 mr-4">
@@ -166,11 +152,11 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
           </div>
         </div>
         <div className="flex items-center mx-8 mb-4">
-          <div className="text-lg">Séléctionner un fournisseur :</div>
+          <div className="text-lg">Sélectionner un fournisseur :</div>
           <div className="w-full flex-1 flex items-center justify-center">
             <select
-              className="border border-gray-300 rounded-md p-2 w-1/3"
-              value={selectedFournisseurId}
+              className="border border-gray-300 rounded-md p-2 w-full"
+              value={selectedFournisseurId || ""}
               onChange={(e) => {
                 const selectedFournisseur = fournisseurs.find(
                   (fournisseur) => fournisseur.id?.toString() === e.target.value
@@ -181,7 +167,7 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
             >
               <option value="">Fournisseur</option>
               {fournisseurs.map((fournisseur) => (
-                <option key={fournisseur.id} value={fournisseur.id.toString()}>
+                <option key={fournisseur.id} value={fournisseur.id?.toString()}>
                   {fournisseur.name}
                 </option>
               ))}
@@ -189,7 +175,7 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
           </div>
         </div>
         <div className="flex items-center mx-8 mb-8">
-          <div className="text-lg">Séléctionner des produits :</div>
+          <div className="text-lg">Sélectionner des produits :</div>
           <div className="w-full flex-1 flex items-center justify-center">
             <select
               className="border border-gray-300 rounded-md p-2 w-2/3"
@@ -215,7 +201,7 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
                   width="18"
                   height="18"
                   style={{ filter: "invert(100%)" }}
-                />{" "}
+                />
                 <span>Ajouter</span>
               </div>
             </button>
@@ -240,49 +226,42 @@ const OptionSelection: React.FC<OptionSelectionProps> = ({
             </thead>
             <tbody>
               {selectedOptions.map((option, index) => (
-                <tr key={index} className="border-b border-gray-200">
+                <tr key={index}>
                   <td className="border-t bg-white text-center px-4 py-4">
                     {option.product?.name}
                   </td>
                   <td className="border-t bg-white text-center px-4 py-4">
                     <input
                       type="number"
-                      className="border border-gray-300 rounded-md p-2 w-full"
+                      className="border border-gray-300 rounded-md p-2 w-2/3"
                       value={option.price}
                       onChange={(e) => {
-                        const newPrice = parseFloat(e.target.value);
-                        if (!isNaN(newPrice) && newPrice >= 0) {
-                          const updatedOptions = [...selectedOptions];
-                          updatedOptions[index].price = newPrice;
-                          setSelectedOptions(updatedOptions);
-                        }
+                        const updatedOptions = [...selectedOptions];
+                        updatedOptions[index].price = parseFloat(e.target.value);
+                        setSelectedOptions(updatedOptions);
                       }}
                     />
                   </td>
                   <td className="border-t bg-white text-center px-4 py-4">
                     <input
                       type="number"
-                      className="border border-gray-300 rounded-md p-2 w-full"
+                      className="border border-gray-300 rounded-md p-2 w-2/3"
                       value={option.quantity}
                       onChange={(e) => {
-                        const newQuantity = parseInt(e.target.value);
-                        if (!isNaN(newQuantity) && newQuantity >= 0) {
-                          const updatedOptions = [...selectedOptions];
-                          updatedOptions[index].quantity = newQuantity;
-                          setSelectedOptions(updatedOptions);
-                        }
+                        const updatedOptions = [...selectedOptions];
+                        updatedOptions[index].quantity = parseInt(e.target.value, 10);
+                        setSelectedOptions(updatedOptions);
                       }}
                     />
                   </td>
                   <td className="border-t bg-white text-center px-4 py-4">
-                    <button
-                      className="w-36 bg-transparent border-black border-2 hover:bg-black hover:text-white font-medium py-2 px-4 rounded-lg"
-                      onClick={() => handleDeleteOption(index)}
-                    >
-                      <div className="flex items-center space-x-2">
-                        <img src={dlt.src} width="18" height="15" />
-                        <span>Supprimer</span>
-                      </div>
+                    <button onClick={() => handleDeleteOption(index)}>
+                      <img
+                        src={dlt.src}
+                        width="18"
+                        height="18"
+                        style={{ filter: "invert(25%)" }}
+                      />
                     </button>
                   </td>
                 </tr>

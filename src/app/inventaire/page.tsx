@@ -6,6 +6,7 @@ import RootLayout from "../rootLayout";
 
 import AddCommandButton from "@/components/buttons/addCommandButton";
 import InventairesTable from "@/components/tables/inventaireTable";
+import withAuth from "@/utils/withAuth";
 
 const InventairePage: React.FC = () => {
   const [inventaires, setInventaires] = useState([]);
@@ -53,4 +54,4 @@ const InventairePage: React.FC = () => {
   );
 };
 
-export default InventairePage;
+export default withAuth(InventairePage);

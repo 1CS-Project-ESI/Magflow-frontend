@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import CommandesTable from "@/components/tables/commandInTable";
 import RootLayout from "../rootLayout";
 import AddCommandButton from "@/components/buttons/addCommandButton";
+import withAuth from "@/utils/withAuth";
 
 const CommandsPage: React.FC = () => {
   const [commands, setCommands] = useState([]);
@@ -78,4 +79,4 @@ const CommandsPage: React.FC = () => {
   );
 };
 
-export default CommandsPage;
+export default withAuth(CommandsPage);
