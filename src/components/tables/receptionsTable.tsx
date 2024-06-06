@@ -11,6 +11,7 @@ interface Props {
 }
 
 const Receptiontable: React.FC<Props> = ({ BonReçus }) => {
+  const  SortedBonReçus =  BonReçus.sort((a, b) => b.id - a.id);
   return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -27,7 +28,7 @@ const Receptiontable: React.FC<Props> = ({ BonReçus }) => {
           </tr>
         </thead>
         <tbody>
-          {BonReçus.map((Bon, index) => (
+          {SortedBonReçus.map((Bon, index) => (
             <tr key={index} className="text-[#2C2D41] border-b border-gray-200">
               <td className="border-t bg-white text-center px-4 py-4">
                 {Bon.id}

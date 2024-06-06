@@ -47,6 +47,7 @@ const handleDeleteChapter = async (id: number) => {
 };
 
 const ChaptersTable: React.FC<ChaptersTableProps> = ({ chapters }) => {
+  const role = localStorage.getItem("role");
   return (
     <div >
       {chapters.map((chapter) => (
@@ -61,7 +62,7 @@ const ChaptersTable: React.FC<ChaptersTableProps> = ({ chapters }) => {
               </Link>
             </span>
           </div>
-          <div className="flex items-center">
+          {role === 'agentserviceachat' && <div className="flex items-center">
             {/* <span className="mr-3">
               <UpdateChapterButton showPopup={true} />
             </span> */}
@@ -76,7 +77,7 @@ const ChaptersTable: React.FC<ChaptersTableProps> = ({ chapters }) => {
                 <span>Supprimer</span>
               </div>
             </button>
-          </div>
+          </div>}
         </div>
       ))}
     </div>

@@ -21,6 +21,7 @@ export type User = {
 export type Consumer = {
   user_id :string,
   matricule :string,
+  name: string
 };
 
 
@@ -57,7 +58,7 @@ export type Article = {
 
 export type Product = {
   logicalQuantity: any;
-  quantity: string | number | readonly string[] | undefined;
+  quantity: number;
   id: number;
   name: string;
   caracteristics: string;
@@ -154,6 +155,7 @@ export type Sortie = {
   observation: string;
   date: Date;
   service: string;
+  id_consommateur: number;
 };
 
 export type BCI = {
@@ -171,7 +173,7 @@ export type Notification={
 export type NotificationSent={
   id_notification: number;
   id_user: number;
-}
+
   phone: number;
   Validation: number;
 };

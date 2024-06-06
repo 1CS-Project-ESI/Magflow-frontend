@@ -18,7 +18,7 @@ const CommandsPage: React.FC = () => {
           throw new Error(`Error fetching commandes internes : ${data.message}`);
         }
 
-        setCommands(data);
+        setCommands(data.bonDecharges);
       } catch (error) {
         console.error("Error fetching articles:", error);
         
@@ -31,7 +31,7 @@ const CommandsPage: React.FC = () => {
   return (
     <RootLayout>
     <div className="flex items-center  text-[#2C2D41] justify-between">
-      <div className="text-4xl text-[#2C2D41] font-bold m-8">Bons de Sorties</div>
+      <div className="text-4xl text-[#2C2D41] font-bold m-8">Bons de Decharges</div>
     </div>
     <div className="m-8 mt-8">
       <DechargesTable Bons={sorties} />

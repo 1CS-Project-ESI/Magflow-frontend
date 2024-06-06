@@ -14,6 +14,7 @@ const PopupAddChapter: React.FC<PopupAddProps> = ({ onClose }) => {
   const [formData, setFormData] = useState<Chapter>({
     name: "",
     description: "",
+    code:undefined,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -68,6 +69,17 @@ const PopupAddChapter: React.FC<PopupAddProps> = ({ onClose }) => {
             placeholder="Nom Chapitre"
             className="input-field h-9 w-full"
             value={formData.name}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <input
+            type="number"
+            id="code"
+            name="code"
+            placeholder="Code Chapitre"
+            className="input-field h-9 w-full"
+            value={formData.code}
             onChange={handleInputChange}
           />
         </div>

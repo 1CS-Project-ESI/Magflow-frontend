@@ -9,7 +9,7 @@ import {
   SIDENAV_MAGASINIER_ITEMS,
   SIDENAV_CONSOMMATEUR_ITEMS,
   SIDENAV_DIRECTOR_ITEMS,
-  SIDENAV_RESPON_ITEMS
+  SIDENAV_RESPON_ITEMS,
 } from "@/constants";
 import { SideNavItem } from "@/types";
 import { Icon } from "@iconify/react";
@@ -75,21 +75,30 @@ const MenuItem = ({ item }: { item: SideNavItem }) => {
           <button
             onClick={toggleSubMenu}
             className={`flex flex-row hover:text-white items-center p-2 rounded-lg w-full justify-between ${
-              pathname.includes(item.path) ? "text-white" : ""
+              pathname.includes(item.path)
+                ? "text-gray-400"
+                : "text-gray-400"
             }`}
           >
             <div className="flex flex-row space-x-4 items-center">
               {item.icon}
               <span
-                className={`font-medium hover:text-white text-xl flex ${
-                  pathname.includes(item.path) ? "text-white" : ""
+                className={`font-medium hover:text-white flex ${
+                  pathname.includes(item.path)
+                    ? "text-gray-400"
+                    : "text-gray-400"
                 }`}
               >
                 {item.title}
               </span>
             </div>
             <div className={`${subMenuOpen ? "rotate-180" : ""} flex`}>
-              <Icon icon="lucide:chevron-down" width="24" height="24" />
+              <Icon
+                icon="lucide:chevron-down"
+                width="24"
+                height="24"
+                color={pathname.includes(item.path) ? "#ffffff" : "#9ca3af"}
+              />
             </div>
           </button>
           {subMenuOpen && (
@@ -100,7 +109,9 @@ const MenuItem = ({ item }: { item: SideNavItem }) => {
                     key={idx}
                     href={subItem.path}
                     className={`${
-                      subItem.path === pathname ? "font-bold" : ""
+                      subItem.path === pathname
+                        ? "font-bold text-white text-lg"
+                        : "text-gray-400"
                     }`}
                   >
                     <span className="hover:text-white">{subItem.title}</span>
@@ -114,7 +125,9 @@ const MenuItem = ({ item }: { item: SideNavItem }) => {
         <Link
           href={item.path}
           className={`flex flex-row hover:text-white space-x-4 items-center p-2 m-1 rounded-lg ${
-            item.path === pathname ? "text-white" : "text-neutral-400"
+            item.path === pathname
+              ? "text-white font-bold text-lg"
+              : "text-gray-400"
           }`}
         >
           {item.icon}
