@@ -65,8 +65,19 @@ export const SIDENAV_AGENT_ITEMS: SideNavItem[] = [
   },
   {
     title: "Statistiques",
-    path: "/stats",
+    path: "/statisticMG",
     icon: <img src={back.src} width="18" height="18" />,
+    submenu: true,
+    subMenuItems: [{
+      title: "Produits",
+      path: "/statsProduits",
+      icon: <img src={prd.src} width="18" height="18" />,
+    },
+    {
+      title: "Consommateurs",
+      path: "/statsConsumers",
+      icon: <img src={prd.src} width="18" height="18" />,
+    }]
   },
   {
     title: "Parametres",
@@ -152,8 +163,19 @@ export const SIDENAV_RESPON_ITEMS: SideNavItem[] = [
   },
   {
     title: "Statistiques",
-    path: "/statisticRS",
+    path: "/statisticMG",
     icon: <img src={back.src} width="18" height="18" />,
+    submenu: true,
+    subMenuItems: [{
+      title: "Produits",
+      path: "/statsProduits",
+      icon: <img src={prd.src} width="18" height="18" />,
+    },
+    {
+      title: "Consommateurs",
+      path: "/statsConsumers",
+      icon: <img src={prd.src} width="18" height="18" />,
+    }]
   },
   {
     title: "Parametres",
@@ -175,8 +197,19 @@ export const SIDENAV_DIRECTOR_ITEMS: SideNavItem[] = [
   },
   {
     title: "Statistiques",
-    path: "/stats",
+    path: "/statisticMG",
     icon: <img src={back.src} width="18" height="18" />,
+    submenu: true,
+    subMenuItems: [{
+      title: "Produits",
+      path: "/statsProduits",
+      icon: <img src={prd.src} width="18" height="18" />,
+    },
+    {
+      title: "Consommateurs",
+      path: "/statsConsumers",
+      icon: <img src={prd.src} width="18" height="18" />,
+    }]
   },
   {
     title: "Parametres",
@@ -193,8 +226,19 @@ export const SIDENAV_CONSOMMATEUR_ITEMS: SideNavItem[] = [
   },
   {
     title: "Statistiques",
-    path: "/stats",
+    path: "/statisticMG",
     icon: <img src={back.src} width="18" height="18" />,
+    submenu: true,
+    subMenuItems: [{
+      title: "Produits",
+      path: "/statsProduits",
+      icon: <img src={prd.src} width="18" height="18" />,
+    },
+    {
+      title: "Consommateurs",
+      path: "/statsConsumers",
+      icon: <img src={prd.src} width="18" height="18" />,
+    }]
   },
   {
     title: "Parametres",

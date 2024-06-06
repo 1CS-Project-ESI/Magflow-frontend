@@ -58,7 +58,7 @@ export type Article = {
 
 export type Product = {
   logicalQuantity: any;
-  quantity: string | number | readonly string[] | undefined;
+  quantity: number;
   id: number;
   name: string;
   caracteristics: string;
