@@ -54,6 +54,7 @@ import RootLayout from "../rootLayout";
 import AddChapterButton from "@/components/buttons/addChapterButton";
 import ChaptersTable from "@/components/tables/chapterTable";
 import getRole from "@/utils/getRole";
+import withAuth from "@/utils/withAuth";
 
 const ChaptersPage: React.FC = () => {
   const [chapters, setChapters] = useState([]);
@@ -96,4 +97,4 @@ const ChaptersPage: React.FC = () => {
   );
 };
 
-export default ChaptersPage;
+export default withAuth(ChaptersPage);

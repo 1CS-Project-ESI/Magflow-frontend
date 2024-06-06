@@ -6,6 +6,7 @@ import RootLayout from "../rootLayout";
 
 import AddArticleButton from "@/components/buttons/addArticleButton";
 import ArticlesTable from "@/components/tables/articlesTable";
+import withAuth from "@/utils/withAuth";
 
 const ArticlesPage: React.FC = () => {
   const [articles, setArticles] = useState([]);
@@ -41,4 +42,4 @@ const ArticlesPage: React.FC = () => {
   );
 };
 
-export default ArticlesPage;
+export default withAuth(ArticlesPage);

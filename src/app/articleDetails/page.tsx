@@ -6,6 +6,7 @@ import { Product } from "@/types";
 import ArticleDetailsTable from "@/components/tables/articleDetailsTable";
 import getToken from "@/utils/getToken";
 import AddProductButton from "@/components/buttons/addProductArticleButton";
+import withAuth from "@/utils/withAuth";
 
 interface Props {
   articles: Article[];
@@ -129,4 +130,4 @@ const fetchArtcileProduct = async () => {
   );
 };
 
-export default ArticleDetails;
+export default withAuth(ArticleDetails);

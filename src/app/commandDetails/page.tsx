@@ -14,6 +14,7 @@ import AddCommandButton from "@/components/buttons/addCommandButton";
 import getToken from "@/utils/getToken";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import withAuth from "@/utils/withAuth";
 
 interface Props {
   commands: Commande[];
@@ -188,4 +189,4 @@ const CommandDetails: React.FC = () => {
   );
 };
 
-export default CommandDetails;
+export default withAuth(CommandDetails);

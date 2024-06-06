@@ -11,6 +11,7 @@ import { BACKUPS } from "@/constants";
 import RootLayout from "../rootLayout";
 import CheckIcon from "../../../public/assets/icons/filter.svg";
 import getToken from "../../utils/getToken.js";
+import withAuth from "@/utils/withAuth";
 const ArchivePage: React.FC = () => {
   const [files, setFiles] = useState<Archive[]>([]);
   const [selectedTables, setSelectedTables] = useState<string[]>([]);
@@ -146,7 +147,7 @@ const ArchivePage: React.FC = () => {
   );
 };
 
-export default ArchivePage;
+export default withAuth(ArchivePage);
 
 
 

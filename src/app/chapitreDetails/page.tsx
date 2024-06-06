@@ -6,6 +6,7 @@ import { Article } from "@/types";
 import AddArticleButton from "@/components/buttons/addArticleButton";
 import ChapterDetailsTable from "@/components/tables/chapterDetailsTable";
 import getToken from "@/utils/getToken";
+import withAuth from "@/utils/withAuth";
 
 interface Props {
   chapters: Chapter[];
@@ -127,4 +128,4 @@ const ChapterDetails: React.FC = () => {
   );
 };
 
-export default ChapterDetails;
+export default withAuth(ChapterDetails);
