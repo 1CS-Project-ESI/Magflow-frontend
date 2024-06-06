@@ -10,6 +10,7 @@ interface Props {
 }
 
 const SortiesTable: React.FC<Props> = ({ bons }) => {
+  const sortedbons = bons.sort((a, b) => b.id - a.id);
   return (
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
       <table className="table-auto w-full overflow-hidden">
@@ -31,7 +32,7 @@ const SortiesTable: React.FC<Props> = ({ bons }) => {
           </tr>
         </thead>
         <tbody>
-          {bons.map((bon, index) => (
+          {sortedbons.map((bon, index) => (
             <tr key={index} className="border-b border-gray-200">
               <td className="border-t bg-white text-center px-2 py-2">
                 {bon.id}

@@ -14,6 +14,7 @@ interface Props {
 // delete artcile if empty
 const handleDeleteArctile = async (id?: number) => {
   const accessToken = await getToken();
+  
 
   try {
     const response = await fetch(
@@ -39,6 +40,8 @@ const handleDeleteArctile = async (id?: number) => {
 };
 
 const ChapterDetailsTable: React.FC<Props> = ({ articles }) => {
+
+  const role = localStorage.getItem("role");
   return (
     //Table des articles de ce chapitre
     <div className="overflow-x-auto border border-gray-300 rounded-xl">
@@ -50,7 +53,7 @@ const ChapterDetailsTable: React.FC<Props> = ({ articles }) => {
               Description
             </th>
             <th className="px-4 py-2 font-light hidden md:table-cell">Tva</th>
-            <th className="px-4 py-2 font-light hidden md:table-cell"></th>
+            {role === 'agentserviceachat' && <th className="px-4 py-2 font-light hidden md:table-cell"></th>}
           </tr>
         </thead>
         <tbody>
@@ -72,7 +75,7 @@ const ChapterDetailsTable: React.FC<Props> = ({ articles }) => {
               <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 {article.tva}
               </td>
-              <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
+              {role === 'agentserviceachat' && <td className="border-t bg-white text-center px-4 py-2 hidden md:table-cell">
                 <button
                   className="w-36 bg-transparent border-black border-2 hover:bg-black hover:text-white font-medium py-2 px-4 rounded-lg"
                   onClick={async () => {
@@ -89,7 +92,7 @@ const ChapterDetailsTable: React.FC<Props> = ({ articles }) => {
                     <span>Supprimer</span>
                   </div>
                 </button>
-              </td>
+              </td>}
             </tr>
           ))}
         </tbody>
